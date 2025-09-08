@@ -45,7 +45,11 @@ next-env.d.ts
 ##########################
 # Prettier ignored files #
 ##########################
+.prettierignore
 
 # lockfiles
 pnpm-lock.yaml
 package-lock.json
+
+# husky
+/.husky

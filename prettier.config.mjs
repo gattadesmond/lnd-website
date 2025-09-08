@@ -3,6 +3,7 @@ import { merge } from "lodash-es";
 /**@type {import('prettier-plugin-tailwindcss').PluginOptions} */
 const tailwindConfig = {
   tailwindStylesheet: "./src/styles/globals.css",
+  tailwindPreserveWhitespace: false,
 };
 
 /**@type {import("@ianvs/prettier-plugin-sort-imports").PluginConfig} */
