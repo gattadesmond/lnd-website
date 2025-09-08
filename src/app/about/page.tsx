@@ -24,7 +24,7 @@ export default async function About() {
           </h1>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <p className="mt-5 text-white/80 md:mt-10 md:text-lg">
+          <p className="mt-5 text-foreground/80 md:mt-10 md:text-lg">
             Excited to build a Product Knowledge Hub from zero to something that
             fosters continuous learning and collaboration among our Product
             members
@@ -34,7 +34,7 @@ export default async function About() {
       <section className="">
         <h3
           className={cn(
-            "mb-10 text-2xl font-bold text-white/90",
+            "mb-10 text-2xl font-bold text-foreground/90",
             chakra.className,
           )}
         >
@@ -48,19 +48,20 @@ export default async function About() {
       </section>
       <section
         className={cn(
-          "bg-cta mt-24 mb-18 flex flex-col items-center justify-center rounded-xl py-8 text-center md:mt-24 md:mb-20 md:py-10",
+          "bg-(image:--primary-gradient)",
+          "mt-24 mb-18 flex flex-col items-center justify-center rounded-xl py-8 text-center md:mt-24 md:mb-20 md:py-10",
           chakra.className,
         )}
       >
-        <div className="text-xs text-white md:text-sm">
+        <div className="text-xs md:text-sm">
           Want to contribute to our knowledge hub?
         </div>
-        <div className={cn("mt-2 text-2xl text-white md:text-3xl")}>
-          Let’s create something awesome.
+        <div className={cn("mt-2 text-2xl md:text-3xl")}>
+          Let&rsquo;s create something awesome.
         </div>
         <Link
           href="/feedback"
-          className="mt-10 flex items-center rounded-lg bg-white px-6 py-2 text-xs text-pink-700 md:text-base"
+          className="mt-10 flex items-center rounded-lg bg-primary-foreground px-6 py-2 text-xs text-primary md:text-base"
         >
           Why not? <ArrowRightIcon className="ml-2 size-4" />
         </Link>

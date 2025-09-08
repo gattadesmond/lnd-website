@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 
 import "@/styles/globals.css";
 
+import { AmazingRay } from "@/components/amazing-rays";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -28,7 +30,9 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        data-theme="dark"
       >
+        <AmazingRay />
         {children}
       </body>
     </html>
