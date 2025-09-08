@@ -11,7 +11,9 @@ const importOrderConfig = {
   importOrder: [
     "<BUILTIN_MODULES>",
     "",
+    "^react$",
     "^react/(.*)$",
+    "^next$",
     "^next/(.*)$",
     "",
     "<THIRD_PARTY_MODULES>",
