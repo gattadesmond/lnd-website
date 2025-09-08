@@ -1,8 +1,6 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-##-------------------------------------------------------------##
-## Remember to update .prettierignore file if update this file ##
-##-------------------------------------------------------------##
+# ----------------------------------------------------------------------------------- #
+# Keep this file the same as .gitignore file, apart from its own section (see below). #
+# ----------------------------------------------------------------------------------- #
 
 # dependencies
 /node_modules
@@ -43,3 +41,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+##########################
+# Prettier ignored files #
+##########################
+
+# lockfiles
+pnpm-lock.yaml
+package-lock.json
