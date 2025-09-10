@@ -161,15 +161,7 @@ export default function Header({ className = "" }: HeaderProps) {
                 <SheetHeader>
                   <SheetTitle>
                     <Link href="/" className="flex items-center gap-2">
-                      <div className="relative h-8 w-24">
-                        <Image
-                          src="/images/igara-logo.png"
-                          alt="IGARA Logo"
-                          fill
-                          className="object-contain"
-                          priority
-                        />
-                      </div>
+                      <LogoAnimation />
                     </Link>
                   </SheetTitle>
                 </SheetHeader>
