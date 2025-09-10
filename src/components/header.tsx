@@ -25,6 +25,7 @@ import {
   Wrench,
 } from "lucide-react";
 
+import { Container } from "@/components/container";
 import { LogoAnimation } from "@/components/logo";
 import {
   Accordion,
@@ -119,8 +120,8 @@ export default function Header({ className = "" }: HeaderProps) {
   };
 
   return (
-    <nav className="fixed top-0 right-0 left-0 z-50 bg-transparent backdrop-blur-sm">
-      <div className="mx-auto max-w-screen-xl px-5 py-3 xl:px-20">
+    <nav className="relative z-50 bg-transparent backdrop-blur-sm">
+      <Container className="py-3">
         {/* Desktop Menu */}
         <nav className="hidden justify-between lg:flex">
           <div className="flex items-center gap-6">
@@ -184,7 +185,7 @@ export default function Header({ className = "" }: HeaderProps) {
             </Sheet>
           </div>
         </div>
-      </div>
+      </Container>
     </nav>
   );
 }

@@ -31,11 +31,11 @@ export default function RootLayout({
       className="dark min-h-screen bg-background font-sans antialiased"
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} amazing-rays antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} amazing-rays relative z-[1] antialiased`}
         data-theme="dark"
       >
         <Header />
-        {children}
+        <main className="">{children}</main>
       </body>
     </html>
   );
