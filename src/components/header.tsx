@@ -119,7 +119,7 @@ export default function Header({ className = "" }: HeaderProps) {
   };
 
   return (
-    <nav className="fixed top-0 right-0 left-0 z-50 bg-black/50 backdrop-blur-sm">
+    <nav className="fixed top-0 right-0 left-0 z-50 bg-transparent backdrop-blur-sm">
       <div className="mx-auto max-w-screen-xl px-5 py-3 xl:px-20">
         {/* Desktop Menu */}
         <nav className="hidden justify-between lg:flex">
@@ -193,8 +193,10 @@ const renderMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
       <NavigationMenuItem key={item.title}>
-        <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-        <NavigationMenuContent className="bg-popover text-popover-foreground">
+        <NavigationMenuTrigger className="bg-transparent">
+          {item.title}
+        </NavigationMenuTrigger>
+        <NavigationMenuContent>
           {item.items.map((subItem) => (
             <NavigationMenuLink asChild key={subItem.title}>
               <SubMenuLink item={subItem} />
@@ -243,14 +245,14 @@ const renderMobileMenuItem = (item: MenuItem) => {
 const SubMenuLink = ({ item }: { item: MenuItem }) => {
   return (
     <Link
-      className="flex w-[240px] flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:text-accent-foreground"
+      className="flex w-[240px] flex-row space-x-3 rounded px-3 py-2 leading-none no-underline transition-colors outline-none select-none hover:bg-accent hover:text-accent-foreground"
       href={item.url}
     >
-      <div className="text-foreground">{item.icon}</div>
+      <div className="mt-0.5 text-foreground">{item.icon}</div>
       <div>
         <div className="text-sm font-semibold">{item.title}</div>
         {item.description && (
-          <p className="text-sm leading-snug text-muted-foreground">
+          <p className="text-xs leading-snug text-muted-foreground">
             {item.description}
           </p>
         )}
