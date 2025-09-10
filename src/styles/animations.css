@@ -1,0 +1,9 @@
+@keyframes rotate-hue {
+  0% {
+    filter: hue-rotate(540deg) saturate(7.3);
+  }
+
+  100% {
+    filter: hue-rotate(180deg) saturate(7.3);
+  }
+}

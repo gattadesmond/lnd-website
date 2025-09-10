@@ -46,6 +46,7 @@ next-env.d.ts
 # Prettier ignored files #
 ##########################
 .prettierignore
+/public
 
 # lockfiles
 pnpm-lock.yaml

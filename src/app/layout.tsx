@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "@/styles/globals.css";
 
-import { AmazingRay } from "@/components/amazing-rays";
 import { Header } from "@/components/header";
 
 const geistSans = Geist({
@@ -29,11 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} amazing-rays antialiased`}
         data-theme="dark"
       >
         <Header />
-        <AmazingRay />
         {children}
       </body>
     </html>

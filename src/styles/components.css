@@ -1,0 +1,23 @@
+@layer components {
+  .amazing-rays {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+
+      content: "";
+      background-image: url("../../public/amazing-rays.png");
+      background-size: 1200px 289px;
+      background-repeat: no-repeat;
+      background-position: calc(50% + 20px) top;
+
+      mix-blend-mode: exclusion;
+      opacity: 0.2;
+
+      animation: rotate-hue 20s ease-out infinite;
+      pointer-events: none;
+    }
+  }
+}

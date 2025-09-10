@@ -12,11 +12,15 @@ export default async function About() {
   const users = await getUsersAboutPage();
   return (
     <>
-      <section className="relative mx-auto max-w-3xl px-5 pt-14 pb-5 text-center md:px-5 md:pt-20 md:pb-10">
+      <section
+        aria-labelledby="project-team"
+        className="mx-auto max-w-3xl px-5 pt-14 pb-5 text-center md:pt-20 md:pb-10"
+      >
         <FadeIn delay={0.1}>
           <h1
+            id="project-team"
             className={cn(
-              "main-text-title relative mb-4 text-4xl font-bold md:text-6xl",
+              "mb-4 text-4xl font-bold md:text-6xl",
               chakra.className,
             )}
           >
@@ -31,15 +35,16 @@ export default async function About() {
           </p>
         </FadeIn>
       </section>
-      <section className="">
-        <h3
+      <section aria-labelledby="meet-our-team">
+        <h2
+          id="meet-our-team"
           className={cn(
             "mb-10 text-2xl font-bold text-foreground/90",
             chakra.className,
           )}
         >
           Meet our team
-        </h3>
+        </h2>
         <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
           {users.map((user) => (
             <UserCard key={user.username} {...user} />
@@ -47,9 +52,10 @@ export default async function About() {
         </div>
       </section>
       <section
+        aria-label="Let&rsquo;s create something awesome"
         className={cn(
           "bg-(image:--primary-gradient)",
-          "mt-24 mb-18 flex flex-col items-center justify-center rounded-xl py-8 text-center md:mt-24 md:mb-20 md:py-10",
+          "mt-24 mb-18 flex flex-col items-center justify-center rounded-xl py-8 md:mb-20 md:py-10",
           chakra.className,
         )}
       >
