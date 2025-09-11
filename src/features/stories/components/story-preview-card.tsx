@@ -8,11 +8,6 @@ import { EyeIcon, HeartIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 import { Story } from "@/features/stories/schemas";
 import { UserHoverCard } from "@/features/users/components/user-hover-card";
 import { cn } from "@/lib/utils";
