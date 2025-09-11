@@ -28,7 +28,7 @@ export function StoriesSection({ stories, categories }: StoriesSectionProps) {
             className={cn(
               "text-sm transition-colors duration-200 ease-in-out",
               {
-                "bg-primary-400 text-primary-foreground":
+                "bg-primary-700 text-primary-foreground":
                   selectedCategory === category,
               },
             )}

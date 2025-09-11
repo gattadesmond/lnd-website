@@ -50,7 +50,7 @@ export function EventPreviewCard({ event }: EventPreviewCardProps) {
           <h3
             className={cn(
               chakra.className,
-              "mb-2 text-xl leading-tight font-bold tracking-tight hover:text-primary-800 hover:underline",
+              "mb-2 text-xl leading-tight font-bold tracking-tight hover:text-primary-200 hover:underline",
             )}
           >
             {event.title}
