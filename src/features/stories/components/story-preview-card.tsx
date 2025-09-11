@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Slottable } from "@radix-ui/react-slot";
 import { format } from "date-fns";
 import { EyeIcon, HeartIcon } from "lucide-react";
 
@@ -107,14 +108,17 @@ export function StoryPreviewCard({ story }: StoryPreviewCardProps) {
           </div>
           <div className="text-sm leading-tight">
             <div className="flex flex-wrap items-center gap-x-1.5 font-medium text-foreground">
-              {story.authors.map((author) => (
+              {story.authors.map((author, index) => (
                 <UserHoverCard key={author.id} user={author}>
-                  <Link
-                    href={`/profile/${author.userName}`}
-                    className="hover:underline"
-                  >
-                    {author.userName}
-                  </Link>
+                  <Slottable>
+                    <Link
+                      href={`/profile/${author.userName}`}
+                      className="hover:underline"
+                    >
+                      {author.userName}
+                    </Link>
+                  </Slottable>
+                  {index < story.authors.length - 1 && <span>,</span>}
                 </UserHoverCard>
               ))}
             </div>
