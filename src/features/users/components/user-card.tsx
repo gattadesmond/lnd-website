@@ -1,18 +1,10 @@
 import Link from "next/link";
 
-import { z } from "zod";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-export const UserSchema = z.object({
-  avatar: z.string().url(),
-  fullName: z.string(),
-  userName: z.string(),
-  title: z.string(),
-});
-type User = z.infer<typeof UserSchema>;
+import { User } from "../schemas";
 
 interface UserProfileCardProps extends React.HTMLAttributes<HTMLDivElement> {
   user: User;
