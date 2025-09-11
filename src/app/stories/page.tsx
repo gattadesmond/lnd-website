@@ -39,7 +39,7 @@ export default async function ArticlePage() {
           </h1>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <p className="mt-5 text-white/80 md:mt-10 md:text-lg">
+          <p className="mt-5 text-foreground/80 md:mt-10 md:text-lg">
             Explore our Blog for a wealth of insightful articles and tips,
             covering a diverse array of topics. Stay informed, inspired, and
             ahead of the curve with our expertly crafted content.
