@@ -43,18 +43,24 @@ export function StoryPreviewCard({ story }: StoryPreviewCardProps) {
     );
   }
   return (
-    <Card className="flex h-full w-full flex-col overflow-hidden border-0 bg-card text-card-foreground shadow-sm">
+    <Card
+      className={cn(
+        "flex h-full w-full flex-col gap-4 overflow-hidden border-0 bg-card pt-0 pb-2 text-card-foreground shadow-sm",
+        "transition-transform duration-300 hover:-translate-y-1",
+      )}
+    >
       <div className="relative">
         <Link
           href={`/stories/${story.urlRewrite}`}
           aria-label={`Read more about ${story.title}`}
+          className="block"
         >
           <Image
             src={story.coverImageUrl}
             alt={story.title}
             width={400}
             height={225}
-            className="aspect-video w-full object-cover transition-transform duration-300 hover:scale-105"
+            className="aspect-video w-full object-cover"
           />
         </Link>
         {story.categoryName?.[0] && (
@@ -64,7 +70,7 @@ export function StoryPreviewCard({ story }: StoryPreviewCardProps) {
         )}
       </div>
 
-      <CardContent className="flex flex-1 flex-col p-5">
+      <CardContent className="flex flex-1 flex-col px-5 pt-0 pb-2">
         <Link href={`/stories/${story.urlRewrite}`}>
           <h3
             className={cn(

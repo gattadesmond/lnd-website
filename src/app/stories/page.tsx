@@ -8,7 +8,7 @@ import { chakra } from "@/styles/fonts";
 const pageDescription =
   "Explore our Blog for a wealth of insightful articles and tips, covering a diverse array of topics. Stay informed, inspired, and ahead of the curve with our expertly crafted content.";
 const pageTitle = "Product Stories";
-const pageUrl = "https://product.momo.vn/article";
+const pageUrl = "https://product.momo.vn/stories";
 
 export const generateMetadata = generatePageMetadata({
   description: pageDescription,
