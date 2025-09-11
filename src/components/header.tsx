@@ -1,28 +1,14 @@
-"use client";
-
-import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 import {
-  Award,
-  Building2,
   Car,
-  CarFront,
-  Cog,
   FileText,
   Hammer,
   Menu,
-  MessageSquare,
-  Package,
   Phone,
   Shield,
-  ShoppingCart,
-  Star,
   Target,
-  User,
   Users,
-  Wrench,
 } from "lucide-react";
 
 import { Container } from "@/components/container";
@@ -49,6 +35,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
 interface HeaderProps {
   className?: string;
@@ -120,13 +107,13 @@ export default function Header({ className = "" }: HeaderProps) {
   };
 
   return (
-    <nav className="relative z-50 bg-transparent backdrop-blur-sm">
+    <header
+      className={cn("relative z-50 bg-transparent backdrop-blur-sm", className)}
+    >
       <Container className="py-3">
         {/* Desktop Menu */}
         <nav className="hidden justify-between lg:flex">
           <div className="flex items-center gap-6">
-            {/* Logo */}
-
             <Link href="/" className="flex items-start gap-2">
               <LogoAnimation />
             </Link>
@@ -148,7 +135,6 @@ export default function Header({ className = "" }: HeaderProps) {
         {/* Mobile Menu */}
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
-            {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
               <LogoAnimation />
             </Link>
@@ -186,7 +172,7 @@ export default function Header({ className = "" }: HeaderProps) {
           </div>
         </div>
       </Container>
-    </nav>
+    </header>
   );
 }
 
