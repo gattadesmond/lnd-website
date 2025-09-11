@@ -64,35 +64,22 @@ export function StoryPreviewCard({ story }: StoryPreviewCardProps) {
         </Link>
         {story.categoryName?.[0] && (
           <Badge variant="secondary" className="absolute top-3 right-3">
-            {story.categoryName[0]}
+            {story.categoryName[0].toLocaleUpperCase()}
           </Badge>
         )}
       </div>
 
       <CardContent className="flex flex-1 flex-col p-5">
-        <HoverCard openDelay={200} closeDelay={100}>
-          <HoverCardTrigger asChild>
-            <Link href={`/stories/${story.urlRewrite}`}>
-              <h3
-                className={cn(
-                  chakra.className,
-                  "mb-2 line-clamp-2 text-xl leading-tight font-bold tracking-tight hover:underline",
-                )}
-              >
-                {story.title}
-              </h3>
-            </Link>
-          </HoverCardTrigger>
-          <HoverCardContent className="w-80 p-2" side="top" align="start">
-            <Image
-              src={story.coverImageUrl}
-              alt={`Preview for ${story.title}`}
-              width={320}
-              height={180}
-              className="rounded-md object-cover"
-            />
-          </HoverCardContent>
-        </HoverCard>
+        <Link href={`/stories/${story.urlRewrite}`}>
+          <h3
+            className={cn(
+              chakra.className,
+              "mb-2 line-clamp-2 text-xl leading-tight font-bold tracking-tight hover:underline",
+            )}
+          >
+            {story.title}
+          </h3>
+        </Link>
 
         <p className="mb-4 line-clamp-2 flex-grow text-sm text-muted-foreground">
           {story.description}
@@ -104,7 +91,11 @@ export function StoryPreviewCard({ story }: StoryPreviewCardProps) {
               <UserHoverCard key={author.id} user={author}>
                 <span className="cursor-pointer">
                   <Avatar className="h-9 w-9 border-2 border-card">
-                    <AvatarImage src={author.avatar} alt={author.fullName} />
+                    <AvatarImage
+                      src={author.avatar}
+                      alt={author.fullName}
+                      className="object-cover"
+                    />
                     <AvatarFallback>
                       {author.fullName.slice(0, 2).toUpperCase()}
                     </AvatarFallback>

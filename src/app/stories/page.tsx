@@ -1,5 +1,5 @@
-import { ArticleStrapi } from "@/features/stories/components/story-strapi";
-import { generateDataArticle, generateDataCate } from "@/lib/generate-data";
+import { StoriesSection } from "@/features/stories/components/stories-section";
+import { STORIES } from "@/features/stories/mocks";
 import { generatePageMetadata } from "@/lib/generate-page-metadata";
 
 const pageDescription =
@@ -13,35 +13,14 @@ export const generateMetadata = generatePageMetadata({
   url: pageUrl,
 });
 
-const resourceStory = `https://product.momo.vn:1338/api/story-contents?populate=deep&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=6`;
-const resourceCategory = `https://product.momo.vn:1338/api/category-tags?populate=deep&filters[types]=STORY`;
+const mockCategories = [
+  "All",
+  "Product Management",
+  "Career",
+  "Kỹ năng làm việc",
+  "Product Culture",
+];
 
 export default async function ArticlePage() {
-  const responseStory = await fetch(resourceStory).then(
-    async (res) => await res.json(),
-  );
-  const responseListCategory = await fetch(resourceCategory).then(
-    async (res) => await res.json(),
-  );
-
-  if (!responseStory || !responseListCategory) {
-    return {
-      notFound: true,
-      revalidate: 60 * 2,
-    };
-  }
-
-  const listDataCategoriesFilter = generateDataCate({
-    data: responseListCategory,
-  });
-
-  const listDataArticle = generateDataArticle({ data: responseStory });
-
-  return (
-    <ArticleStrapi
-      listDataArticle={listDataArticle}
-      listDataCategoriesFilter={listDataCategoriesFilter}
-      responseStory={responseStory}
-    />
-  );
+  return <StoriesSection stories={STORIES} categories={mockCategories} />;
 }
