@@ -2,8 +2,7 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
-/* Dark mode, use attribute to control theme, see app/layout.tsx for its usage */
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* @import "./colors.css"; */
 @import "./animations.css";
@@ -57,7 +56,7 @@
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.65 0.24 351.7);
+  --primary: oklch(0.6338 0.2345 353.15);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.984 0.003 247.858);
   --secondary-foreground: oklch(0.208 0.042 265.755);
@@ -91,7 +90,7 @@
   --card-foreground: oklch(0.984 0.003 247.858);
   --popover: oklch(0.208 0.042 265.755);
   --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.65 0.24 351.7);
+  --primary: oklch(0.6338 0.2345 353.15);
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: oklch(0.279 0.041 260.031);
   --secondary-foreground: oklch(0.984 0.003 247.858);

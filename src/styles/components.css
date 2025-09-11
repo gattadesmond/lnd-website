@@ -5,7 +5,6 @@
     &::before {
       position: absolute;
       inset: 0;
-      z-index: -1;
 
       content: "";
       background-image: url("../../public/amazing-rays.png");
