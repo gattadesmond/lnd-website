@@ -3,20 +3,25 @@ import z from "zod";
 import { UserSchema } from "@/features/users/schemas";
 
 export const StorySchema = z.object({
+  authors: z.array(UserSchema),
   categoryName: z.array(z.string()),
   content: z.string(),
   coverImageUrl: z.url(),
+  createdAt: z.iso.datetime().nullable(),
   description: z.string(),
-  publishedAt: z.iso.datetime().optional(),
-  publishDate: z.iso.datetime().optional(),
+  id: z.number(),
+  meta: z.unknown(),
+  notionId: z.string().nullable(),
+  publishDate: z.iso.datetime().nullable(),
+  publishedAt: z.iso.datetime().nullable(),
+  teams_product: z.unknown(),
   title: z.string(),
-  totalLikes: z.coerce.number(),
-  totalPost: z.coerce.number(),
-  totalViews: z.coerce.number(),
+  totalLikes: z.coerce.number().nullable(),
+  totalPost: z.coerce.number().nullable(),
+  totalViews: z.coerce.number().nullable(),
   updatedAt: z.iso.datetime(),
-  urlImage: z.url(),
+  urlImage: z.url().nullable(),
   urlRewrite: z.string(),
-  authors: z.array(UserSchema),
 });
 
 export type Story = z.infer<typeof StorySchema>;

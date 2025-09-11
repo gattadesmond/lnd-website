@@ -11,6 +11,7 @@ import { FadeIn } from "@/components/fade-in";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PostsGroupSubjectStrapi } from "@/features/stories/components/posts-group-subject-strapi";
 import { generateDataArticle } from "@/lib/generate-data";
+import { cn } from "@/lib/utils";
 import { chakra } from "@/styles/fonts";
 
 const SkeletonLoading = () => {
@@ -133,7 +134,7 @@ export function ArticleStrapi({
               handleFilterCate({ categoryName: "" });
               setCateActive("");
             }}
-            className={twMerge(
+            className={cn(
               "shrink-0 cursor-pointer rounded-lg border border-pink-500 p-2 text-center text-sm text-pink-500 transition-all hover:bg-pink-500 hover:text-white/80",
               cateActive == "" && "bg-pink-700 text-white/90",
             )}
@@ -147,7 +148,7 @@ export function ArticleStrapi({
                 handleFilterCate({ categoryName: cate?.name });
                 setCateActive(cate?.name);
               }}
-              className={twMerge(
+              className={cn(
                 "shrink-0 cursor-pointer rounded-lg border border-pink-500 p-2 text-center text-sm text-pink-500 transition-all hover:bg-pink-500 hover:text-white/80",
                 cateActive == cate?.name && "bg-pink-700 text-white/90",
               )}
