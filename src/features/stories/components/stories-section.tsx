@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 
+import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { StoryPreviewCard } from "@/features/stories/components/story-preview-card";
 import { Story } from "@/features/stories/schemas";
@@ -16,7 +17,7 @@ export function StoriesSection({ stories, categories }: StoriesSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <Container>
       {/* Category Filters - Updated Styling */}
       <div className="mb-8 flex flex-wrap items-center gap-3 md:mb-10">
         {categories.map((category) => (
@@ -25,7 +26,7 @@ export function StoriesSection({ stories, categories }: StoriesSectionProps) {
             variant="outline"
             onClick={() => setSelectedCategory(category)}
             className={cn(
-              "border px-5 py-2 text-sm transition-colors duration-200 ease-in-out",
+              "text-sm transition-colors duration-200 ease-in-out",
               {
                 "bg-primary text-primary-foreground":
                   selectedCategory === category,
@@ -53,6 +54,6 @@ export function StoriesSection({ stories, categories }: StoriesSectionProps) {
           View More
         </Button>
       </div>
-    </section>
+    </Container>
   );
 }
