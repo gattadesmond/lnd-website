@@ -24,7 +24,7 @@ const mockCategories = [
   "Product Culture",
 ];
 
-export default async function ArticlePage() {
+export default async function StoriesPage() {
   return (
     <>
       <section className="mx-auto max-w-3xl px-5 pt-14 pb-5 text-center md:px-5 md:pt-20 md:pb-10">
