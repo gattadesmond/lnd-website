@@ -3,8 +3,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "@/styles/globals.css";
 
-import Footer from "@/components/footer";
-import Header from "@/components/header";
+import { Toaster } from "sonner";
+
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { AuthErrorHandler } from "@/features/auth/components/auth-error-handler";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +44,8 @@ export default function RootLayout({
         <Header />
         <main className="">{children}</main>
         <Footer />
+        <Toaster />
+        <AuthErrorHandler />
       </body>
     </html>
   );

@@ -16,7 +16,7 @@ export const FooterContent = [
   { name: "MoMo Careers", url: "https://momo.careers/" },
 ];
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="footer py-6">
       <Container className="items-center justify-between lg:flex">
@@ -50,5 +50,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default memo(Footer);

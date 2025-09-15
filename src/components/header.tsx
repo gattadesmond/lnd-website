@@ -38,6 +38,8 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
+import { LoginButton } from "../features/auth/components/login-button";
+
 interface HeaderProps {
   className?: string;
 }
@@ -96,20 +98,21 @@ const menu: MenuItem[] = [
   },
 
   {
-    title: "Liên hệ",
+    title: "Contact",
     url: "/contact",
     icon: <Phone className="size-5 shrink-0" />,
   },
 ];
 
-const auth = {
-  login: { title: "Đăng nhập", url: "/login" },
-};
-
-export default function Header({ className }: HeaderProps) {
+export function Header({ className }: HeaderProps) {
   return (
     <Container asChild>
-      <header className={cn("bg-transparent py-3 backdrop-blur-sm", className)}>
+      <header
+        className={cn(
+          "flex items-center bg-transparent py-3 backdrop-blur-sm",
+          className,
+        )}
+      >
         {/* Desktop Menu */}
         <NavigationMenu
           viewport={false}
@@ -126,18 +129,19 @@ export default function Header({ className }: HeaderProps) {
             {menu.map((item) => (
               <RenderMenuItem key={item.title} item={item} />
             ))}
-            <NavigationMenuItem className="ms-auto">
+            {/* <NavigationMenuItem className="ms-auto">
               <NavigationMenuLink asChild>
-                <Button asChild size="sm">
-                  <Link href={auth.login.url}>{auth.login.title}</Link>
-                </Button>
+              <Button asChild size="sm">
+              <Link href={auth.login.url}>{auth.login.title}</Link>
+              </Button>
               </NavigationMenuLink>
-            </NavigationMenuItem>
+              </NavigationMenuItem> */}
           </NavigationMenuList>
         </NavigationMenu>
+        <LoginButton className="hidden lg:block" />
 
         {/* Mobile Menu */}
-        <div className="block lg:hidden">
+        <div className="block flex-1 lg:hidden">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
               <LogoAnimation />
@@ -166,9 +170,7 @@ export default function Header({ className }: HeaderProps) {
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
-                      <Link href={auth.login.url}>{auth.login.title}</Link>
-                    </Button>
+                    <LoginButton />
                   </div>
                 </div>
               </SheetContent>
