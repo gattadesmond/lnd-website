@@ -5,6 +5,27 @@ import { ComponentRef, forwardRef, type ComponentProps } from "react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 
+const buildNextParam = (): string => {
+  const { pathname, search, hash } = window.location;
+  const raw = `${pathname}${search}${hash}`;
+  try {
+    return encodeURIComponent(raw);
+  } catch {
+    return "/";
+  }
+};
+
+const handleLogin = () => {
+  const supabase = createClient();
+  const next = buildNextParam();
+  supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `http://localhost:3000/auth/callback?next=${next}`,
+    },
+  });
+};
+
 export const LoginButton = forwardRef<
   ComponentRef<"button">,
   ComponentProps<typeof Button>
@@ -15,17 +36,7 @@ export const LoginButton = forwardRef<
       ref={ref}
       onClick={(e) => {
         props.onClick?.(e);
-        const supabase = createClient();
-        const pathname = window.location.pathname;
-        const search = window.location.search;
-        const hash = window.location.hash;
-        const next = `${pathname}${search}${hash}`;
-        supabase.auth.signInWithOAuth({
-          provider: "google",
-          options: {
-            redirectTo: `http://localhost:3000/auth/callback?next=${encodeURIComponent(next)}`,
-          },
-        });
+        handleLogin();
       }}
     >
       Login

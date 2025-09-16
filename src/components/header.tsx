@@ -36,9 +36,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { AuthButtons } from "@/features/auth/components/auth-buttons";
 import { cn } from "@/lib/utils";
-
-import { LoginButton } from "../features/auth/components/login-button";
 
 interface HeaderProps {
   className?: string;
@@ -138,7 +137,7 @@ export function Header({ className }: HeaderProps) {
               </NavigationMenuItem> */}
           </NavigationMenuList>
         </NavigationMenu>
-        <LoginButton className="hidden lg:block" />
+        <AuthButtons className="hidden lg:block" />
 
         {/* Mobile Menu */}
         <div className="block flex-1 lg:hidden">
@@ -170,7 +169,7 @@ export function Header({ className }: HeaderProps) {
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    <LoginButton />
+                    <AuthButtons />
                   </div>
                 </div>
               </SheetContent>
