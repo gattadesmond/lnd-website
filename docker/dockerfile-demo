@@ -1,0 +1,28 @@
+FROM docker.mservice.io/public/node:20.16.0-alpine AS node
+
+FROM node AS builder
+
+RUN apk --no-cache add curl
+RUN npm i -g pnpm@8.7.4 
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm i
+COPY . .
+RUN yarn build-uat
+
+FROM node AS runner
+WORKDIR /app
+
+RUN apk --no-cache add curl
+RUN npm i -g env-cmd@10.1.0 concurrently@8.2.2 wait-on@7.2.0
+
+RUN mkdir .next
+RUN mkdir public
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.env-cmdrc.js ./
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+EXPOSE 8000
+CMD ["yarn", "start-and-revalidate-uat"]
