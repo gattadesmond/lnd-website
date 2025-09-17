@@ -6,10 +6,11 @@ import { Container } from "@/components/container";
 import { FadeIn } from "@/components/fade-in";
 import { getUsersAboutPage } from "@/features/users/api";
 import { UserCard } from "@/features/users/components/user-card";
+import { generatePage } from "@/lib/generatePage";
 import { cn } from "@/lib/utils";
 import { chakra } from "@/styles/fonts";
 
-export default async function About() {
+const About = generatePage(async () => {
   const users = await getUsersAboutPage();
   return (
     <>
@@ -77,4 +78,6 @@ export default async function About() {
       </section>
     </>
   );
-}
+});
+
+export default About;
