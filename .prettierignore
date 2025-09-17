@@ -59,3 +59,5 @@ package-lock.json
 .dockerignore
 .gitignore
 /docker
+/momo-product-lnd
+skaffold.yaml
