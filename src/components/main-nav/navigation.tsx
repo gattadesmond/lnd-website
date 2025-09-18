@@ -8,8 +8,8 @@ import {
   BookOpenIcon,
   CalendarBlankIcon,
   GraduationCapIcon,
+  MagnifyingGlassIcon,
 } from "@phosphor-icons/react";
-import { CircleCheckIcon, CircleHelpIcon, CircleIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -364,10 +364,13 @@ function Navigation() {
             </nav>
             <div className="hidden grow basis-0 justify-end gap-2 lg:flex">
               {" "}
-              <Button size="sm" variant="outline">
-                Đăng nhập
+              <Button size="sm" className="cursor-pointer" variant="outline">
+                <MagnifyingGlassIcon className="size-4" weight="bold" /> Tìm
+                kiếm
               </Button>{" "}
-              <Button size="sm">Đăng nhập</Button>
+              <Button size="sm" className="cursor-pointer">
+                Đăng nhập
+              </Button>
             </div>
           </div>
         </div>
