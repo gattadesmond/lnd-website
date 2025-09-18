@@ -2,6 +2,7 @@
   "name": "product-lnd-1",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.15.1",
   "scripts": {
     "dev": "env-cmd -e common,local-dev next dev --turbopack",
     "lint": "eslint",
@@ -16,15 +17,15 @@
     "start-staging": "env-cmd -e common,staging node server.js",
     "start-production": "env-cmd -e common,production node server.js",
     "revalidate-shell": "wait-on http://localhost:8000$NEXT_PUBLIC_BASE_PATH/healthz.html && curl http://localhost:8000$NEXT_PUBLIC_BASE_PATH/api/revalidate?key=$NEXT_REVALIDATE_KEY",
-    "revalidate-local": "env-cmd -e common,local-build --use-shell -- 'yarn revalidate-shell'",
-    "revalidate-uat": "env-cmd -e common,uat --use-shell -- 'yarn revalidate-shell'",
-    "revalidate-staging": "env-cmd -e common,staging --use-shell -- 'yarn revalidate-shell'",
-    "revalidate-production": "env-cmd -e common,production --use-shell -- 'yarn revalidate-shell'",
-    "start-and-revalidate-local": "concurrently \"yarn start-local \" \"yarn revalidate-local\"",
-    "start-and-revalidate-uat": "concurrently \"yarn start-uat \" \"yarn revalidate-uat\"",
-    "start-and-revalidate-staging": "concurrently \"yarn start-staging \" \"yarn revalidate-staging\"",
-    "start-and-revalidate-production": "concurrently \"yarn start-production \" \"yarn revalidate-production\"",
-    "deploy-local": "yarn build-local && yarn start-and-revalidate-local"
+    "revalidate-local": "env-cmd -e common,local-build --use-shell -- 'pnpm revalidate-shell'",
+    "revalidate-uat": "env-cmd -e common,uat --use-shell -- 'pnpm revalidate-shell'",
+    "revalidate-staging": "env-cmd -e common,staging --use-shell -- 'pnpm revalidate-shell'",
+    "revalidate-production": "env-cmd -e common,production --use-shell -- 'pnpm revalidate-shell'",
+    "start-and-revalidate-local": "concurrently \"pnpm start-local \" \"pnpm revalidate-local\"",
+    "start-and-revalidate-uat": "concurrently \"pnpm start-uat \" \"pnpm revalidate-uat\"",
+    "start-and-revalidate-staging": "concurrently \"pnpm start-staging \" \"pnpm revalidate-staging\"",
+    "start-and-revalidate-production": "concurrently \"pnpm start-production \" \"pnpm revalidate-production\"",
+    "deploy-local": "pnpm build-local && pnpm start-and-revalidate-local"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
