@@ -13,6 +13,12 @@ import {
   XIcon,
 } from "@phosphor-icons/react";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -63,114 +69,108 @@ function NavigationMobile() {
           isMenuOpen ? "block" : "hidden",
         )}
       >
-        <ul className="grid divide-y divide-neutral-200">
-          <li className="py-3">
-            <div className="overflow-hidden">
-              <div className="h-max">
-                <button className="flex w-full justify-between">
-                  <p className="font-semibold">Product</p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-chevron-down h-5 w-5 text-neutral-500 transition-all"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </button>
+        <Accordion
+          type="single"
+          className="w-full"
+          defaultValue="item-1"
+          collapsible
+        >
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="text-lg font-medium">
+              Our Contents
+            </AccordionTrigger>
+            <AccordionContent className="flex flex-col gap-4 text-balance">
+              <div className="grid grid-cols-1 gap-4 overflow-hidden">
+                <Link className="flex w-full items-center gap-3" href="/links">
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-gradient-to-t from-neutral-100">
+                    <div className="flex size-5 items-center justify-center rounded bg-orange-400">
+                      <BookOpenIcon
+                        className="size-3.5 text-orange-900"
+                        weight="fill"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-sm font-medium text-neutral-900">
+                        {" "}
+                        LnD Stories
+                      </h2>
+                    </div>
+                    <p className="text-sm text-neutral-500">
+                      {" "}
+                      Explore our Blog for a wealth of insightful articles and
+                      tips
+                    </p>
+                  </div>
+                </Link>
+                <Link
+                  className="flex w-full items-center gap-3"
+                  href="/partners"
+                >
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-gradient-to-t from-neutral-100">
+                    <div className="flex size-5 items-center justify-center rounded bg-violet-400">
+                      <GraduationCapIcon
+                        className="size-3.5 text-violet-900"
+                        weight="fill"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-sm font-medium text-neutral-900">
+                        {" "}
+                        LnD Learning & Development
+                      </h2>
+                    </div>
+                    <p className="text-sm text-neutral-500">
+                      Learning is a constant process of discovery - a process
+                      without end.
+                    </p>
+                  </div>
+                </Link>
+                <Link
+                  className="flex w-full items-center gap-3"
+                  href="/analytics"
+                >
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-gradient-to-t from-neutral-100">
+                    <div className="flex size-5 items-center justify-center rounded bg-green-400">
+                      <CalendarBlankIcon
+                        className="size-3.5 text-green-900"
+                        weight="fill"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-sm font-medium text-neutral-900">
+                        {" "}
+                        LnD Events
+                      </h2>
+                    </div>
+                    <p className="text-sm text-neutral-500">
+                      Working together is success.
+                    </p>
+                  </div>
+                </Link>
               </div>
-            </div>
-          </li>
-          <li className="py-3">
-            <div className="overflow-hidden">
-              <div className="h-max">
-                <button className="flex w-full justify-between">
-                  <p className="font-semibold">Solutions</p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-chevron-down h-5 w-5 text-neutral-500 transition-all"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </li>
-          <li className="py-3">
-            <div className="overflow-hidden">
-              <div className="h-max">
-                <button className="flex w-full justify-between">
-                  <p className="font-semibold">Resources</p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-chevron-down h-5 w-5 text-neutral-500 transition-all"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </li>
-          <li className="py-3">
-            <a
-              className="flex w-full font-semibold capitalize"
-              href="/enterprise"
-            >
-              Enterprise
-            </a>
-          </li>
-          <li className="py-3">
-            <a
-              className="flex w-full font-semibold capitalize"
-              href="/customers"
-            >
-              Customers
-            </a>
-          </li>
-          <li className="py-3">
-            <a className="flex w-full font-semibold capitalize" href="/pricing">
-              Pricing
-            </a>
-          </li>
-          <li className="py-3 min-[281px]:hidden">
-            <a
-              className="flex w-full font-semibold capitalize"
-              href="https://app.dub.co/login"
-            >
-              Log in
-            </a>
-          </li>
-          <li className="py-3 min-[281px]:hidden">
-            <a
-              className="flex w-full font-semibold capitalize"
-              href="https://app.dub.co/register"
-            >
-              Sign Up
-            </a>
-          </li>
-        </ul>
+            </AccordionContent>
+          </AccordionItem>
+          <Link
+            href="/about"
+            className="flex flex-1 items-start justify-between gap-4 border-b py-4 text-left text-lg font-medium transition-all outline-none last:border-b-0 hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Our Project
+          </Link>
+          <Link
+            href="/feedback"
+            className="flex flex-1 items-start justify-between gap-4 border-b py-4 text-left text-lg font-medium transition-all outline-none last:border-b-0 hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Feedback
+          </Link>
+        </Accordion>
       </nav>
       {/* Backdrop */}
       {isMenuOpen && (
