@@ -35,12 +35,10 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className="min-h-screen bg-background font-sans antialiased"
+      lang="vi"
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} dark amazing-rays antialiased`}
-      >
+      <body className={`!overflow-x-hidden`}>
         <Header />
         <main className="">{children}</main>
         <Footer />
