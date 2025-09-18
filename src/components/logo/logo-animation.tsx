@@ -14,7 +14,7 @@ export function LogoAnimation({
   ...props
 }: ComponentPropsWithoutRef<"div">) {
   // Khởi tạo state dựa trên sessionStorage ngay từ đầu
-  const [hasAnimated, setHasAnimated] = useState(() => {
+  const [hasAnimated] = useState(() => {
     if (typeof window !== "undefined") {
       return !sessionStorage.getItem("logo-animation-played");
     }
