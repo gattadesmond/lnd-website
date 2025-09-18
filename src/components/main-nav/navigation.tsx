@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { CircleCheckIcon, CircleHelpIcon, CircleIcon } from "lucide-react";
@@ -177,23 +178,9 @@ function Navigation() {
         <div className="relative mx-auto w-full max-w-screen-lg px-3 lg:px-4 xl:px-0">
           <div className="flex h-14 items-center justify-between">
             <div className="grow basis-0">
-              <a className="block w-fit py-2 pr-2" href="/home">
+              <a className="block w-fit py-2 pr-2" href="/">
                 <div className="max-w-fit">
-                  <svg
-                    width={46}
-                    height={24}
-                    viewBox="0 0 46 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-auto text-black"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M11 2H14V13.9332L14.0003 13.9731L14.0003 14C14.0003 14.0223 14.0002 14.0445 14 14.0668V21H11V19.7455C9.86619 20.5362 8.48733 21 7.00016 21C3.13408 21 0 17.866 0 14C0 10.134 3.13408 7 7.00016 7C8.48733 7 9.86619 7.46375 11 8.25452V2ZM7 17.9998C9.20914 17.9998 11 16.209 11 13.9999C11 11.7908 9.20914 10 7 10C4.79086 10 3 11.7908 3 13.9999C3 16.209 4.79086 17.9998 7 17.9998ZM32 2H35V8.25474C36.1339 7.46383 37.5128 7 39.0002 7C42.8662 7 46.0003 10.134 46.0003 14C46.0003 17.866 42.8662 21 39.0002 21C35.1341 21 32 17.866 32 14V2ZM39 17.9998C41.2091 17.9998 43 16.209 43 13.9999C43 11.7908 41.2091 10 39 10C36.7909 10 35 11.7908 35 13.9999C35 16.209 36.7909 17.9998 39 17.9998ZM19 7H16V14C16 14.9192 16.1811 15.8295 16.5329 16.6788C16.8846 17.5281 17.4003 18.2997 18.0503 18.9497C18.7003 19.5997 19.472 20.1154 20.3213 20.4671C21.1706 20.8189 22.0809 21 23.0002 21C23.9194 21 24.8297 20.8189 25.679 20.4671C26.5283 20.1154 27.3 19.5997 27.95 18.9497C28.6 18.2997 29.1157 17.5281 29.4675 16.6788C29.8192 15.8295 30.0003 14.9192 30.0003 14H30V7H27V14C27 15.0608 26.5785 16.0782 25.8284 16.8283C25.0783 17.5784 24.0609 17.9998 23 17.9998C21.9391 17.9998 20.9217 17.5784 20.1716 16.8283C19.4215 16.0782 19 15.0608 19 14V7Z"
-                      fill="currentColor"
-                    />
-                  </svg>
+                  <Image src="/LnD.svg" alt="Logo" width={36} height={15} />
                 </div>
               </a>
             </div>
@@ -216,38 +203,22 @@ function Navigation() {
                         <div className="grid w-[1020px] grid-cols-1 gap-4 p-4">
                           <div className="grid grid-cols-3 gap-4">
                             <a
-                              className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50 dark:border-white/20 dark:bg-white/10"
+                              className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50"
                               data-radix-collection-item
                               href="/links"
                             >
-                              <svg
-                                className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(transparent,black,transparent)] text-black/10 dark:text-white/5"
-                                width="100%"
-                                height="100%"
-                              >
-                                <defs>
-                                  <pattern
-                                    id="grid-«rb9»"
-                                    x={-52}
-                                    y={-24}
-                                    width={60}
-                                    height={60}
-                                    patternUnits="userSpaceOnUse"
-                                  >
-                                    <path
-                                      d="M 60 0 L 0 0 0 60"
-                                      fill="transparent"
-                                      stroke="currentColor"
-                                      strokeWidth={1}
-                                    />
-                                  </pattern>
-                                </defs>
-                                <rect
-                                  fill="url(#grid-«rb9»)"
-                                  width="100%"
-                                  height="100%"
-                                />
-                              </svg>
+                              {/* Grid Background */}
+                              <div
+                                className="absolute inset-0 z-0 [mask-image:linear-gradient(transparent,black,transparent)]"
+                                style={{
+                                  backgroundImage: `
+        linear-gradient(to right, #eee 1px, transparent 1px),
+        linear-gradient(to bottom, #eee 1px, transparent 1px)
+      `,
+                                  backgroundSize: "60px 60px",
+                                }}
+                              />
+
                               <div className="relative p-5 pb-0">
                                 <div className="flex size-4 items-center justify-center rounded bg-orange-400">
                                   <svg
@@ -266,506 +237,29 @@ function Navigation() {
                                     />
                                   </svg>
                                 </div>
-                                <span className="mt-3 block text-sm font-medium text-neutral-900 dark:text-white">
-                                  Dub Links
+                                <span className="mt-3 block text-sm font-medium text-neutral-900">
+                                  LnD Stories
                                 </span>
-                                <p className="mt-2 max-w-56 text-sm text-neutral-500 dark:text-white/60">
+                                <p className="/60 mt-2 max-w-56 text-sm text-neutral-500">
                                   Short links with superpowers for modern
                                   marketing teams.
                                 </p>
                               </div>
                               <div className="relative mt-10 h-40 grow">
                                 <div className="absolute top-0 left-0 size-full grow overflow-hidden [mask-image:linear-gradient(black_50%,transparent)] px-2">
-                                  <div className="relative size-full">
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      xmlnsXlink="http://www.w3.org/1999/xlink"
-                                      width={300}
-                                      height={180}
-                                      fill="none"
-                                      viewBox="0 0 300 180"
-                                      className="pointer-events-none absolute top-0 left-0 h-auto w-full text-[var(--fg)] [--bg:white] [--border:#e5e5e5] [--fg:#171717] [--muted:#404040] dark:[--bg:black] dark:[--border:#fff3] dark:[--fg:#fffa] dark:[--muted:#fff7]"
-                                    >
-                                      <defs>
-                                        <path
-                                          id="«rba»-m"
-                                          className="fill-[var(--bg)]"
-                                          d="M0 0h10.24v10.24H0z"
-                                        />
-                                        <path
-                                          id="«rba»-n"
-                                          className="fill-[var(--bg)]"
-                                          d="M0 0h8.05v8.05H0z"
-                                        />
-                                        <path
-                                          id="«rba»-o"
-                                          className="fill-[var(--bg)]"
-                                          d="M0 0h11.71v11.71H0z"
-                                        />
-                                      </defs>
-                                      <rect
-                                        width={292}
-                                        height={52}
-                                        x={4}
-                                        y={4}
-                                        rx="8.78"
-                                        className="fill-[var(--bg)]"
-                                      />
-                                      <rect
-                                        width={292}
-                                        height={52}
-                                        x={4}
-                                        y={4}
-                                        className="stroke-[var(--border)]"
-                                        strokeWidth="0.73"
-                                        rx="8.78"
-                                      />
-                                      <rect
-                                        width="24.88"
-                                        height="24.88"
-                                        x="17.17"
-                                        y="17.56"
-                                        fill="url(#«rba»-a)"
-                                        rx="12.44"
-                                      />
-                                      <rect
-                                        width="25.61"
-                                        height="25.61"
-                                        x="16.8"
-                                        y="17.2"
-                                        className="stroke-[var(--border)]"
-                                        strokeWidth="0.73"
-                                        rx="12.8"
-                                      />
-                                      <path
-                                        className="fill-[var(--fg)]"
-                                        d="M29.61 23c.6 0 1.19.08 1.75.22v3.75a3.5 3.5 0 1 0 0 6.06v.47h1.75v-9.56a7 7 0 1 1-3.5-.94m2.29.39"
-                                      />
-                                      <text
-                                        xmlSpace="preserve"
-                                        className="fill-[var(--fg)]"
-                                        fontSize="10.24"
-                                        fontWeight={600}
-                                        style={{ whiteSpace: "pre" }}
-                                      >
-                                        <tspan x="50.83" y="25.49">
-                                          d.to
-                                        </tspan>
-                                      </text>
-                                      <g
-                                        className="stroke-[var(--fg)]"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        clipPath="url(#«rba»-b)"
-                                      >
-                                        <path d="M84.47 26.08h3.98c.63 0 1.14-.51 1.14-1.14v-3.98c0-.63-.51-1.14-1.14-1.14h-3.98c-.63 0-1.14.5-1.14 1.14v3.98c0 .63.5 1.14 1.14 1.14" />
-                                        <path d="M82.05 24a1.14 1.14 0 0 1-.71-1.05v-3.99c0-.63.5-1.13 1.14-1.13h3.98c.48 0 .89.29 1.05.7" />
-                                      </g>
-                                      <path
-                                        className="stroke-[var(--fg)]"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        d="M106.87 23.66h-1.29a.85.85 0 0 0-.85.85v1.28m-1.71-5.97v1.28a.85.85 0 0 1-.85.85h-1.28m3.84.01h.43m-2.14 3.83v-.42m-3.41-7.26h1.28c.24 0 .43.2.43.43v1.28c0 .23-.2.42-.43.42h-1.28a.43.43 0 0 1-.43-.42v-1.28c0-.24.2-.43.43-.43m5.55 0h1.28c.23 0 .43.2.43.43v1.28c0 .23-.2.42-.43.42h-1.28a.43.43 0 0 1-.43-.42v-1.28c0-.24.2-.43.43-.43m-5.55 5.55h1.28c.24 0 .43.19.43.43v1.28c0 .23-.2.42-.43.42h-1.28a.43.43 0 0 1-.43-.42v-1.28c0-.24.2-.43.43-.43"
-                                      />
-                                      <g
-                                        stroke="#A1A1A1"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        clipPath="url(#«rba»-c)"
-                                      >
-                                        <path d="M59.11 38.38h-4.7a.9.9 0 0 1-.89-.89V35.7" />
-                                        <path d="m57.21 36.48 1.9 1.9-1.9 1.9" />
-                                      </g>
-                                      <text
-                                        xmlSpace="preserve"
-                                        fill="#737373"
-                                        fontSize="10.24"
-                                        fontWeight={500}
-                                        style={{ whiteSpace: "pre" }}
-                                      >
-                                        <tspan x="63.27" y="41.59">
-                                          dub.co
-                                        </tspan>
-                                      </text>
-                                      <path
-                                        className="fill-[var(--bg)]"
-                                        d="M205.12 19.4h69.22c1.24 0 2.14 0 2.86.05.62.05 1.07.14 1.44.3l.16.08c.66.34 1.22.85 1.6 1.48l.16.28c.21.4.32.9.38 1.6.06.72.06 1.62.06 2.86v7.9c0 1.24 0 2.14-.06 2.85a4.6 4.6 0 0 1-.3 1.45l-.08.16a4 4 0 0 1-1.48 1.6l-.28.16c-.4.2-.9.32-1.6.38-.72.06-1.62.06-2.86.06h-69.22c-1.23 0-2.14 0-2.85-.06a4.6 4.6 0 0 1-1.45-.3l-.16-.08a4 4 0 0 1-1.6-1.48l-.16-.28c-.2-.4-.32-.9-.38-1.6-.06-.72-.06-1.62-.06-2.86v-7.9c0-1.24 0-2.14.06-2.85s.17-1.2.38-1.61c.39-.76 1-1.38 1.76-1.76.41-.2.9-.32 1.6-.38.72-.06 1.63-.06 2.86-.06Z"
-                                      />
-                                      <path
-                                        className="stroke-[var(--border)]"
-                                        strokeWidth="0.73"
-                                        d="M205.12 19.4h69.22c1.24 0 2.14 0 2.86.05.62.05 1.07.14 1.44.3l.16.08c.66.34 1.22.85 1.6 1.48l.16.28c.21.4.32.9.38 1.6.06.72.06 1.62.06 2.86v7.9c0 1.24 0 2.14-.06 2.85a4.6 4.6 0 0 1-.3 1.45l-.08.16a4 4 0 0 1-1.48 1.6l-.28.16c-.4.2-.9.32-1.6.38-.72.06-1.62.06-2.86.06h-69.22c-1.23 0-2.14 0-2.85-.06a4.6 4.6 0 0 1-1.45-.3l-.16-.08a4 4 0 0 1-1.6-1.48l-.16-.28c-.2-.4-.32-.9-.38-1.6-.06-.72-.06-1.62-.06-2.86v-7.9c0-1.24 0-2.14.06-2.85s.17-1.2.38-1.61c.39-.76 1-1.38 1.76-1.76.41-.2.9-.32 1.6-.38.72-.06 1.63-.06 2.86-.06Z"
-                                      />
-                                      <g
-                                        className="stroke-[var(--muted)]"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        clipPath="url(#«rba»-d)"
-                                      >
-                                        <path d="m209.95 29.2 4.75 1.64c.15.05.15.25 0 .3l-2.13.8a.16.16 0 0 0-.09.1l-.8 2.13a.16.16 0 0 1-.3 0l-1.64-4.76a.16.16 0 0 1 .2-.2h0Zm2.55 2.77 2.75 2.74m-5.53-9.43v1.3m2.76-.15-.92.92m-4.6 4.6.92-.92m-2.06-1.84h1.3m-.16-2.76.92.92" />
-                                      </g>
-                                      <text
-                                        xmlSpace="preserve"
-                                        className="fill-[var(--muted)]"
-                                        fontSize="8.78"
-                                        fontWeight={500}
-                                        style={{ whiteSpace: "pre" }}
-                                      >
-                                        <tspan x="220.78" y="33.19">
-                                          151.8K clicks
-                                        </tspan>
-                                      </text>
-                                      <rect
-                                        width={292}
-                                        height={52}
-                                        x={4}
-                                        y={64}
-                                        rx="8.78"
-                                        className="fill-[var(--bg)]"
-                                      />
-                                      <rect
-                                        width={292}
-                                        height={52}
-                                        x={4}
-                                        y={64}
-                                        className="stroke-[var(--border)]"
-                                        strokeWidth="0.73"
-                                        rx="8.78"
-                                      />
-                                      <rect
-                                        width="24.88"
-                                        height="24.88"
-                                        x="17.17"
-                                        y="77.56"
-                                        fill="url(#«rba»-e)"
-                                        rx="12.44"
-                                      />
-                                      <rect
-                                        width="25.61"
-                                        height="25.61"
-                                        x="16.8"
-                                        y="77.19"
-                                        className="stroke-[var(--border)]"
-                                        strokeWidth="0.73"
-                                        rx="12.8"
-                                      />
-                                      <path
-                                        className="fill-[var(--fg)]"
-                                        d="M29.61 83c.6 0 1.19.08 1.75.22v3.75a3.5 3.5 0 1 0 0 6.06v.47h1.75v-9.56a7 7 0 1 1-3.5-.94m2.29.39"
-                                      />
-                                      <text
-                                        xmlSpace="preserve"
-                                        className="fill-[var(--fg)]"
-                                        fontSize="10.24"
-                                        fontWeight={600}
-                                        style={{ whiteSpace: "pre" }}
-                                      >
-                                        <tspan x="50.83" y="85.49">
-                                          d.to/register
-                                        </tspan>
-                                      </text>
-                                      <g
-                                        className="stroke-[var(--fg)]"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        clipPath="url(#«rba»-f)"
-                                      >
-                                        <path d="M126.47 86.08h3.98c.63 0 1.14-.51 1.14-1.14v-3.98c0-.63-.51-1.14-1.14-1.14h-3.98c-.63 0-1.14.5-1.14 1.14v3.98c0 .63.5 1.14 1.14 1.14" />
-                                        <path d="M124.05 84a1.14 1.14 0 0 1-.71-1.05v-3.99c0-.63.5-1.13 1.13-1.13h3.99c.48 0 .89.29 1.05.7" />
-                                      </g>
-                                      <path
-                                        className="stroke-[var(--fg)]"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        d="M148.87 83.66h-1.28a.85.85 0 0 0-.86.85v1.28m-1.71-5.97v1.28a.85.85 0 0 1-.85.85h-1.28m3.84.01h.43m-2.14 3.83v-.42m-3.41-7.26h1.28c.24 0 .43.2.43.43v1.28c0 .23-.2.42-.43.42h-1.28a.43.43 0 0 1-.43-.42v-1.28c0-.24.2-.43.43-.43m5.55 0h1.28c.24 0 .43.2.43.43v1.28c0 .23-.2.42-.43.42h-1.28a.43.43 0 0 1-.43-.42v-1.28c0-.24.2-.43.43-.43m-5.55 5.55h1.28c.24 0 .43.19.43.43v1.28c0 .23-.2.42-.43.42h-1.28a.43.43 0 0 1-.43-.42v-1.28c0-.24.2-.43.43-.43"
-                                      />
-                                      <g
-                                        stroke="#A1A1A1"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        clipPath="url(#«rba»-g)"
-                                      >
-                                        <path d="M59.11 98.38h-4.7a.9.9 0 0 1-.89-.89V95.7" />
-                                        <path d="m57.21 96.48 1.9 1.9-1.9 1.9" />
-                                      </g>
-                                      <text
-                                        xmlSpace="preserve"
-                                        fill="#737373"
-                                        fontSize="10.24"
-                                        fontWeight={500}
-                                        style={{ whiteSpace: "pre" }}
-                                      >
-                                        <tspan x="63.27" y="101.59">
-                                          app.dub.co/register
-                                        </tspan>
-                                      </text>
-                                      <path
-                                        className="fill-[var(--bg)]"
-                                        d="M211.12 79.4h63.22c1.24 0 2.14 0 2.86.05.62.05 1.07.14 1.44.3l.16.08c.66.34 1.22.85 1.6 1.48l.16.28c.21.4.32.9.38 1.6.06.72.06 1.62.06 2.86v7.9c0 1.24 0 2.14-.06 2.85a4.6 4.6 0 0 1-.3 1.45l-.08.16a4.03 4.03 0 0 1-1.48 1.6l-.28.16c-.4.2-.9.32-1.6.38-.72.06-1.62.06-2.86.06h-63.22c-1.23 0-2.14 0-2.85-.06a4.6 4.6 0 0 1-1.45-.3l-.16-.08a4 4 0 0 1-1.6-1.48l-.16-.28c-.2-.4-.32-.9-.38-1.6-.06-.72-.06-1.62-.06-2.86v-7.9c0-1.24 0-2.14.06-2.85s.17-1.2.38-1.61c.39-.76 1-1.38 1.76-1.76.41-.2.9-.32 1.6-.38.72-.06 1.63-.06 2.86-.06Z"
-                                      />
-                                      <path
-                                        className="stroke-[var(--border)]"
-                                        strokeWidth="0.73"
-                                        d="M211.12 79.4h63.22c1.24 0 2.14 0 2.86.05.62.05 1.07.14 1.44.3l.16.08c.66.34 1.22.85 1.6 1.48l.16.28c.21.4.32.9.38 1.6.06.72.06 1.62.06 2.86v7.9c0 1.24 0 2.14-.06 2.85a4.6 4.6 0 0 1-.3 1.45l-.08.16a4.03 4.03 0 0 1-1.48 1.6l-.28.16c-.4.2-.9.32-1.6.38-.72.06-1.62.06-2.86.06h-63.22c-1.23 0-2.14 0-2.85-.06a4.6 4.6 0 0 1-1.45-.3l-.16-.08a4 4 0 0 1-1.6-1.48l-.16-.28c-.2-.4-.32-.9-.38-1.6-.06-.72-.06-1.62-.06-2.86v-7.9c0-1.24 0-2.14.06-2.85s.17-1.2.38-1.61c.39-.76 1-1.38 1.76-1.76.41-.2.9-.32 1.6-.38.72-.06 1.63-.06 2.86-.06Z"
-                                      />
-                                      <g
-                                        className="stroke-[var(--muted)]"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        clipPath="url(#«rba»-h)"
-                                      >
-                                        <path d="m215.95 89.2 4.75 1.64c.15.05.15.25 0 .3l-2.13.8a.16.16 0 0 0-.09.1l-.8 2.13a.16.16 0 0 1-.3 0l-1.64-4.76a.16.16 0 0 1 .2-.2h0Zm2.55 2.77 2.75 2.74m-5.53-9.43v1.3m2.76-.15-.92.92m-4.6 4.6.92-.92m-2.06-1.84h1.3m-.16-2.76.92.92" />
-                                      </g>
-                                      <text
-                                        xmlSpace="preserve"
-                                        className="fill-[var(--muted)]"
-                                        fontSize="8.78"
-                                        fontWeight={500}
-                                        style={{ whiteSpace: "pre" }}
-                                      >
-                                        <tspan x="226.78" y="93.19">
-                                          100K clicks
-                                        </tspan>
-                                      </text>
-                                      <path
-                                        className="fill-[var(--bg)]"
-                                        d="M4 138.05c0-4.92 0-7.38.96-9.26a8.7 8.7 0 0 1 3.83-3.83c1.88-.96 4.34-.96 9.26-.96h263.9c4.92 0 7.38 0 9.26.96a8.7 8.7 0 0 1 3.83 3.83c.96 1.88.96 4.34.96 9.26v23.9c0 4.92 0 7.38-.96 9.26a8.78 8.78 0 0 1-3.83 3.83c-1.88.96-4.34.96-9.26.96H18.05c-4.92 0-7.38 0-9.26-.96a8.78 8.78 0 0 1-3.83-3.83C4 169.33 4 166.87 4 161.95z"
-                                      />
-                                      <path
-                                        className="stroke-[var(--border)]"
-                                        strokeWidth="0.73"
-                                        d="M4 138.05c0-4.92 0-7.38.96-9.26a8.7 8.7 0 0 1 3.83-3.83c1.88-.96 4.34-.96 9.26-.96h263.9c4.92 0 7.38 0 9.26.96a8.7 8.7 0 0 1 3.83 3.83c.96 1.88.96 4.34.96 9.26v23.9c0 4.92 0 7.38-.96 9.26a8.78 8.78 0 0 1-3.83 3.83c-1.88.96-4.34.96-9.26.96H18.05c-4.92 0-7.38 0-9.26-.96a8.78 8.78 0 0 1-3.83-3.83C4 169.33 4 166.87 4 161.95z"
-                                      />
-                                      <rect
-                                        width="24.88"
-                                        height="24.88"
-                                        x="17.17"
-                                        y="137.56"
-                                        fill="url(#«rba»-i)"
-                                        rx="12.44"
-                                      />
-                                      <rect
-                                        width="25.61"
-                                        height="25.61"
-                                        x="16.8"
-                                        y="137.19"
-                                        className="stroke-[var(--border)]"
-                                        strokeWidth="0.73"
-                                        rx="12.8"
-                                      />
-                                      <path
-                                        className="fill-[var(--fg)]"
-                                        d="M29.61 143c.6 0 1.19.08 1.75.22v3.75a3.5 3.5 0 1 0 0 6.06v.47h1.75v-9.56a7 7 0 1 1-3.5-.94m2.29.39"
-                                      />
-                                      <text
-                                        xmlSpace="preserve"
-                                        className="fill-[var(--fg)]"
-                                        fontSize="10.24"
-                                        fontWeight={600}
-                                        style={{ whiteSpace: "pre" }}
-                                      >
-                                        <tspan x="50.83" y="145.49">
-                                          d.to/try
-                                        </tspan>
-                                      </text>
-                                      <g
-                                        className="stroke-[var(--fg)]"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        clipPath="url(#«rba»-j)"
-                                      >
-                                        <path d="M102.47 146.08h3.98c.63 0 1.14-.51 1.14-1.14v-3.98c0-.63-.51-1.14-1.14-1.14h-3.98c-.63 0-1.14.5-1.14 1.14v3.98c0 .63.5 1.14 1.14 1.14" />
-                                        <path d="M100.05 144a1.14 1.14 0 0 1-.71-1.05v-3.99c0-.63.5-1.14 1.13-1.14h3.99c.48 0 .89.3 1.06.72" />
-                                      </g>
-                                      <path
-                                        className="stroke-[var(--fg)]"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        d="M124.87 143.66h-1.29a.85.85 0 0 0-.85.85v1.28m-1.71-5.97v1.28a.85.85 0 0 1-.85.85h-1.28m3.84.01h.43m-2.14 3.83v-.42m-3.41-7.26h1.28c.24 0 .43.2.43.43v1.28c0 .23-.2.42-.43.42h-1.28a.43.43 0 0 1-.43-.42v-1.28c0-.24.2-.43.43-.43m5.55 0h1.28c.23 0 .43.2.43.43v1.28c0 .23-.2.42-.43.42h-1.28a.43.43 0 0 1-.43-.42v-1.28c0-.24.2-.43.43-.43m-5.55 5.55h1.28c.24 0 .43.19.43.43v1.28c0 .23-.2.42-.43.42h-1.28a.43.43 0 0 1-.43-.42v-1.28c0-.24.2-.43.43-.43"
-                                      />
-                                      <g
-                                        stroke="#A1A1A1"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        clipPath="url(#«rba»-k)"
-                                      >
-                                        <path d="M59.11 158.38h-4.7a.9.9 0 0 1-.89-.89v-1.79" />
-                                        <path d="m57.21 156.48 1.9 1.9-1.9 1.9" />
-                                      </g>
-                                      <text
-                                        xmlSpace="preserve"
-                                        fill="#737373"
-                                        fontSize="10.24"
-                                        fontWeight={500}
-                                        style={{ whiteSpace: "pre" }}
-                                      >
-                                        <tspan x="63.27" y="161.59">
-                                          app.dub.co/register
-                                        </tspan>
-                                      </text>
-                                      <path
-                                        className="fill-[var(--bg)]"
-                                        d="M208.12 139.4h66.22c1.24 0 2.14 0 2.86.05.62.05 1.07.14 1.44.3l.16.08c.66.34 1.22.85 1.6 1.48l.16.28c.21.4.32.9.38 1.6.06.72.06 1.62.06 2.86v7.9c0 1.24 0 2.14-.06 2.86a4.6 4.6 0 0 1-.3 1.44l-.08.16a4 4 0 0 1-1.48 1.6l-.28.16c-.4.2-.9.32-1.6.38-.72.06-1.62.06-2.86.06h-66.22c-1.23 0-2.14 0-2.85-.06a4.6 4.6 0 0 1-1.45-.3l-.16-.08a4 4 0 0 1-1.6-1.48l-.16-.28c-.2-.4-.32-.9-.38-1.6-.06-.72-.06-1.62-.06-2.86v-7.9c0-1.24 0-2.14.06-2.86.06-.7.17-1.2.38-1.6.39-.76 1-1.38 1.76-1.76.41-.2.9-.32 1.6-.38.72-.06 1.63-.06 2.86-.06Z"
-                                      />
-                                      <path
-                                        className="stroke-[var(--border)]"
-                                        strokeWidth="0.73"
-                                        d="M208.12 139.4h66.22c1.24 0 2.14 0 2.86.05.62.05 1.07.14 1.44.3l.16.08c.66.34 1.22.85 1.6 1.48l.16.28c.21.4.32.9.38 1.6.06.72.06 1.62.06 2.86v7.9c0 1.24 0 2.14-.06 2.86a4.6 4.6 0 0 1-.3 1.44l-.08.16a4 4 0 0 1-1.48 1.6l-.28.16c-.4.2-.9.32-1.6.38-.72.06-1.62.06-2.86.06h-66.22c-1.23 0-2.14 0-2.85-.06a4.6 4.6 0 0 1-1.45-.3l-.16-.08a4 4 0 0 1-1.6-1.48l-.16-.28c-.2-.4-.32-.9-.38-1.6-.06-.72-.06-1.62-.06-2.86v-7.9c0-1.24 0-2.14.06-2.86.06-.7.17-1.2.38-1.6.39-.76 1-1.38 1.76-1.76.41-.2.9-.32 1.6-.38.72-.06 1.63-.06 2.86-.06Z"
-                                      />
-                                      <g
-                                        className="stroke-[var(--muted)]"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="1.1"
-                                        clipPath="url(#«rba»-l)"
-                                      >
-                                        <path d="m212.95 149.2 4.75 1.64c.15.05.15.25 0 .3l-2.13.8a.17.17 0 0 0-.09.1l-.8 2.13a.16.16 0 0 1-.3 0l-1.64-4.76a.16.16 0 0 1 .2-.2h0Zm2.55 2.77 2.75 2.74m-5.53-9.43v1.3m2.76-.15-.92.92m-4.6 4.6.92-.92m-2.06-1.84h1.3m-.16-2.76.92.92" />
-                                      </g>
-                                      <text
-                                        xmlSpace="preserve"
-                                        className="fill-[var(--muted)]"
-                                        fontSize="8.78"
-                                        fontWeight={500}
-                                        style={{ whiteSpace: "pre" }}
-                                      >
-                                        <tspan x="223.78" y="153.19">
-                                          65.8K clicks
-                                        </tspan>
-                                      </text>
-                                      <defs>
-                                        <clipPath id="«rba»-b">
-                                          <use
-                                            xlinkHref="#«rba»-m"
-                                            transform="translate(80.34 16.83)"
-                                          />
-                                        </clipPath>
-                                        <clipPath id="«rba»-c">
-                                          <use
-                                            xlinkHref="#«rba»-n"
-                                            transform="translate(52.3 34.02)"
-                                          />
-                                        </clipPath>
-                                        <clipPath id="«rba»-d">
-                                          <use
-                                            xlinkHref="#«rba»-o"
-                                            transform="translate(204.68 24.15)"
-                                          />
-                                        </clipPath>
-                                        <clipPath id="«rba»-f">
-                                          <use
-                                            xlinkHref="#«rba»-m"
-                                            transform="translate(122.34 76.83)"
-                                          />
-                                        </clipPath>
-                                        <clipPath id="«rba»-g">
-                                          <use
-                                            xlinkHref="#«rba»-n"
-                                            transform="translate(52.3 94.02)"
-                                          />
-                                        </clipPath>
-                                        <clipPath id="«rba»-h">
-                                          <use
-                                            xlinkHref="#«rba»-o"
-                                            transform="translate(210.68 84.15)"
-                                          />
-                                        </clipPath>
-                                        <clipPath id="«rba»-j">
-                                          <use
-                                            xlinkHref="#«rba»-m"
-                                            transform="translate(98.34 136.83)"
-                                          />
-                                        </clipPath>
-                                        <clipPath id="«rba»-k">
-                                          <use
-                                            xlinkHref="#«rba»-n"
-                                            transform="translate(52.3 154.02)"
-                                          />
-                                        </clipPath>
-                                        <clipPath id="«rba»-l">
-                                          <use
-                                            xlinkHref="#«rba»-o"
-                                            transform="translate(207.68 144.15)"
-                                          />
-                                        </clipPath>
-                                        <linearGradient
-                                          id="«rba»-a"
-                                          x1="29.61"
-                                          x2="29.61"
-                                          y1="17.56"
-                                          y2="42.44"
-                                          gradientUnits="userSpaceOnUse"
-                                        >
-                                          <stop
-                                            stopColor="#030712"
-                                            stopOpacity={0}
-                                          />
-                                          <stop
-                                            offset={1}
-                                            stopColor="#030712"
-                                            stopOpacity="0.05"
-                                          />
-                                        </linearGradient>
-                                        <linearGradient
-                                          id="«rba»-e"
-                                          x1="29.61"
-                                          x2="29.61"
-                                          y1="77.56"
-                                          y2="102.44"
-                                          gradientUnits="userSpaceOnUse"
-                                        >
-                                          <stop
-                                            stopColor="#030712"
-                                            stopOpacity={0}
-                                          />
-                                          <stop
-                                            offset={1}
-                                            stopColor="#030712"
-                                            stopOpacity="0.05"
-                                          />
-                                        </linearGradient>
-                                        <linearGradient
-                                          id="«rba»-i"
-                                          x1="29.61"
-                                          x2="29.61"
-                                          y1="137.56"
-                                          y2="162.44"
-                                          gradientUnits="userSpaceOnUse"
-                                        >
-                                          <stop
-                                            stopColor="#030712"
-                                            stopOpacity={0}
-                                          />
-                                          <stop
-                                            offset={1}
-                                            stopColor="#030712"
-                                            stopOpacity="0.05"
-                                          />
-                                        </linearGradient>
-                                      </defs>
-                                    </svg>
-                                  </div>
+                                  cewf
                                 </div>
                               </div>
                               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,var(--color),transparent)] opacity-[0.07] transition-opacity duration-150 group-hover:opacity-15" />
                             </a>
+
                             <a
-                              className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50 dark:border-white/20 dark:bg-white/10"
+                              className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50"
                               data-radix-collection-item
                               href="/analytics"
                             >
                               <svg
-                                className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(transparent,black,transparent)] text-black/10 dark:text-white/5"
+                                className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(transparent,black,transparent)] text-black/10"
                                 width="100%"
                                 height="100%"
                               >
@@ -810,10 +304,10 @@ function Navigation() {
                                     />
                                   </svg>
                                 </div>
-                                <span className="mt-3 block text-sm font-medium text-neutral-900 dark:text-white">
+                                <span className="mt-3 block text-sm font-medium text-neutral-900">
                                   Dub Analytics
                                 </span>
-                                <p className="mt-2 max-w-56 text-sm text-neutral-500 dark:text-white/60">
+                                <p className="/60 mt-2 max-w-56 text-sm text-neutral-500">
                                   Powerful analytics delivered instantly.
                                 </p>
                               </div>
@@ -1083,12 +577,12 @@ function Navigation() {
                               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,var(--color),transparent)] opacity-[0.07] transition-opacity duration-150 group-hover:opacity-15" />
                             </a>
                             <a
-                              className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50 dark:border-white/20 dark:bg-white/10"
+                              className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50"
                               data-radix-collection-item
                               href="/partners"
                             >
                               <svg
-                                className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(transparent,black,transparent)] text-black/10 dark:text-white/5"
+                                className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(transparent,black,transparent)] text-black/10"
                                 width="100%"
                                 height="100%"
                               >
@@ -1151,10 +645,10 @@ function Navigation() {
                                     />
                                   </svg>
                                 </div>
-                                <span className="mt-3 block text-sm font-medium text-neutral-900 dark:text-white">
+                                <span className="mt-3 block text-sm font-medium text-neutral-900">
                                   Dub Partners
                                 </span>
-                                <p className="mt-2 max-w-56 text-sm text-neutral-500 dark:text-white/60">
+                                <p className="/60 mt-2 max-w-56 text-sm text-neutral-500">
                                   Grow your revenue on auto-pilot with
                                   partnerships.
                                 </p>
@@ -1163,7 +657,7 @@ function Navigation() {
                                 <div className="absolute top-0 left-0 size-full grow overflow-hidden [mask-image:linear-gradient(black_50%,transparent)] pl-2">
                                   <div className="relative size-full">
                                     <div
-                                      className="pointer-events-none relative size-full dark:opacity-80"
+                                      className="pointer-events-none relative size-full"
                                       aria-hidden="true"
                                     >
                                       <div className="absolute top-0 left-0 grid grid-cols-[repeat(2,180px)]">
