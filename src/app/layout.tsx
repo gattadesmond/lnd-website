@@ -39,11 +39,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body className={`!overflow-x-hidden`}>
-        <Header />
-        <main className="">{children}</main>
-        <Footer />
-        <Toaster />
-        <AuthErrorHandler />
+        <div className="relative z-10 bg-white">
+          <Header />
+          <main className=" ">{children}</main>
+          <Footer />
+          <Toaster />
+          <AuthErrorHandler />
+        </div>
       </body>
     </html>
   );
