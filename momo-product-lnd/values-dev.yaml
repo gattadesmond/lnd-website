@@ -12,5 +12,5 @@ minReplicas: 2
 maxReplicas: 5
 servicePort: 8000
 basePath: /lnd
-startCommand: yarn start-and-revalidate-uat
+startCommand: pnpm start-and-revalidate-uat
 envType: uat
