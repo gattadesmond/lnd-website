@@ -6,7 +6,8 @@ import "@/styles/globals.css";
 import { Toaster } from "sonner";
 
 import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
+import Navigation from "@/components/main-nav/navigation";
+// import { Header } from "@/components/header";
 import { AuthErrorHandler } from "@/features/auth/components/auth-error-handler";
 
 const geistSans = Geist({
@@ -40,7 +41,8 @@ export default function RootLayout({
     >
       <body className={`!overflow-x-hidden`}>
         <div className="relative z-10 bg-white">
-          <Header />
+          <Navigation />
+          {/* <Header /> */}
           <main className=" ">{children}</main>
           <Footer />
           <Toaster />
