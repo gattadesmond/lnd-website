@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,6 +22,8 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu-lnd";
+
+import NavigationMobile from "./navigation-mobile";
 
 function ListItem({
   title,
@@ -43,143 +46,44 @@ function ListItem({
 }
 
 function Navigation() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 10);
+    };
+
+    // Throttle scroll event để tối ưu hiệu suất
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", throttledHandleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", throttledHandleScroll);
+    };
+  }, []);
+
   return (
     <>
-      <div className="fixed top-0 right-0 z-40 flex items-center gap-4 p-2.5 lg:hidden">
-        <button className="z-30 rounded-full p-2 transition-colors duration-200 hover:bg-neutral-200 focus:outline-none active:bg-neutral-300">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={24}
-            height={24}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="lucide lucide-menu h-5 w-5 text-neutral-600"
-          >
-            <line x1={4} x2={20} y1={12} y2={12} />
-            <line x1={4} x2={20} y1={6} y2={6} />
-            <line x1={4} x2={20} y1={18} y2={18} />
-          </svg>
-        </button>
-        <nav className="fixed inset-0 z-20 hidden max-h-screen w-full overflow-y-auto bg-white px-5 py-16 lg:hidden">
-          <ul className="grid divide-y divide-neutral-200">
-            <li className="py-3">
-              <div className="overflow-hidden">
-                <div className="h-max">
-                  <button className="flex w-full justify-between">
-                    <p className="font-semibold">Product</p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-chevron-down h-5 w-5 text-neutral-500 transition-all"
-                    >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </li>
-            <li className="py-3">
-              <div className="overflow-hidden">
-                <div className="h-max">
-                  <button className="flex w-full justify-between">
-                    <p className="font-semibold">Solutions</p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-chevron-down h-5 w-5 text-neutral-500 transition-all"
-                    >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </li>
-            <li className="py-3">
-              <div className="overflow-hidden">
-                <div className="h-max">
-                  <button className="flex w-full justify-between">
-                    <p className="font-semibold">Resources</p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-chevron-down h-5 w-5 text-neutral-500 transition-all"
-                    >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </li>
-            <li className="py-3">
-              <a
-                className="flex w-full font-semibold capitalize"
-                href="/enterprise"
-              >
-                Enterprise
-              </a>
-            </li>
-            <li className="py-3">
-              <a
-                className="flex w-full font-semibold capitalize"
-                href="/customers"
-              >
-                Customers
-              </a>
-            </li>
-            <li className="py-3">
-              <a
-                className="flex w-full font-semibold capitalize"
-                href="/pricing"
-              >
-                Pricing
-              </a>
-            </li>
-            <li className="py-3 min-[281px]:hidden">
-              <a
-                className="flex w-full font-semibold capitalize"
-                href="https://app.dub.co/login"
-              >
-                Log in
-              </a>
-            </li>
-            <li className="py-3 min-[281px]:hidden">
-              <a
-                className="flex w-full font-semibold capitalize"
-                href="https://app.dub.co/register"
-              >
-                Sign Up
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <NavigationMobile />
       <div className="sticky inset-x-0 top-0 z-30 w-full transition-all">
-        <div className="absolute inset-0 block border-b border-transparent transition-all" />
+        <div
+          className={`absolute inset-0 block border-b transition-all ${
+            isScrolled
+              ? "border-neutral-100 bg-white/75 backdrop-blur-lg"
+              : "border-transparent"
+          }`}
+        />
         <div className="relative mx-auto w-full max-w-screen-lg px-3 lg:px-4 xl:px-0">
           <div className="flex h-14 items-center justify-between">
             <div className="grow basis-0">
