@@ -17,6 +17,8 @@ const buildNextParam = (): string => {
 
 const handleLogin = () => {
   const supabase = createClient();
+
+  console.log("process.env.NEXT_PUBLIC_DOMAIN", process.env.NEXT_PUBLIC_DOMAIN);
   const next = buildNextParam();
   supabase.auth.signInWithOAuth({
     provider: "google",
