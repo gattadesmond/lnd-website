@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
-const PATHS = ["/", "/ready", "/about"];
+const PATHS = ["/", "/ready", "/about", "/events", "/stories"];
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;

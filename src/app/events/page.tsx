@@ -2,6 +2,7 @@ import { FadeIn } from "@/components/fade-in";
 import { EventsSection } from "@/features/events/components/events-section";
 import { EVENTS } from "@/features/events/mocks";
 import { generatePageMetadata } from "@/lib/generate-page-metadata";
+import { generatePage } from "@/lib/generatePage";
 import { cn } from "@/lib/utils";
 import { chakra } from "@/styles/fonts";
 
@@ -18,7 +19,7 @@ export const generateMetadata = generatePageMetadata({
 
 const mockCategories = ["All", "Seminar"];
 
-export default async function EventPage() {
+const EventPage = generatePage(() => {
   return (
     <>
       <section className="mx-auto px-5 pt-14 pb-5 text-center text-balance md:px-5 md:pt-20 md:pb-10">
@@ -50,4 +51,6 @@ export default async function EventPage() {
       <EventsSection events={EVENTS} categories={mockCategories} />;
     </>
   );
-}
+});
+
+export default EventPage;

@@ -2,6 +2,7 @@ import { FadeIn } from "@/components/fade-in";
 import { StoriesSection } from "@/features/stories/components/stories-section";
 import { STORIES } from "@/features/stories/mocks";
 import { generatePageMetadata } from "@/lib/generate-page-metadata";
+import { generatePage } from "@/lib/generatePage";
 import { cn } from "@/lib/utils";
 import { chakra } from "@/styles/fonts";
 
@@ -24,7 +25,7 @@ const mockCategories = [
   "Product Culture",
 ];
 
-export default async function StoriesPage() {
+const StoriesPage = generatePage(() => {
   return (
     <>
       <section className="mx-auto max-w-3xl px-5 pt-14 pb-5 text-center md:px-5 md:pt-20 md:pb-10">
@@ -49,4 +50,6 @@ export default async function StoriesPage() {
       <StoriesSection stories={STORIES} categories={mockCategories} />;
     </>
   );
-}
+});
+
+export default StoriesPage;
