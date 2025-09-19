@@ -1,11 +1,14 @@
 import { z } from "zod";
 
+import { TeamSchema } from "../teams/schemas";
+
 export const UserSchema = z.object({
+  id: z.number(),
   avatar: z.url(),
-  fullname: z.string(),
-  username: z.string(),
+  fullName: z.string(),
+  userName: z.string(),
   title: z.string(),
-  link: z.string(),
+  teamsInfo: TeamSchema.optional(),
 });
 
 export type User = z.infer<typeof UserSchema>;

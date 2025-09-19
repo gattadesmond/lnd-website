@@ -3,7 +3,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "@/styles/globals.css";
 
-import Header from "@/components/header";
+import { Toaster } from "sonner";
+
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { AuthErrorHandler } from "@/features/auth/components/auth-error-handler";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,14 +36,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="dark min-h-screen bg-background font-sans antialiased"
+      className="min-h-screen bg-background font-sans antialiased"
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} amazing-rays relative z-[1] antialiased`}
-        data-theme="dark"
+        className={`${geistSans.variable} ${geistMono.variable} dark amazing-rays antialiased`}
       >
         <Header />
         <main className="">{children}</main>
+        <Footer />
+        <Toaster />
+        <AuthErrorHandler />
       </body>
     </html>
   );

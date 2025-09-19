@@ -1,28 +1,15 @@
-"use client";
-
-import { useState } from "react";
-import Image from "next/image";
+import React from "react";
 import Link from "next/link";
 
 import {
-  Award,
-  Building2,
   Car,
-  CarFront,
-  Cog,
   FileText,
   Hammer,
   Menu,
-  MessageSquare,
-  Package,
   Phone,
   Shield,
-  ShoppingCart,
-  Star,
   Target,
-  User,
   Users,
-  Wrench,
 } from "lucide-react";
 
 import { Container } from "@/components/container";
@@ -49,6 +36,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { AuthButtons } from "@/features/auth/components/auth-buttons";
+import { cn } from "@/lib/utils";
 
 interface HeaderProps {
   className?: string;
@@ -62,93 +51,97 @@ interface MenuItem {
   items?: MenuItem[];
 }
 
-export default function Header({ className = "" }: HeaderProps) {
-  const menu: MenuItem[] = [
-    { title: "Home", url: "/", icon: <Car className="size-5 shrink-0" /> },
-    {
-      title: "Our Content",
-      url: "/",
-      items: [
-        {
-          title: "Stories",
-          description: "Product Stories",
-          icon: <FileText className="size-5 shrink-0" />,
-          url: "/stories",
-        },
-        {
-          title: "Learning",
-          description: "Learning & Development",
-          icon: <Users className="size-5 shrink-0" />,
-          url: "/learning",
-        },
-        {
-          title: "Events",
-          description: "Coming together is the beginning",
-          icon: <Target className="size-5 shrink-0" />,
-          url: "/events",
-        },
-      ],
-    },
-    {
-      title: "About",
-      url: "/",
-      items: [
-        {
-          title: "Our Project",
-          description: "Tesst 1",
-          icon: <Shield className="size-5 shrink-0" />,
-          url: "/about",
-        },
-        {
-          title: "Feedback",
-          description: "Tesst 2",
-          icon: <Hammer className="size-5 shrink-0" />,
-          url: "/feedback",
-        },
-      ],
-    },
+const menu: MenuItem[] = [
+  { title: "Home", url: "/", icon: <Car className="size-5 shrink-0" /> },
+  {
+    title: "Our Content",
+    url: "/",
+    items: [
+      {
+        title: "Stories",
+        description: "Product Stories",
+        icon: <FileText className="size-5 shrink-0" />,
+        url: "/stories",
+      },
+      {
+        title: "Learning",
+        description: "Learning & Development",
+        icon: <Users className="size-5 shrink-0" />,
+        url: "/learning",
+      },
+      {
+        title: "Events",
+        description: "Coming together is the beginning",
+        icon: <Target className="size-5 shrink-0" />,
+        url: "/events",
+      },
+    ],
+  },
+  {
+    title: "About",
+    url: "/",
+    items: [
+      {
+        title: "Our Project",
+        description: "Tesst 1",
+        icon: <Shield className="size-5 shrink-0" />,
+        url: "/about",
+      },
+      {
+        title: "Feedback",
+        description: "Tesst 2",
+        icon: <Hammer className="size-5 shrink-0" />,
+        url: "/feedback",
+      },
+    ],
+  },
 
-    {
-      title: "Liên hệ",
-      url: "/contact",
-      icon: <Phone className="size-5 shrink-0" />,
-    },
-  ];
+  {
+    title: "Contact",
+    url: "/contact",
+    icon: <Phone className="size-5 shrink-0" />,
+  },
+];
 
-  const auth = {
-    login: { title: "Đăng nhập", url: "/login" },
-  };
-
+export function Header({ className }: HeaderProps) {
   return (
-    <nav className="relative z-50 bg-transparent backdrop-blur-sm">
-      <Container className="py-3">
+    <Container asChild>
+      <header
+        className={cn(
+          "flex items-center bg-transparent py-3 backdrop-blur-sm",
+          className,
+        )}
+      >
         {/* Desktop Menu */}
-        <nav className="hidden justify-between lg:flex">
-          <div className="flex items-center gap-6">
-            {/* Logo */}
-
-            <Link href="/" className="flex items-start gap-2">
-              <LogoAnimation />
-            </Link>
-            <div className="flex items-center">
-              <NavigationMenu viewport={false}>
-                <NavigationMenuList>
-                  {menu.map((item) => renderMenuItem(item))}
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <Button asChild size="sm">
+        <NavigationMenu
+          viewport={false}
+          className="hidden max-w-none justify-start *:w-full lg:flex"
+        >
+          <NavigationMenuList className="justify-start">
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/">
+                  <LogoAnimation />
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            {menu.map((item) => (
+              <RenderMenuItem key={item.title} item={item} />
+            ))}
+            {/* <NavigationMenuItem className="ms-auto">
+              <NavigationMenuLink asChild>
+              <Button asChild size="sm">
               <Link href={auth.login.url}>{auth.login.title}</Link>
-            </Button>
-          </div>
-        </nav>
+              </Button>
+              </NavigationMenuLink>
+              </NavigationMenuItem> */}
+          </NavigationMenuList>
+        </NavigationMenu>
+        <AuthButtons className="hidden lg:block" />
 
         {/* Mobile Menu */}
-        <div className="block lg:hidden">
+        <div className="block flex-1 lg:hidden">
           <div className="flex items-center justify-between">
-            {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
               <LogoAnimation />
             </Link>
@@ -176,21 +169,19 @@ export default function Header({ className = "" }: HeaderProps) {
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
-                      <Link href={auth.login.url}>{auth.login.title}</Link>
-                    </Button>
+                    <AuthButtons />
                   </div>
                 </div>
               </SheetContent>
             </Sheet>
           </div>
         </div>
-      </Container>
-    </nav>
+      </header>
+    </Container>
   );
 }
 
-const renderMenuItem = (item: MenuItem) => {
+const RenderMenuItem = ({ item }: { item: MenuItem }) => {
   if (item.items) {
     return (
       <NavigationMenuItem key={item.title}>
@@ -198,11 +189,15 @@ const renderMenuItem = (item: MenuItem) => {
           {item.title}
         </NavigationMenuTrigger>
         <NavigationMenuContent>
-          {item.items.map((subItem) => (
-            <NavigationMenuLink asChild key={subItem.title}>
-              <SubMenuLink item={subItem} />
-            </NavigationMenuLink>
-          ))}
+          <ul>
+            {item.items.map((subItem) => (
+              <li key={subItem.title}>
+                <NavigationMenuLink asChild>
+                  <SubMenuLink item={subItem} />
+                </NavigationMenuLink>
+              </li>
+            ))}
+          </ul>
         </NavigationMenuContent>
       </NavigationMenuItem>
     );

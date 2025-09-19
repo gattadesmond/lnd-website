@@ -50,7 +50,7 @@ const About = generatePage(async () => {
           </h2>
           <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
             {users.map((user) => (
-              <UserCard key={user.username} {...user} />
+              <UserCard key={user.userName} user={user} />
             ))}
           </div>
         </Container>

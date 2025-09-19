@@ -2,8 +2,7 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
-/* Dark mode, use attribute to control theme, see app/layout.tsx for its usage */
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* @import "./colors.css"; */
 @import "./animations.css";
@@ -22,7 +21,6 @@
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -47,6 +45,17 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-primary: var(--pink-500);
+  --color-primary-50: var(--pink-50);
+  --color-primary-100: var(--pink-100);
+  --color-primary-200: var(--pink-200);
+  --color-primary-300: var(--pink-300);
+  --color-primary-400: var(--pink-400);
+  --color-primary-600: var(--pink-600);
+  --color-primary-700: var(--pink-700);
+  --color-primary-800: var(--pink-800);
+  --color-primary-900: var(--pink-900);
 }
 
 :root {
@@ -57,7 +66,7 @@
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.65 0.24 351.7);
+  --primary: oklch(0.6338 0.2345 353.15);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.984 0.003 247.858);
   --secondary-foreground: oklch(0.208 0.042 265.755);
@@ -82,6 +91,17 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  --pink-900: oklch(0.2 0.0825 353.15);
+  --pink-800: oklch(0.3085 0.127 353.15);
+  --pink-700: oklch(0.4169 0.1716 353.15);
+  --pink-600: oklch(0.5254 0.211 353.15);
+  --pink-500: oklch(0.6338 0.2345 353.15);
+  --pink-400: oklch(0.75 0.1641 353.15);
+  --pink-300: oklch(0.82 0.0938 353.15);
+  --pink-200: oklch(0.88 0.0586 353.15);
+  --pink-100: oklch(0.94 0.0281 353.15);
+  --pink-50: oklch(0.98 0.0117 353.15);
 }
 
 .dark {
@@ -91,7 +111,6 @@
   --card-foreground: oklch(0.984 0.003 247.858);
   --popover: oklch(0.208 0.042 265.755);
   --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.65 0.24 351.7);
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: oklch(0.279 0.041 260.031);
   --secondary-foreground: oklch(0.984 0.003 247.858);
@@ -116,6 +135,17 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(0.372 0.044 257.287);
   --sidebar-ring: oklch(0.554 0.046 257.417);
+
+  --pink-900: oklch(0.2 0.0825 353.15);
+  --pink-800: oklch(0.3085 0.127 353.15);
+  --pink-700: oklch(0.4169 0.1716 353.15);
+  --pink-600: oklch(0.5254 0.211 353.15);
+  --pink-500: oklch(0.6338 0.2345 353.15);
+  --pink-400: oklch(0.75 0.1641 353.15);
+  --pink-300: oklch(0.82 0.0938 353.15);
+  --pink-200: oklch(0.88 0.0586 353.15);
+  --pink-100: oklch(0.94 0.0281 353.15);
+  --pink-50: oklch(0.98 0.0117 353.15);
 }
 
 @layer base {

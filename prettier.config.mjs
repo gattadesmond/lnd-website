@@ -2,8 +2,9 @@ import { merge } from "lodash-es";
 
 /**@type {import('prettier-plugin-tailwindcss').PluginOptions} */
 const tailwindConfig = {
-  tailwindStylesheet: "./src/styles/globals.css",
+  tailwindFunctions: ["cva"],
   tailwindPreserveWhitespace: false,
+  tailwindStylesheet: "./src/styles/globals.css",
 };
 
 /**@type {import("@ianvs/prettier-plugin-sort-imports").PluginConfig} */
