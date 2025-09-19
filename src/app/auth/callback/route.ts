@@ -51,11 +51,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
   const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
+  console.log("🚀 ~ GET ~ request.headers:", request.headers);
   console.log("🚀 ~ GET ~ forwardedHost:", forwardedHost);
   const isLocalEnv = process.env.NODE_ENV === "development";
   if (isLocalEnv || !forwardedHost) {
     // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
     return NextResponse.redirect(redirectUrl);
   }
-  return NextResponse.redirect(`https://${forwardedHost}${decodedNext}`);
+  return NextResponse.redirect(
+    `${process.env.NEXT_PUBLIC_DOMAIN}${process.env.NEXT_PUBLIC_BASE_PATH}${decodedNext}`,
+  );
 }
