@@ -23,7 +23,7 @@ const handleLogin = () => {
   supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}/auth/callback?next=${next}`,
+      redirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}${process.env.NEXT_PUBLIC_BASE_PATH}/auth/callback?next=${next}`,
     },
   });
 };
