@@ -13,11 +13,15 @@ const getDecodedNext = (next: string) => {
 };
 
 export async function GET(request: NextRequest) {
+  console.log("🚀 ~ GET ~ GETGETGETGETGETGETGETGETGETGETGETGETGETGETGET:");
   const origin = request.nextUrl.origin;
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get("code");
+  console.log("🚀 ~ GET ~ code:", code);
   const decodedNext = getDecodedNext(searchParams.get("next") ?? "/");
+  console.log("🚀 ~ GET ~ decodedNext:", decodedNext);
   const redirectUrl = new URL(decodedNext, origin);
+  console.log("🚀 ~ GET ~ redirectUrl:", redirectUrl);
   if (!code) {
     return NextResponse.redirect(redirectUrl);
   }
@@ -47,6 +51,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
   const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
+  console.log("🚀 ~ GET ~ forwardedHost:", forwardedHost);
   const isLocalEnv = process.env.NODE_ENV === "development";
   if (isLocalEnv || !forwardedHost) {
     // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
