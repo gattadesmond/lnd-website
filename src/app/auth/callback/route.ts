@@ -59,6 +59,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
   return NextResponse.redirect(
-    `${process.env.NEXT_PUBLIC_DOMAIN}${process.env.NEXT_PUBLIC_BASE_PATH}${decodedNext}`,
+    `${process.env.NEXT_PUBLIC_DOMAIN}${decodedNext}`,
   );
 }
