@@ -1,9 +1,13 @@
 import { notFound } from "next/navigation";
 
-export default async function Ready() {
+import { generatePage } from "@/lib/generatePage";
+
+const Ready = generatePage(() => {
   if (process.env.NEXT_APP_BUILD === "on") {
     return notFound();
   }
 
   return <>Ready</>;
-}
+});
+
+export default Ready;
