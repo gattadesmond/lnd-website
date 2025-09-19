@@ -3,7 +3,6 @@
 import "server-only";
 
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
 
 import { createServerClient } from "@supabase/ssr";
 
@@ -21,8 +20,6 @@ export async function createClient() {
           return cookieStore.getAll();
         },
         setAll(cookiesToSet) {
-          const response = NextResponse.next();
-          console.log("responseresponseresponseresponseresponseresponse");
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),
@@ -32,8 +29,6 @@ export async function createClient() {
             // This can be ignored if you have middleware refreshing
             // user sessions.
           }
-
-          return response;
         },
       },
       auth: {

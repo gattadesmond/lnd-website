@@ -19,11 +19,6 @@ const handleLogin = () => {
   const supabase = createClient();
 
   const next = buildNextParam();
-
-  console.log(
-    "process.env.NEXT_PUBLIC_DOMAIN",
-    `${process.env.NEXT_PUBLIC_DOMAIN}${process.env.NEXT_PUBLIC_BASE_PATH}/auth/callback?next=${next}`,
-  );
   supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
