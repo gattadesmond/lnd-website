@@ -1,0 +1,104 @@
+---
+apiVersion: skaffold/v4beta2
+kind: Config
+profiles:
+  - name: dev
+    build:
+      artifacts:
+        - image: momo-product-lnd
+          context: .
+          docker:
+            dockerfile: docker/dockerfile-demo
+        - image: docker.mservice.io/momovn-dev/eks/momo-product-lnd
+          custom:
+            buildCommand: "
+            docker tag momo-product-lnd:${IMAGE_TAG} ${IMAGE}
+            && docker push ${IMAGE}"
+          requires:
+            - image: momo-product-lnd
+              alias: BASE
+      local:
+        push: false
+
+    manifests:
+      helm:
+        releases:
+          - name: momo-product-lnd
+            setValueTemplates:
+              image: "docker.mservice.io/momovn-dev/eks/momo-product-lnd:{{.IMAGE_TAG}}"
+            chartPath: momo-product-lnd
+            namespace: momovn
+            valuesFiles:
+              - momo-product-lnd/values-dev.yaml
+    deploy:
+      kubectl: {}
+      kubeContext: arn:aws:eks:ap-southeast-1:286382079878:cluster/momovn-dev
+
+
+  - name: prod
+    build:
+      artifacts:
+        - image: momo-product-lnd
+          context: .
+          docker:
+            dockerfile: docker/dockerfile-live
+            buildArgs:
+              BUILD_ENV: Production
+        - image: docker.mservice.io/momovn-prod/eks/momo-product-lnd
+          custom:
+            buildCommand: "
+            docker tag momo-product-lnd:${IMAGE_TAG} ${IMAGE}
+            && docker push ${IMAGE}"
+          requires:
+            - image: momo-product-lnd
+              alias: BASE
+      local:
+        push: false
+
+    manifests:
+      helm:
+        releases:
+          - name: momo-product-lnd
+            setValueTemplates:
+              image: "docker.mservice.io/momovn-prod/eks/momo-product-lnd:{{.IMAGE_TAG}}"
+            chartPath: momo-product-lnd
+            namespace: momovn
+            valuesFiles:
+              - momo-product-lnd/values-prod.yaml
+    deploy:
+      kubectl: {}
+      kubeContext: arn:aws:eks:ap-southeast-1:286382079878:cluster/momovn-prod
+
+  - name: staging
+    build:
+      artifacts:
+        - image: momo-product-lnd
+          context: .
+          docker:
+            dockerfile: docker/dockerfile-staging
+            buildArgs:
+              BUILD_ENV: Staging
+        - image: docker.mservice.io/momovn-prod/eks/momo-product-lnd
+          custom:
+            buildCommand: "
+            docker tag momo-product-lnd:${IMAGE_TAG} ${IMAGE}
+            && docker push ${IMAGE}"
+          requires:
+            - image: momo-product-lnd
+              alias: BASE
+      local:
+        push: false
+
+    manifests:
+      helm:
+        releases:
+          - name: momo-product-lnd
+            setValueTemplates:
+              image: "docker.mservice.io/momovn-prod/eks/momo-product-lnd:{{.IMAGE_TAG}}"
+            chartPath: momo-product-lnd
+            namespace: momovn
+            valuesFiles:
+              - momo-product-lnd/values-staging.yaml
+    deploy:
+      kubectl: {}
+      kubeContext: arn:aws:eks:ap-southeast-1:286382079878:cluster/momovn-prod

@@ -1,0 +1,15 @@
+# Default values for momo-product-lnd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replica: 2
+service: momo-product-lnd-staging
+namespace: momovn
+image: docker.mservice.io/momovn-prod/eks/momo-product-lnd
+host: momo-stg.mservice.io
+autoscaling: false
+minReplicas: 2
+maxReplicas: 5
+servicePort: 8000
+basePath: /lnd
+startCommand: pnpm start-and-revalidate-staging

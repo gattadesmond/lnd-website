@@ -34,6 +34,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env-cmdrc.js
 
 # vercel
 .vercel
@@ -55,4 +56,8 @@ package-lock.json
 # husky
 /.husky
 
+.dockerignore
 .gitignore
+/docker
+/momo-product-lnd
+skaffold.yaml
