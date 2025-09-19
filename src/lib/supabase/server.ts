@@ -22,7 +22,7 @@ export async function createClient() {
         },
         setAll(cookiesToSet) {
           const response = NextResponse.next();
-
+          console.log("responseresponseresponseresponseresponseresponse");
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),
