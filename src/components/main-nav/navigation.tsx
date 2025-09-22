@@ -269,12 +269,15 @@ function Navigation() {
             <div className="hidden grow basis-0 justify-end gap-2 lg:flex">
               {" "}
               <Button size="sm" className="cursor-pointer" variant="outline">
-                <MagnifyingGlassIcon className="size-4" weight="bold" /> Tìm
-                kiếm
+                <MagnifyingGlassIcon className="size-4" weight="bold" />{" "}
+                <kbd className="pointer-events-none inline-flex h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-sm font-medium text-muted-foreground opacity-100 select-none">
+                  <span className="text-sm">⌘</span>K
+                </kbd>
               </Button>{" "}
               <Button size="sm" className="cursor-pointer">
                 Đăng nhập
               </Button>
+              a
             </div>
           </div>
         </div>
