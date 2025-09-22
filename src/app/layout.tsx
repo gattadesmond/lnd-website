@@ -6,7 +6,8 @@ import "@/styles/globals.css";
 import { Toaster } from "sonner";
 
 import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
+import Navigation from "@/components/main-nav/navigation";
+// import { Header } from "@/components/header";
 import { AuthErrorHandler } from "@/features/auth/components/auth-error-handler";
 
 const geistSans = Geist({
@@ -35,17 +36,18 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className="min-h-screen bg-background font-sans antialiased"
+      lang="vi"
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} dark amazing-rays antialiased`}
-      >
-        <Header />
-        <main className="">{children}</main>
-        <Footer />
-        <Toaster />
-        <AuthErrorHandler />
+      <body className={`!overflow-x-hidden`}>
+        <div className="relative z-10 bg-white">
+          <Navigation />
+          {/* <Header /> */}
+          <main className=" ">{children}</main>
+          <Footer />
+          <Toaster />
+          <AuthErrorHandler />
+        </div>
       </body>
     </html>
   );
