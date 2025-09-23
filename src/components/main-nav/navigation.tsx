@@ -12,6 +12,7 @@ import {
   MagnifyingGlassIcon,
 } from "@phosphor-icons/react";
 
+import { SearchCommand, useSearchCommand } from "@/components/search-command";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -25,28 +26,9 @@ import {
 
 import NavigationMobile from "./navigation-mobile";
 
-function ListItem({
-  title,
-  children,
-  href,
-  ...props
-}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
-  return (
-    <li {...props}>
-      <NavigationMenuLink asChild>
-        <Link href={href}>
-          <div className="text-sm leading-none font-medium">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </Link>
-      </NavigationMenuLink>
-    </li>
-  );
-}
-
 function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { open, setOpen } = useSearchCommand();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -267,13 +249,17 @@ function Navigation() {
               </div>
             </nav>
             <div className="hidden grow basis-0 justify-end gap-2 lg:flex">
-              {" "}
-              <Button size="sm" className="cursor-pointer" variant="outline">
-                <MagnifyingGlassIcon className="size-4" weight="bold" />{" "}
+              <Button
+                size="sm"
+                className="cursor-pointer"
+                variant="outline"
+                onClick={() => setOpen(true)}
+              >
+                <MagnifyingGlassIcon className="size-4" weight="bold" />
                 <kbd className="pointer-events-none inline-flex h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-sm font-medium text-muted-foreground opacity-100 select-none">
                   <span className="text-sm">⌘</span>K
                 </kbd>
-              </Button>{" "}
+              </Button>
               <Button size="sm" className="cursor-pointer">
                 Đăng nhập
               </Button>
@@ -281,6 +267,7 @@ function Navigation() {
           </div>
         </div>
       </div>
+      <SearchCommand open={open} onOpenChange={setOpen} />
     </>
   );
 }
