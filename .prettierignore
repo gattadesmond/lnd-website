@@ -56,6 +56,9 @@ package-lock.json
 # husky
 /.husky
 
+# cursor rules
+.cursorrules
+
 .dockerignore
 .gitignore
 /docker
