@@ -6,7 +6,7 @@ module.exports = {
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
       "sb_publishable_9OvpbqHd29lWKDAZt4IVvA_CB4dUfI7",
     NEXT_PUBLIC_SUPABASE_AUTH_STORAGE_KEY: "sb_auth_token",
-    SUPABASE_SECRET_KEY: "sb_publishable_9OvpbqHd29lWKDAZt4IVvA_CB4dUfI7",
+    SUPABASE_SECRET_KEY: "sb_secret_Qp8Seyl6iftfEJ_ov0egbg_-K4b40xf",
   },
   "on-build": {
     NEXT_APP_BUILD: "on",
