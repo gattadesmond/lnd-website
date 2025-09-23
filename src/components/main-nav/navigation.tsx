@@ -277,7 +277,6 @@ function Navigation() {
               <Button size="sm" className="cursor-pointer">
                 Đăng nhập
               </Button>
-              a
             </div>
           </div>
         </div>
