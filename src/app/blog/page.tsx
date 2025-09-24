@@ -84,7 +84,8 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
 
   const storiesQuery = supabase
     .from("stories_overview")
-    .select("*", { count: "exact" });
+    .select("*", { count: "exact" })
+    .order("published_at", { ascending: false });
 
   // Execute queries in parallel for better performance
   const [
@@ -93,7 +94,7 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
   ] = await Promise.all([
     storiesQuery
       .order("published_at", { ascending: false })
-      .range((currentPage - 1) * 6, currentPage * 6 - 1),
+      .range((currentPage - 1) * 9, currentPage * 9 - 1),
     categoriesQuery,
   ]);
 
@@ -113,7 +114,7 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
     : [];
 
   // Calculate pagination
-  const totalPages = storiesCount ? Math.ceil(storiesCount / 6) : 1;
+  const totalPages = storiesCount ? Math.ceil(storiesCount / 9) : 1;
 
   // Redirect if page is out of range
   if (totalPages > 0 && currentPage > totalPages) {
@@ -279,9 +280,9 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
           )}
 
           {/* Fill remaining grid slots if needed */}
-          {stories && stories.length > 0 && stories.length < 6 && (
+          {stories && stories.length > 0 && stories.length < 9 && (
             <>
-              {Array.from({ length: 6 - stories.length }).map((_, idx) => (
+              {Array.from({ length: 9 - stories.length }).map((_, idx) => (
                 <div
                   key={`empty-${idx}`}
                   className="hidden size-full md:block"

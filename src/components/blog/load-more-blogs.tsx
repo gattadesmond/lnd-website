@@ -53,6 +53,11 @@ export function LoadMoreBlogs({
         "limit:",
         POSTS_PER_LOAD,
       );
+      console.log("Initial stories count:", initialStories.length);
+      console.log(
+        "Initial stories IDs:",
+        initialStories.map((s) => s.id),
+      );
 
       const supabase = createClient();
 
@@ -68,6 +73,10 @@ export function LoadMoreBlogs({
       }
 
       console.log("Received stories:", stories?.length);
+      console.log(
+        "Received stories IDs:",
+        stories?.map((s) => s.id),
+      );
 
       if (stories && stories.length > 0) {
         setAdditionalStories((prev) => [...prev, ...stories]);
@@ -140,10 +149,10 @@ export function LoadMoreBlogs({
             {isLoading ? (
               <>
                 <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                Loading...
+                Show more posts
               </>
             ) : (
-              "Load More"
+              "Show more posts"
             )}
           </Button>
         </div>
