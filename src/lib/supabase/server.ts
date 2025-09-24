@@ -1,7 +1,3 @@
-/**https://supabase.com/docs/guides/auth/server-side/nextjs */
-
-import "server-only";
-
 import { cookies } from "next/headers";
 
 import { createServerClient } from "@supabase/ssr";
@@ -20,13 +16,11 @@ export async function createClient() {
           return cookieStore.getAll();
         },
         setAll(cookiesToSet) {
-          console.log("setAll");
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),
             );
-          } catch (err) {
-            console.log(err);
+          } catch {
             // The `setAll` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
             // user sessions.
