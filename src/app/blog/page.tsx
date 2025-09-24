@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 
 import { compact, map, uniqBy } from "lodash-es";
 
+import { LoadMoreBlogs } from "@/components/blog/load-more-blogs";
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { generatePage } from "@/lib/generatePage";
@@ -31,6 +32,11 @@ interface BlogStory {
   author_avatar?: string;
   published_at?: string;
   category_title?: string;
+  authors?: Array<{
+    user_name: React.ReactNode;
+    full_name: string;
+    avatar_url: string;
+  }>;
 }
 
 interface BlogCategory {
@@ -232,12 +238,12 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
                   <div className="mt-4 flex items-center space-x-2">
                     <div className="flex items-center -space-x-2">
                       <Image
-                        alt={story.authors[0].full_name.trim() || "Author"}
+                        alt={story.authors?.[0]?.full_name?.trim() || "Author"}
                         width={32}
                         height={32}
                         className="rounded-full transition-all group-hover:brightness-90"
                         src={
-                          story.authors[0].avatar_url.trim() ||
+                          story.authors?.[0]?.avatar_url?.trim() ||
                           "/images/placeholder-avatar.jpg"
                         }
                       />
@@ -284,6 +290,14 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
             </>
           )}
         </div>
+
+        {/* Load More Component */}
+        {stories && stories.length > 0 && (
+          <LoadMoreBlogs
+            initialStories={stories}
+            totalCount={storiesCount || 0}
+          />
+        )}
       </Container>
 
       <div className="h-0 border-t border-neutral-200" />
