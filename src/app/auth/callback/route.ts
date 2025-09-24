@@ -52,5 +52,7 @@ export async function GET(request: NextRequest) {
     // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
     return NextResponse.redirect(redirectUrl);
   }
-  return NextResponse.redirect(`https://${forwardedHost}${decodedNext}`);
+  return NextResponse.redirect(
+    `${process.env.NEXT_PUBLIC_DOMAIN}${decodedNext}`,
+  );
 }
