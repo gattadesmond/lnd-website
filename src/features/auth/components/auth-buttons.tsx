@@ -17,20 +17,20 @@ export function AuthButtons({ className }: AuthButtonsProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
-      setLoaded(true);
-    });
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      setLoaded(true);
-    });
-    return () => subscription.unsubscribe();
-  }, []);
+  // useEffect(() => {
+  //   const supabase = createClient();
+  //   supabase.auth.getUser().then(({ data }) => {
+  //     setUser(data.user);
+  //     setLoaded(true);
+  //   });
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange((_event, session) => {
+  //     setUser(session?.user ?? null);
+  //     setLoaded(true);
+  //   });
+  //   return () => subscription.unsubscribe();
+  // }, []);
 
   if (!loaded) {
     return null;
