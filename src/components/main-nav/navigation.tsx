@@ -5,12 +5,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import {
-  BookOpenIcon,
-  CalendarBlankIcon,
-  GraduationCapIcon,
-  MagnifyingGlassIcon,
-} from "@phosphor-icons/react";
+import { BookOpen, Calendar, GraduationCap, Search } from "lucide-react";
 
 import { SearchCommand, useSearchCommand } from "@/components/search-command";
 import { Button } from "@/components/ui/button";
@@ -85,7 +80,7 @@ function Navigation() {
                 <NavigationMenu viewport={true}>
                   <NavigationMenuList>
                     <NavigationMenuItem>
-                      <NavigationMenuTrigger>
+                      <NavigationMenuTrigger className="bg-transparent">
                         Our Contents
                       </NavigationMenuTrigger>
                       {/* <div className="absolute top-full left-1/2 mt-3 -translate-x-1/2"> */}
@@ -112,10 +107,7 @@ function Navigation() {
 
                               <div className="relative p-5 pb-0">
                                 <div className="flex size-5 items-center justify-center rounded bg-orange-400">
-                                  <BookOpenIcon
-                                    className="size-3.5 text-orange-900"
-                                    weight="fill"
-                                  />
+                                  <BookOpen className="size-3.5 text-orange-900" />
                                 </div>
                                 <span className="mt-3 block text-sm font-medium text-neutral-900">
                                   LnD Stories
@@ -155,10 +147,7 @@ function Navigation() {
                               />
                               <div className="relative p-5 pb-0">
                                 <div className="flex size-5 items-center justify-center rounded bg-green-400">
-                                  <GraduationCapIcon
-                                    className="size-3.5 text-green-900"
-                                    weight="fill"
-                                  />
+                                  <GraduationCap className="size-3.5 text-green-900" />
                                 </div>
                                 <span className="mt-3 block text-sm font-medium text-neutral-900">
                                   LnD Learning & Development
@@ -197,10 +186,7 @@ function Navigation() {
                               />
                               <div className="relative p-5 pb-0">
                                 <div className="flex size-5 items-center justify-center rounded bg-violet-400">
-                                  <CalendarBlankIcon
-                                    className="size-3.5 text-violet-900"
-                                    weight="fill"
-                                  />
+                                  <Calendar className="size-3.5 text-violet-900" />
                                 </div>
                                 <span className="mt-3 block text-sm font-medium text-neutral-900">
                                   LnD Events
@@ -229,7 +215,9 @@ function Navigation() {
                         asChild
                         className={navigationMenuTriggerStyle()}
                       >
-                        <Link href="/our-project">Our project</Link>
+                        <Link href="/our-project" className="bg-transparent">
+                          Our project
+                        </Link>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
 
@@ -238,7 +226,9 @@ function Navigation() {
                         asChild
                         className={navigationMenuTriggerStyle()}
                       >
-                        <Link href="/feedback">Feedback</Link>
+                        <Link href="/feedback" className="bg-transparent">
+                          Feedback
+                        </Link>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   </NavigationMenuList>
@@ -255,11 +245,12 @@ function Navigation() {
                 variant="outline"
                 onClick={() => setOpen(true)}
               >
-                <MagnifyingGlassIcon className="size-4" weight="bold" />
+                <Search className="size-4" />
                 <kbd className="pointer-events-none inline-flex h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-sm font-medium text-muted-foreground opacity-100 select-none">
                   <span className="text-sm">⌘</span>K
                 </kbd>
               </Button>
+
               <Button size="sm" className="cursor-pointer">
                 Đăng nhập
               </Button>

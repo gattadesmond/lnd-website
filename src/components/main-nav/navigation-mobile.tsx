@@ -5,13 +5,13 @@ import { useState } from "react";
 import Link from "next/link";
 
 import {
-  BookOpenIcon,
-  CalendarBlankIcon,
-  GraduationCapIcon,
-  ListIcon,
-  MagnifyingGlassIcon,
-  XIcon,
-} from "@phosphor-icons/react";
+  BookOpen,
+  Calendar,
+  GraduationCap,
+  Menu,
+  Search,
+  X,
+} from "lucide-react";
 
 import {
   Accordion,
@@ -46,7 +46,7 @@ function NavigationMobile() {
   return (
     <div className="fixed top-0 right-0 z-40 flex items-center gap-4 p-2.5 lg:hidden">
       <Button size="sm" className="cursor-pointer" variant="outline">
-        <MagnifyingGlassIcon className="size-4" weight="bold" /> Tìm kiếm
+        <Search className="size-4" /> Tìm kiếm
       </Button>{" "}
       <Button size="sm" className="cursor-pointer">
         Đăng nhập
@@ -57,9 +57,9 @@ function NavigationMobile() {
         aria-label="Toggle menu"
       >
         {isMenuOpen ? (
-          <XIcon className="size-5 text-neutral-600" weight="bold" />
+          <X className="size-5 text-neutral-600" />
         ) : (
-          <ListIcon className="size-5 text-neutral-600" weight="bold" />
+          <Menu className="size-5 text-neutral-600" />
         )}
       </button>
       {/* isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 pointer-events-none' */}
@@ -84,10 +84,7 @@ function NavigationMobile() {
                 <Link className="flex w-full items-center gap-3" href="/links">
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-gradient-to-t from-neutral-100">
                     <div className="flex size-5 items-center justify-center rounded bg-orange-400">
-                      <BookOpenIcon
-                        className="size-3.5 text-orange-900"
-                        weight="fill"
-                      />
+                      <BookOpen className="size-3.5 text-orange-900" />
                     </div>
                   </div>
                   <div>
@@ -110,10 +107,7 @@ function NavigationMobile() {
                 >
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-gradient-to-t from-neutral-100">
                     <div className="flex size-5 items-center justify-center rounded bg-violet-400">
-                      <GraduationCapIcon
-                        className="size-3.5 text-violet-900"
-                        weight="fill"
-                      />
+                      <GraduationCap className="size-3.5 text-violet-900" />
                     </div>
                   </div>
                   <div>
@@ -135,10 +129,7 @@ function NavigationMobile() {
                 >
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-gradient-to-t from-neutral-100">
                     <div className="flex size-5 items-center justify-center rounded bg-green-400">
-                      <CalendarBlankIcon
-                        className="size-3.5 text-green-900"
-                        weight="fill"
-                      />
+                      <Calendar className="size-3.5 text-green-900" />
                     </div>
                   </div>
                   <div>
