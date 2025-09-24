@@ -86,10 +86,6 @@ const BlogPage = generatePage(
       redirect("/blog");
     }
 
-    console.log("🚀 ~ stories:", stories);
-    console.log("🚀 ~ storiesCount:", storiesCount);
-    console.log("🚀 ~ categories:", categories);
-
     return (
       <>
         <section className="overflow-hidden border-b border-neutral-200">
