@@ -24,7 +24,7 @@ export function Container({
   return (
     <Comp
       className={cn(
-        "mx-auto w-full max-w-screen-lg px-5 lg:px-5 xl:px-0",
+        "relative mx-auto w-full max-w-screen-lg px-5 lg:px-5 xl:px-0",
         isBorderX && "max-w-[1080px]",
         className,
       )}

@@ -16,7 +16,7 @@ export const FooterContent = [
 
 export function Footer() {
   return (
-    <Container className="relative z-10 overflow-hidden border-0 border-neutral-200 bg-transparent py-16 backdrop-blur-lg md:rounded-t-2xl">
+    <Container className="relative z-10 overflow-hidden border-0 bg-transparent py-16 backdrop-blur-lg md:rounded-t-2xl">
       <footer>
         <div className="lg:grid lg:grid-cols-4 lg:gap-8">
           <div className="flex flex-col gap-6">
