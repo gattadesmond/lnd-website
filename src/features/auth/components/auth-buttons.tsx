@@ -32,13 +32,9 @@ export function AuthButtons({ className }: AuthButtonsProps) {
   //   return () => subscription.unsubscribe();
   // }, []);
 
-  if (!loaded) {
-    return null;
-  }
+  // if (!loaded) {
+  //   return null;
+  // }
 
-  return user ? (
-    <ProfileButton user={user} className={className} />
-  ) : (
-    <LoginButton className={className} />
-  );
+  return <LoginButton className={className} />;
 }
