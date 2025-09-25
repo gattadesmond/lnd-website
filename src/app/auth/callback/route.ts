@@ -13,18 +13,20 @@ const getDecodedNext = (next: string) => {
 };
 
 export async function GET(request: NextRequest) {
-  const origin = request.nextUrl.origin;
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get("code");
   const decodedNext = getDecodedNext(searchParams.get("next") ?? "/");
-  const redirectUrl = new URL(decodedNext, origin);
+  const redirectUrl = new URL(decodedNext, process.env.NEXT_PUBLIC_DOMAIN);
+
+  const response = NextResponse.redirect(redirectUrl);
+
   if (!code) {
-    return NextResponse.redirect(redirectUrl);
+    return response;
   }
-  const supabase = await createClient();
+  const supabase = await createClient(response);
   const { error, data } = await supabase.auth.exchangeCodeForSession(code);
   if (error) {
-    return NextResponse.redirect(redirectUrl);
+    return response;
   }
   const { user } = data;
   if (
@@ -44,13 +46,14 @@ export async function GET(request: NextRequest) {
       maxAge: 10,
       path: "/",
     });
-    return NextResponse.redirect(redirectUrl);
+    return response;
   }
   const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
   const isLocalEnv = process.env.NODE_ENV === "development";
   if (isLocalEnv || !forwardedHost) {
     // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
-    return NextResponse.redirect(redirectUrl);
+    return response;
   }
-  return NextResponse.redirect(`https://${forwardedHost}${decodedNext}`);
+
+  return response;
 }
