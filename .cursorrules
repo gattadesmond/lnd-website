@@ -3,6 +3,12 @@
 ## Project Overview
 This is a Next.js 15 project using App Router, Tailwind CSS v4, and shadcn/UI components. Always prioritize shadcn/UI components over custom implementations.
 
+## Package Manager
+- Use `pnpm` for all package management
+- Use `pnpm add` for installing new packages
+- Use `pnpm install` for installing dependencies
+- Use `pnpm run` for running scripts
+
 ## Core Technologies & Patterns
 
 ### Next.js App Router
@@ -34,6 +40,13 @@ This is a Next.js 15 project using App Router, Tailwind CSS v4, and shadcn/UI co
 - Import from `@/components/ui/` path
 - Extend shadcn components using `cn()` utility for styling
 - Use Radix UI primitives when shadcn doesn't have the component
+
+### Editor.js Integration
+- Use `editorjs-html` package for rendering Editor.js JSON content
+- Handle missing parsers gracefully with fallback rendering
+- Support common block types: header, paragraph, list, quote, code, image, table, simpleImage
+- Use `dangerouslySetInnerHTML` for HTML output from Editor.js
+- Implement error handling for malformed JSON content
 
 ## Code Structure & Patterns
 

@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import EditorJsHtml from "editorjs-html";
+
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { generatePage } from "@/lib/generatePage";
@@ -69,7 +71,6 @@ const StoryPage = generatePage(
       .select("*")
       .eq("slug", slug)
       .single();
-    console.log("🚀 ~ story:", story);
 
     if (error || !story) {
       notFound();
@@ -160,10 +161,58 @@ const StoryPage = generatePage(
         {/* Content */}
         <Container className="relative max-w-4xl">
           <div className="py-12">
-            <div
-              className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-a:text-blue-600 prose-strong:text-neutral-900"
-              dangerouslySetInnerHTML={{ __html: story.content || "" }}
-            />
+            <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-a:text-blue-600 prose-strong:text-neutral-900">
+              {story.content && typeof story.content === "string" ? (
+                (() => {
+                  try {
+                    const editorData = JSON.parse(story.content);
+                    const edjsParser = EditorJsHtml({
+                      table: (data: { content?: unknown[][] }) => {
+                        // Custom table renderer
+                        if (!data.content || !Array.isArray(data.content))
+                          return "";
+                        const rows = data.content
+                          .map(
+                            (row: unknown[]) =>
+                              `<tr>${row.map((cell) => `<td>${cell || ""}</td>`).join("")}</tr>`,
+                          )
+                          .join("");
+                        return `<table class="border-collapse border border-neutral-300 w-full my-4"><tbody>${rows}</tbody></table>`;
+                      },
+                      simpleImage: (data: {
+                        url?: string;
+                        caption?: string;
+                      }) => {
+                        console.log("🚀 ~ data:", data);
+                        // Custom simpleImage renderer
+                        if (!data.url) return "";
+                        const caption = data.caption
+                          ? `<p class="text-sm text-neutral-500 mt-2 text-center">${data.caption}</p>`
+                          : "";
+                        return `<div class="my-6"><img src="${data.url}" alt="${data.caption || "Image"}" class="rounded-lg w-full" />${caption}</div>`;
+                      },
+                    });
+                    const html = edjsParser.parse(editorData);
+                    return (
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: Array.isArray(html) ? html.join("") : html,
+                        }}
+                      />
+                    );
+                  } catch {
+                    // Fallback for non-JSON content
+                    return (
+                      <div
+                        dangerouslySetInnerHTML={{ __html: story.content }}
+                      />
+                    );
+                  }
+                })()
+              ) : (
+                <div className="text-neutral-500">No content available</div>
+              )}
+            </div>
           </div>
         </Container>
 
