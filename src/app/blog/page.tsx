@@ -66,6 +66,9 @@ export const metadata = {
 
 export const revalidate = 60;
 
+// Số bài viết hiển thị ban đầu
+const INITIAL_POSTS_COUNT = 9;
+
 const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
   // Extract search parameters with type safety
   const { page } = await searchParams;
@@ -94,7 +97,10 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
   ] = await Promise.all([
     storiesQuery
       .order("published_at", { ascending: false })
-      .range((currentPage - 1) * 9, currentPage * 9 - 1),
+      .range(
+        (currentPage - 1) * INITIAL_POSTS_COUNT,
+        currentPage * INITIAL_POSTS_COUNT - 1,
+      ),
     categoriesQuery,
   ]);
 
@@ -114,16 +120,14 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
     : [];
 
   // Calculate pagination
-  const totalPages = storiesCount ? Math.ceil(storiesCount / 9) : 1;
+  const totalPages = storiesCount
+    ? Math.ceil(storiesCount / INITIAL_POSTS_COUNT)
+    : 1;
 
   // Redirect if page is out of range
   if (totalPages > 0 && currentPage > totalPages) {
     redirect("/blog");
   }
-
-  console.log("🚀 ~ stories:", stories);
-  console.log("🚀 ~ categories:", categories);
-  console.log("🚀 ~ distinctCategories:", distinctCategories);
 
   return (
     <>
@@ -280,16 +284,20 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
           )}
 
           {/* Fill remaining grid slots if needed */}
-          {stories && stories.length > 0 && stories.length < 9 && (
-            <>
-              {Array.from({ length: 9 - stories.length }).map((_, idx) => (
-                <div
-                  key={`empty-${idx}`}
-                  className="hidden size-full md:block"
-                ></div>
-              ))}
-            </>
-          )}
+          {stories &&
+            stories.length > 0 &&
+            stories.length < INITIAL_POSTS_COUNT && (
+              <>
+                {Array.from({
+                  length: INITIAL_POSTS_COUNT - stories.length,
+                }).map((_, idx) => (
+                  <div
+                    key={`empty-${idx}`}
+                    className="hidden size-full md:block"
+                  ></div>
+                ))}
+              </>
+            )}
         </div>
 
         {/* Load More Component */}
