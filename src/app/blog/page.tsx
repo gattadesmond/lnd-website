@@ -151,7 +151,7 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
             </p>
 
             {/* Category Navigation */}
-            <nav className="mt-10 hidden w-fit items-center gap-x-2 gap-y-4 sm:flex sm:flex-wrap">
+            <nav className="mt-10 flex w-fit flex-wrap items-center gap-x-2 gap-y-4">
               <Button
                 asChild
                 className="text-sm font-medium"
@@ -178,38 +178,6 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
                   </Button>
                 ))}
             </nav>
-
-            {/* Mobile Category Button */}
-            <Button
-              variant="outline"
-              className="mt-10 flex h-10 w-full items-center gap-2 sm:hidden"
-              type="button"
-              aria-haspopup="dialog"
-              aria-expanded="false"
-              aria-controls="radix-«R2adrninb»"
-              data-state="closed"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={16}
-                height={16}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-list"
-              >
-                <line x1={8} x2={21} y1={6} y2={6} />
-                <line x1={8} x2={21} y1={12} y2={12} />
-                <line x1={8} x2={21} y1={18} y2={18} />
-                <line x1={3} x2="3.01" y1={6} y2={6} />
-                <line x1={3} x2="3.01" y1={12} y2={12} />
-                <line x1={3} x2="3.01" y1={18} y2={18} />
-              </svg>
-              <p>Categories</p>
-            </Button>
           </div>
         </Container>
       </section>
@@ -247,15 +215,15 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
                 ))}
               </>
             )}
-        </div>
 
-        {/* Load More Component */}
-        {stories && stories.length > 0 && (
-          <LoadMoreBlogs
-            initialStories={stories}
-            totalCount={storiesCount || 0}
-          />
-        )}
+          {/* Load More Component */}
+          {stories && stories.length > 0 && (
+            <LoadMoreBlogs
+              initialStories={stories}
+              totalCount={storiesCount || 0}
+            />
+          )}
+        </div>
       </Container>
 
       <div className="h-0 border-t border-neutral-200" />

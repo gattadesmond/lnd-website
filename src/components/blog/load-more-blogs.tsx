@@ -100,7 +100,7 @@ export function LoadMoreBlogs({
     <>
       {/* Chỉ hiển thị các bài viết mới được load thêm */}
       {additionalStories.length > 0 && (
-        <div className="[&>*]:border-grid-border grid grid-cols-1 gap-0 md:grid-cols-3 max-md:[&>*]:border-t md:[&>*:not(:nth-child(3n))]:border-r md:[&>*:nth-child(n+4)]:border-t">
+        <>
           {additionalStories.map((story: BlogStory, idx: number) => (
             <BlogCard
               key={story.id || `additional-${idx}`}
@@ -108,47 +108,22 @@ export function LoadMoreBlogs({
               index={idx}
             />
           ))}
-        </div>
-      )}
-
-      {/* Loading skeletons cho 6 bài tiếp theo */}
-      {isLoading && (
-        <div className="[&>*]:border-grid-border grid grid-cols-1 gap-0 md:grid-cols-3 max-md:[&>*]:border-t md:[&>*:not(:nth-child(3n))]:border-r md:[&>*:nth-child(n+4)]:border-t">
-          {Array.from({ length: POSTS_PER_LOAD }).map((_, idx) => (
-            <div key={`loading-${idx}`} className="flex flex-col">
-              <Skeleton className="aspect-[16/9] w-full" />
-              <div className="flex flex-1 flex-col justify-between px-6 py-5">
-                <div>
-                  <Skeleton className="mb-2 h-6 w-3/4" />
-                  <Skeleton className="mb-1 h-4 w-full" />
-                  <Skeleton className="h-4 w-2/3" />
-                </div>
-                <div className="mt-4 flex items-center space-x-2">
-                  <Skeleton className="size-8 rounded-full" />
-                  <div className="space-y-1">
-                    <Skeleton className="h-4 w-24" />
-                    <Skeleton className="h-3 w-16" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        </>
       )}
 
       {/* Load More Button */}
       {hasMore && (
-        <div className="flex justify-center border-t border-neutral-200 py-8">
+        <div className="flex justify-center !border-r-0 bg-neutral-50 py-8 md:col-span-3">
           <Button
             onClick={loadMore}
             disabled={isLoading}
             variant="outline"
             size="lg"
-            className="min-w-32"
+            className="w-full max-w-md cursor-pointer rounded-3xl"
           >
             {isLoading ? (
               <>
-                <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-neutral-300 border-t-transparent" />
                 Show more posts
               </>
             ) : (
