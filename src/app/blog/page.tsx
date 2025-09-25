@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { compact, map, uniqBy } from "lodash-es";
 
+import { BlogCard } from "@/components/blog/blog-card";
 import { LoadMoreBlogs } from "@/components/blog/load-more-blogs";
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
@@ -213,64 +213,11 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
       </section>
 
       {/* Blog Grid */}
-      <Container isBorderX className="relative">
-        <div className="[&>*]:border-grid-border grid grid-cols-1 gap-0 md:grid-cols-3 max-md:[&>*]:border-t md:[&>*:not(:nth-child(3n))]:border-r md:[&>*:nth-child(n+4)]:border-t">
+      <Container className="relative max-w-[1080px]">
+        <div className="[&>*]:border-grid-border grid grid-cols-1 gap-0 border-x border-neutral-200 md:grid-cols-3 max-md:[&>*]:border-t md:[&>*:not(:nth-child(3n))]:border-r md:[&>*:nth-child(n+4)]:border-t">
           {stories && stories.length > 0 ? (
             stories.map((story: BlogStory, idx: number) => (
-              <Link
-                key={story.id || idx}
-                className="flex flex-col transition-all hover:bg-neutral-50"
-                href={`/blog/${story.slug || "post"}`}
-              >
-                <Image
-                  alt={story.title || "Blog post"}
-                  width={2400}
-                  height={1260}
-                  className="aspect-[1200/630] object-cover"
-                  src={story.cover_image_url || "/images/placeholder-blog.jpg"}
-                />
-                <div className="flex flex-1 flex-col justify-between p-6">
-                  <div>
-                    <h2 className="font-display line-clamp-2 text-lg font-bold text-neutral-900">
-                      {story.title || "Untitled Post"}
-                    </h2>
-                    <p className="mt-2 line-clamp-2 text-sm text-neutral-500">
-                      {story.excerpt ||
-                        story.description ||
-                        "No description available"}
-                    </p>
-                  </div>
-                  <div className="mt-4 flex items-center space-x-2">
-                    <div className="flex items-center -space-x-2">
-                      <Image
-                        alt={story.authors?.[0]?.full_name?.trim() || "Author"}
-                        width={32}
-                        height={32}
-                        className="rounded-full transition-all group-hover:brightness-90"
-                        src={
-                          story.authors?.[0]?.avatar_url?.trim() ||
-                          "/images/placeholder-avatar.jpg"
-                        }
-                      />
-                    </div>
-                    <time
-                      dateTime={story.published_at || new Date().toISOString()}
-                      className="text-sm text-neutral-500"
-                    >
-                      {story.published_at
-                        ? new Date(story.published_at).toLocaleDateString(
-                            "en-US",
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            },
-                          )
-                        : "Recently"}
-                    </time>
-                  </div>
-                </div>
-              </Link>
+              <BlogCard key={story.id || idx} story={story} index={idx} />
             ))
           ) : (
             <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
