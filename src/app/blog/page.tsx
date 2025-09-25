@@ -139,7 +139,7 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
           borderXClassName="[mask-image:linear-gradient(transparent,black)]"
         >
           <div className="relative pt-16 pb-6 sm:px-12 sm:pb-20">
-            <h1 className="font-display mt-5 text-left text-4xl font-medium text-neutral-900 sm:text-5xl sm:leading-[1.15]">
+            <h1 className="font-display mt-5 text-left text-4xl font-semibold text-neutral-900 sm:text-5xl sm:leading-[1.15]">
               Product Stories
             </h1>
             <p className="mt-6 text-lg text-neutral-500 sm:text-xl">

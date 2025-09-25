@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
 import "@/styles/globals.css";
 
@@ -9,14 +9,11 @@ import { Footer } from "@/components/footer";
 import Navigation from "@/components/main-nav/navigation";
 import { AuthErrorHandler } from "@/features/auth/components/auth-error-handler";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Cấu hình font Plus Jakarta Sans
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -36,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${plusJakartaSans.variable} ${plusJakartaSans.className} antialiased`}
     >
       <body className={`!overflow-x-hidden`}>
         <div className="relative z-10 bg-white">
