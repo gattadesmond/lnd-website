@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { EyeIcon, ThumbsUp } from "lucide-react";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface BlogStory {
@@ -14,6 +16,8 @@ interface BlogStory {
   author_avatar?: string;
   published_at?: string;
   category_title?: string;
+  view_count?: number;
+  reacted_users_count?: number;
   authors?: Array<{
     user_name: React.ReactNode;
     full_name: string;
@@ -27,6 +31,7 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ story, index }: BlogCardProps) {
+  console.log("🚀 ~ BlogCard ~ story:", story);
   return (
     <Link
       key={story.id || index}
@@ -90,18 +95,35 @@ export function BlogCard({ story, index }: BlogCardProps) {
                   </span>
                 ))}
             </div>
-            <time
-              dateTime={story.published_at || new Date().toISOString()}
-              className="text-xs text-neutral-500"
-            >
-              {story.published_at
-                ? new Date(story.published_at).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })
-                : "Recently"}
-            </time>
+            {/* View count và reaction count */}
+            <div className="mt-0 flex items-center space-x-3 text-xs text-neutral-500">
+              <time
+                dateTime={story.published_at || new Date().toISOString()}
+                className="text-xs text-neutral-500"
+              >
+                {story.published_at
+                  ? new Date(story.published_at).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : "Recently"}
+              </time>
+
+              {story.view_count !== undefined && (
+                <div className="flex items-center space-x-1">
+                  <EyeIcon className="h-3 w-3" aria-hidden="true" />
+                  <span>{story.view_count.toLocaleString()}</span>
+                </div>
+              )}
+
+              {story.reacted_users_count !== undefined && (
+                <div className="flex items-center space-x-1">
+                  <ThumbsUp className="h-3 w-3" aria-hidden="true" />
+                  <span>{story.reacted_users_count.toLocaleString()}</span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
