@@ -19,13 +19,13 @@ export async function createClient(response: NextResponse) {
           return cookieStore.getAll();
         },
         setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options),
-            );
-          } catch (error) {
-            console.log("Error:  cookieStore.set", error);
-          }
+          // try {
+          //   cookiesToSet.forEach(({ name, value, options }) =>
+          //     response.cookies.set(name, value, options),
+          //   );
+          // } catch (error) {
+          //   console.log("Error:  cookieStore.set", error);
+          // }
         },
       },
       auth: {
