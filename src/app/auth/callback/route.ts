@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
   if (!code) {
     return response;
   }
-  const supabase = await createClient(response);
+  const supabase = await createClient(request, response);
   const { error, data } = await supabase.auth.exchangeCodeForSession(code);
 
   if (error) {
