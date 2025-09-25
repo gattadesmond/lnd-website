@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
@@ -25,9 +24,11 @@ export async function GET(request: NextRequest) {
   }
   const supabase = await createClient(response);
   const { error, data } = await supabase.auth.exchangeCodeForSession(code);
+
   if (error) {
     return response;
   }
+
   const { user } = data;
   if (
     !("custom_claims" in user.user_metadata) ||
@@ -35,19 +36,22 @@ export async function GET(request: NextRequest) {
     user.user_metadata.custom_claims.hd !== "mservice.com.vn"
   ) {
     await supabase.auth.admin.deleteUser(user.id);
-    const cookieStore = await cookies();
-    cookieStore.getAll().forEach(({ name }) => {
+
+    response.cookies.getAll().forEach(({ name }) => {
       if (name.startsWith(process.env.NEXT_PUBLIC_SUPABASE_AUTH_STORAGE_KEY!)) {
-        cookieStore.delete(name);
+        response.cookies.delete(name);
       }
     });
-    cookieStore.set("auth_error", "domain_mismatch", {
+
+    response.cookies.set("auth_error", "domain_mismatch", {
       httpOnly: false,
       maxAge: 10,
       path: "/",
     });
+
     return response;
   }
+
   const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
   const isLocalEnv = process.env.NODE_ENV === "development";
   if (isLocalEnv || !forwardedHost) {
