@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Noto_Sans, Noto_Sans_Display } from "next/font/google";
 
 import "@/styles/globals.css";
 
@@ -9,11 +9,20 @@ import { Footer } from "@/components/footer";
 import Navigation from "@/components/main-nav/navigation";
 import { AuthErrorHandler } from "@/features/auth/components/auth-error-handler";
 
-// Cấu hình font Plus Jakarta Sans
-const plusJakartaSans = Plus_Jakarta_Sans({
+// Cấu hình font Noto Sans Display (cho headings)
+const notoSansDisplay = Noto_Sans_Display({
   subsets: ["latin"],
-  variable: "--font-plus-jakarta-sans",
+  variable: "--font-noto-sans-display",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
+// Cấu hình font Noto Sans (cho body text)
+const notoSans = Noto_Sans({
+  subsets: ["latin"],
+  variable: "--font-noto-sans",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -33,7 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${plusJakartaSans.variable} ${plusJakartaSans.className} antialiased`}
+      className={`${notoSansDisplay.variable} ${notoSans.variable} ${notoSans.className} antialiased`}
     >
       <body className={`!overflow-x-hidden`}>
         <div className="relative z-10 bg-white">
