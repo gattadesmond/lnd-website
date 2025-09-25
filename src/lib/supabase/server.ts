@@ -1,5 +1,6 @@
 import "server-only";
 
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 import { createServerClient } from "@supabase/ssr";
@@ -10,6 +11,7 @@ export async function createClient(
   request: NextRequest,
   response: NextResponse,
 ) {
+  const cookieStore = await cookies();
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SECRET_KEY!,
@@ -28,7 +30,8 @@ export async function createClient(
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, "value", options),
+              // response.cookies.set(name, "value", options),
+              cookieStore.set(name, "value", options),
             );
           } catch (error) {
             console.log("Error:  cookieStore.set", error);
