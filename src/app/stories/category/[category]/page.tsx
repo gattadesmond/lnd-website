@@ -77,7 +77,6 @@ const INITIAL_POSTS_COUNT = 9;
 const CategoryPage = generatePage(
   async ({ params }: { params: Promise<{ category: string }> }) => {
     const { category } = await params;
-    console.log("🚀 ~ category:", category);
 
     // Initialize Supabase client
     const supabase = await createClient();
