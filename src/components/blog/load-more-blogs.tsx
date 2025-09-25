@@ -46,18 +46,6 @@ export function LoadMoreBlogs({
     setIsLoading(true);
 
     try {
-      console.log(
-        "Loading more stories with offset:",
-        currentOffset,
-        "limit:",
-        POSTS_PER_LOAD,
-      );
-      console.log("Initial stories count:", initialStories.length);
-      console.log(
-        "Initial stories IDs:",
-        initialStories.map((s) => s.id),
-      );
-
       const supabase = createClient();
 
       const { data: stories, error } = await supabase
@@ -71,12 +59,6 @@ export function LoadMoreBlogs({
         console.error("Error loading stories:", error);
         throw new Error("Failed to load more stories");
       }
-
-      console.log("Received stories:", stories?.length);
-      console.log(
-        "Received stories IDs:",
-        stories?.map((s) => s.id),
-      );
 
       if (stories && stories.length > 0) {
         setAdditionalStories((prev) => [...prev, ...stories]);

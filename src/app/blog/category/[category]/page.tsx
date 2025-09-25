@@ -104,10 +104,6 @@ const CategoryPage = generatePage(
       redirect(`/blog/category/${category}`);
     }
 
-    console.log("🚀 ~ category:", category);
-    console.log("🚀 ~ stories:", stories);
-    console.log("🚀 ~ storiesCount:", storiesCount);
-
     return (
       <>
         <section className="overflow-hidden border-b border-neutral-200">
@@ -126,7 +122,7 @@ const CategoryPage = generatePage(
                 <span className="text-neutral-900">{categoryTitle}</span>
               </div>
 
-              <h1 className="font-display mt-5 text-left text-4xl font-medium text-neutral-900 sm:text-5xl sm:leading-[1.15]">
+              <h1 className="mt-5 text-left font-display text-4xl font-medium text-neutral-900 sm:text-5xl sm:leading-[1.15]">
                 {categoryTitle}
               </h1>
               <p className="mt-6 text-lg text-neutral-500 sm:text-xl">
@@ -269,7 +265,7 @@ const CategoryPage = generatePage(
                     />
                     <div className="flex flex-1 flex-col justify-between p-6">
                       <div>
-                        <h2 className="font-display line-clamp-2 text-lg font-bold text-neutral-900">
+                        <h2 className="line-clamp-2 font-display text-lg font-bold text-neutral-900">
                           {story.title || "Untitled Post"}
                         </h2>
                         <p className="mt-2 line-clamp-2 text-sm text-neutral-500">
