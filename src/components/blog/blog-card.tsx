@@ -42,7 +42,7 @@ export function BlogCard({ story, index }: BlogCardProps) {
       />
       <div className="flex flex-1 flex-col justify-between px-6 py-5">
         <div>
-          <h2 className="font-display line-clamp-2 text-lg font-semibold text-neutral-900">
+          <h2 className="line-clamp-2 font-display text-lg leading-snug font-semibold text-neutral-900">
             {story.title || "..."}
           </h2>
           <p className="mt-2 line-clamp-2 text-sm text-neutral-500">
