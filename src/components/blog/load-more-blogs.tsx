@@ -4,7 +4,6 @@ import { useState } from "react";
 
 import { BlogCard } from "@/components/blog/blog-card";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { createClient } from "@/lib/supabase/client";
 
 interface BlogStory {
@@ -63,8 +62,9 @@ export function LoadMoreBlogs({
 
       const { data: stories, error } = await supabase
         .from("stories_overview")
-        .select("*")
+        .select("*", { count: "exact" })
         .order("published_at", { ascending: false })
+        .order("created_at", { ascending: false })
         .range(currentOffset, currentOffset + POSTS_PER_LOAD - 1);
 
       if (error) {

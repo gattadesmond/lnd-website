@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import { compact, map, uniqBy } from "lodash-es";
 
@@ -9,17 +8,6 @@ import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { generatePage } from "@/lib/generatePage";
 import { createClient } from "@/lib/supabase/server";
-
-// TypeScript interfaces for better type safety
-interface BlogSearchParams {
-  page?: string;
-  sort?: string;
-  q?: string;
-}
-
-interface BlogPageProps {
-  searchParams: Promise<BlogSearchParams>;
-}
 
 interface BlogStory {
   id?: string;
@@ -71,15 +59,9 @@ export const revalidate = 60;
 // Số bài viết hiển thị ban đầu
 const INITIAL_POSTS_COUNT = 9;
 
-const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
-  // Extract search parameters with type safety
-  const { page } = await searchParams;
-
+const BlogPage = generatePage(async () => {
   // Initialize Supabase client
   const supabase = await createClient();
-
-  // Parse and validate page number
-  const currentPage = page ? parseInt(page, 10) : 1;
 
   // Build queries
   const categoriesQuery = supabase
@@ -89,8 +71,7 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
 
   const storiesQuery = supabase
     .from("stories_overview")
-    .select("*", { count: "exact" })
-    .order("published_at", { ascending: false });
+    .select("*", { count: "exact" });
 
   // Execute queries in parallel for better performance
   const [
@@ -99,10 +80,8 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
   ] = await Promise.all([
     storiesQuery
       .order("published_at", { ascending: false })
-      .range(
-        (currentPage - 1) * INITIAL_POSTS_COUNT,
-        currentPage * INITIAL_POSTS_COUNT - 1,
-      ),
+      .order("created_at", { ascending: false })
+      .range(0, INITIAL_POSTS_COUNT - 1),
     categoriesQuery,
   ]);
 
@@ -120,16 +99,6 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
         (title) => ({ id: title, title }),
       )
     : [];
-
-  // Calculate pagination
-  const totalPages = storiesCount
-    ? Math.ceil(storiesCount / INITIAL_POSTS_COUNT)
-    : 1;
-
-  // Redirect if page is out of range
-  if (totalPages > 0 && currentPage > totalPages) {
-    redirect("/blog");
-  }
 
   return (
     <>
@@ -200,6 +169,13 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
             </div>
           )}
 
+          {stories && stories.length > 0 && (
+            <LoadMoreBlogs
+              initialStories={stories}
+              totalCount={storiesCount || 0}
+            />
+          )}
+
           {/* Fill remaining grid slots if needed */}
           {stories &&
             stories.length > 0 &&
@@ -217,12 +193,6 @@ const BlogPage = generatePage(async ({ searchParams }: BlogPageProps) => {
             )}
 
           {/* Load More Component */}
-          {stories && stories.length > 0 && (
-            <LoadMoreBlogs
-              initialStories={stories}
-              totalCount={storiesCount || 0}
-            />
-          )}
         </div>
       </Container>
 

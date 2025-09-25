@@ -31,7 +31,6 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ story, index }: BlogCardProps) {
-  console.log("🚀 ~ BlogCard ~ story:", story);
   return (
     <Link
       key={story.id || index}
