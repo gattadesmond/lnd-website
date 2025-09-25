@@ -166,6 +166,7 @@ const StoryPage = generatePage(
                 (() => {
                   try {
                     const editorData = JSON.parse(story.content);
+
                     const edjsParser = EditorJsHtml({
                       table: (data: { content?: unknown[][] }) => {
                         // Custom table renderer
@@ -179,20 +180,22 @@ const StoryPage = generatePage(
                           .join("");
                         return `<table class="border-collapse border border-neutral-300 w-full my-4"><tbody>${rows}</tbody></table>`;
                       },
-                      simpleImage: (data: {
-                        url?: string;
-                        caption?: string;
-                      }) => {
-                        console.log("🚀 ~ data:", data);
-                        // Custom simpleImage renderer
-                        if (!data.url) return "";
+                      simpleImage: ({ data }) => {
+                        // Handle different data structures
+                        const imageUrl = data.url || data.file?.url;
+                        if (!imageUrl) {
+                          return "";
+                        }
                         const caption = data.caption
                           ? `<p class="text-sm text-neutral-500 mt-2 text-center">${data.caption}</p>`
                           : "";
-                        return `<div class="my-6"><img src="${data.url}" alt="${data.caption || "Image"}" class="rounded-lg w-full" />${caption}</div>`;
+
+                        const html = `<div class="my-6"><img src="${imageUrl}" alt="${data.caption || "Image"}" class="rounded-lg w-full" />${caption}</div>`;
+                        return html;
                       },
                     });
                     const html = edjsParser.parse(editorData);
+
                     return (
                       <div
                         dangerouslySetInnerHTML={{
