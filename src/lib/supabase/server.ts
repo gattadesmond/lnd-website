@@ -1,3 +1,5 @@
+import "server-only";
+
 import { cookies } from "next/headers";
 
 import { createServerClient } from "@supabase/ssr";
@@ -20,11 +22,8 @@ export async function createClient() {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),
             );
-          } catch (err) {
-            console.warn(
-              "Skipping cookie set (Server Component context):",
-              err,
-            );
+          } catch (error) {
+            console.log("Error:  cookieStore.set", error);
           }
         },
       },
