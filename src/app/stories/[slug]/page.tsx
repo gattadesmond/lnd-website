@@ -230,7 +230,6 @@ const StoryPage = generatePage(
                               return html;
                             },
                             code: ({ data }) => {
-                              console.log("🚀 ~ data:", data);
                               // Handle code blocks with proper semantic HTML
                               const code = data.code || "";
                               const language = data.language || "";

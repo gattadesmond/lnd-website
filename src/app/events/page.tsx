@@ -67,8 +67,6 @@ const BlogPage = generatePage(async () => {
     console.error("Error loading categories:", loadCategoriesError);
   }
 
-  console.log("🚀 ~ stories:", stories);
-
   return (
     <ContentPage
       title={POST_TYPE_CONFIG.event.metadata.title}

@@ -25,7 +25,6 @@ export function InteractionBar({
   isLiked = false,
   storyId,
 }: InteractionBarProps) {
-  console.log("🚀 ~ InteractionBar ~ storyId:", storyId);
   const [liked, setLiked] = useState(isLiked);
   const [commentsOpen, setCommentsOpen] = useState(false);
 
