@@ -1,6 +1,3 @@
-import Image from "next/image";
-
-import { Container } from "@/components/container";
 import Hero from "@/components/hero/hero";
 import { generatePage } from "@/lib/generatePage";
 

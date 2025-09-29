@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { BookOpen, Calendar, GraduationCap, Search } from "lucide-react";
+import { BookOpen, Calendar, GraduationCap } from "lucide-react";
 
 import { Container } from "./container";
 
