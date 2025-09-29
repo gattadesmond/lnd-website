@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import MDEditor from "@uiw/react-md-editor";
+// Removed MDEditor import - using HTML rendering instead
 import { Heart, Reply } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -75,8 +75,11 @@ export function CommentItem({
             </span>
           </div>
         </div>
-        <div className="ml-10" data-color-mode="light">
-          <MDEditor.Markdown source={comment.content} />
+        <div className="ml-10">
+          <div
+            className="prose prose-sm max-w-none"
+            dangerouslySetInnerHTML={{ __html: comment.content }}
+          />
         </div>
         <div className="ml-10 flex items-center gap-4">
           <Button
@@ -145,8 +148,11 @@ export function CommentItem({
                   </span>
                 </div>
               </div>
-              <div className="ml-8" data-color-mode="light">
-                <MDEditor.Markdown source={reply.content} />
+              <div className="ml-8">
+                <div
+                  className="prose prose-sm max-w-none"
+                  dangerouslySetInnerHTML={{ __html: reply.content }}
+                />
               </div>
               <div className="ml-8 flex items-center gap-4">
                 <Button

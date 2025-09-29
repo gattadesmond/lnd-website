@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import { SimpleMarkdownEditor } from "./SimpleMarkdownEditor";
+import { SimpleQuillEditor } from "./SimpleQuillEditor";
 
 interface CommentReplyProps {
   commentId: string;
@@ -27,7 +27,7 @@ export function CommentReply({
 
   return (
     <div className="ml-10">
-      <SimpleMarkdownEditor
+      <SimpleQuillEditor
         value={replyContent}
         onChange={setReplyContent}
         onSubmit={handleSubmitReply}

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import { SimpleMarkdownEditor } from "./SimpleMarkdownEditor";
+import { SimpleQuillEditor } from "./SimpleQuillEditor";
 
 interface CommentInputProps {
   onAddComment?: (content: string) => void;
@@ -10,6 +10,7 @@ interface CommentInputProps {
 
 export function CommentInput({ onAddComment }: CommentInputProps) {
   const [newComment, setNewComment] = useState("");
+  console.log("🚀 ~ CommentInput ~ newComment:", newComment);
 
   const handleSubmitComment = (content: string) => {
     if (content.trim()) {
@@ -20,7 +21,7 @@ export function CommentInput({ onAddComment }: CommentInputProps) {
 
   return (
     <div className="border-b border-gray-200 pb-4">
-      <SimpleMarkdownEditor
+      <SimpleQuillEditor
         value={newComment}
         onChange={setNewComment}
         onSubmit={handleSubmitComment}
