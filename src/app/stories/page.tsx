@@ -1,55 +1,85 @@
-import { FadeIn } from "@/components/fade-in";
-import { StoriesSection } from "@/features/stories/components/stories-section";
-import { STORIES } from "@/features/stories/mocks";
-import { generatePageMetadata } from "@/lib/generate-page-metadata";
+import { ContentPage } from "@/components/content/ContentPage";
 import { generatePage } from "@/lib/generatePage";
-import { cn } from "@/lib/utils";
-import { chakra } from "@/styles/fonts";
+import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
+import { createClient } from "@/lib/supabase/server";
 
-const pageDescription =
-  "Explore our Blog for a wealth of insightful articles and tips, covering a diverse array of topics. Stay informed, inspired, and ahead of the curve with our expertly crafted content.";
-const pageTitle = "Product Stories";
-const pageUrl = "https://product.momo.vn/stories";
+export const metadata = {
+  title: "Product Stories ",
+  description:
+    "Explore our collection of product stories, insights, and learnings from building and scaling product-led growth strategies.",
+  openGraph: {
+    title: "Product Stories ",
+    description:
+      "Explore our collection of product stories, insights, and learnings from building and scaling product-led growth strategies.",
+    url: "https://product.momo.vn/blog",
+    siteName: "LnD Hub",
+    images: [
+      {
+        url: "https://product.momo.vn/og-blog.png",
+        width: 1200,
+        height: 675,
+      },
+    ],
+  },
+};
 
-export const generateMetadata = generatePageMetadata({
-  description: pageDescription,
-  title: pageTitle,
-  url: pageUrl,
-});
+export const revalidate = POST_TYPE_CONFIG.config.revalidate;
 
-const mockCategories = [
-  "All",
-  "Product Management",
-  "Career",
-  "Kỹ năng làm việc",
-  "Product Culture",
-];
+// Số bài viết hiển thị ban đầu
+const INITIAL_POSTS_COUNT = POST_TYPE_CONFIG.story.pagination.initialPostsCount;
 
-const StoriesPage = generatePage(() => {
+const POST_TYPE_ID = POST_TYPE_CONFIG.story.id; // Story
+
+const BlogPage = generatePage(async () => {
+  // Initialize Supabase client
+  const supabase = await createClient();
+
+  // Build queries
+  const categoriesQuery = supabase
+    .from(POST_TYPE_CONFIG.story.api.categoriesTable)
+    .select(
+      "title, description, slug, categories_post_types!inner(post_type_id)",
+    )
+    .eq("categories_post_types.post_type_id", POST_TYPE_ID)
+    .order("updated_at", { ascending: false });
+
+  const storiesQuery = supabase
+    .from(POST_TYPE_CONFIG.story.api.table)
+    .select("*", { count: "exact" });
+
+  // Execute queries in parallel for better performance
+  const [
+    { data: stories, error: loadStoriesError, count: storiesCount },
+    { data: categories, error: loadCategoriesError },
+  ] = await Promise.all([
+    storiesQuery
+      .order("published_at", { ascending: false })
+      .order("created_at", { ascending: false })
+      .range(0, INITIAL_POSTS_COUNT - 1),
+    categoriesQuery,
+  ]);
+
+  // Handle errors gracefully
+  if (loadStoriesError) {
+    console.error("Error loading stories:", loadStoriesError);
+  }
+  if (loadCategoriesError) {
+    console.error("Error loading categories:", loadCategoriesError);
+  }
+
   return (
-    <>
-      <section className="mx-auto max-w-3xl px-5 pt-14 pb-5 text-center md:px-5 md:pt-20 md:pb-10">
-        <FadeIn delay={0.1}>
-          <h1
-            className={cn(
-              "mb-4 text-4xl font-bold md:text-6xl",
-              chakra.className,
-            )}
-          >
-            Product Stories
-          </h1>
-        </FadeIn>
-        <FadeIn delay={0.2}>
-          <p className="mt-5 text-foreground/80 md:mt-10 md:text-lg">
-            Explore our Blog for a wealth of insightful articles and tips,
-            covering a diverse array of topics. Stay informed, inspired, and
-            ahead of the curve with our expertly crafted content.
-          </p>
-        </FadeIn>
-      </section>
-      <StoriesSection stories={STORIES} categories={mockCategories} />;
-    </>
+    <ContentPage
+      title={POST_TYPE_CONFIG.story.metadata.title}
+      description={POST_TYPE_CONFIG.story.metadata.description}
+      basePath={POST_TYPE_CONFIG.story.basePath}
+      tableLoadMore={POST_TYPE_CONFIG.story.api.table}
+      stories={stories}
+      categories={categories}
+      storiesCount={storiesCount}
+      initialPostsCount={INITIAL_POSTS_COUNT}
+      initialStories={stories || []}
+    />
   );
 });
 
-export default StoriesPage;
+export default BlogPage;
