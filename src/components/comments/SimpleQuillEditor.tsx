@@ -87,34 +87,67 @@ export function SimpleQuillEditor({
         </div>
       )}
 
-      {/* Tailwind CSS for Quill */}
+      {/* Enhanced Tailwind CSS for Quill */}
       <style jsx global>{`
         .quill-editor .ql-editor {
-          @apply min-h-[100px] p-3 text-sm leading-relaxed;
+          @apply min-h-[120px] p-4 text-sm leading-relaxed focus:outline-none;
+          font-family: inherit;
         }
 
         .quill-editor .ql-toolbar {
-          @apply rounded-t-lg border border-b-0 border-gray-200 bg-gray-50;
+          @apply rounded-t-xl border border-b-0 border-gray-300 bg-gradient-to-r from-gray-50 to-gray-100 px-3 py-2;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .quill-editor .ql-container {
-          @apply rounded-b-lg border border-t-0 border-gray-200;
+          @apply rounded-b-xl border border-t-0 border-gray-300 shadow-sm transition-all duration-200;
+        }
+
+        .quill-editor .ql-container:focus-within {
+          @apply border-blue-400 shadow-md;
         }
 
         .quill-editor .ql-editor.ql-blank::before {
-          @apply text-gray-400 italic;
+          @apply text-gray-500 italic;
+          font-size: 14px;
         }
 
         .quill-editor .ql-toolbar .ql-formats {
-          @apply mr-3;
+          @apply mr-4;
         }
 
         .quill-editor .ql-toolbar button {
-          @apply h-7 w-7 rounded hover:bg-gray-100;
+          @apply h-8 w-8 rounded-lg transition-all duration-200 hover:bg-white hover:shadow-sm;
+          border: 1px solid transparent;
+        }
+
+        .quill-editor .ql-toolbar button:hover {
+          @apply border-gray-200;
         }
 
         .quill-editor .ql-toolbar button.ql-active {
-          @apply bg-blue-100 text-blue-600;
+          @apply bg-blue-500 text-white shadow-md;
+        }
+
+        .quill-editor .ql-toolbar .ql-stroke {
+          stroke: currentColor;
+        }
+
+        .quill-editor .ql-toolbar .ql-fill {
+          fill: currentColor;
+        }
+
+        .quill-editor .ql-editor blockquote {
+          @apply border-l-4 border-blue-400 pl-4 text-gray-700 italic;
+        }
+
+        .quill-editor .ql-editor ul,
+        .quill-editor .ql-editor ol {
+          @apply pl-6;
+        }
+
+        .quill-editor .ql-editor li {
+          @apply mb-1;
         }
       `}</style>
     </div>

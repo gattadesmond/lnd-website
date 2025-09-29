@@ -47,13 +47,13 @@ export function CommentItem({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-6">
       {/* Main Comment */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-2">
+      <div className="space-y-3">
+        <div className="flex items-center gap-3">
           <Avatar className="h-8 w-8">
             <AvatarImage src={comment.author.avatar} />
-            <AvatarFallback className="bg-gray-100 text-xs text-gray-700">
+            <AvatarFallback className="bg-gray-100 text-sm font-medium text-gray-700">
               {comment.author.name
                 .split(" ")
                 .map((n) => n[0])
@@ -62,38 +62,40 @@ export function CommentItem({
             </AvatarFallback>
           </Avatar>
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-900">
+            <span className="font-medium text-gray-900">
               {comment.author.name}
             </span>
             {comment.author.isAuthor && (
-              <span className="rounded bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
+              <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
                 Author
               </span>
             )}
-            <span className="text-xs text-gray-500">
+            <span className="text-sm text-gray-500">
               {formatDate(comment.createdAt)}
             </span>
           </div>
         </div>
-        <div className="ml-10">
+        <div className="ml-11">
           <div
-            className="prose prose-sm max-w-none"
+            className="prose prose-sm max-w-none leading-relaxed text-gray-800"
             dangerouslySetInnerHTML={{ __html: comment.content }}
           />
         </div>
-        <div className="ml-10 flex items-center gap-4">
+        <div className="ml-11 flex items-center gap-4">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => onLikeComment?.(comment.id)}
-            className="h-auto p-1 text-gray-500 hover:bg-gray-100 hover:text-red-500"
+            className={`h-8 gap-1.5 px-2 text-sm transition-colors ${
+              comment.isLiked
+                ? "text-red-500"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
           >
             <Heart
-              className={`h-4 w-4 ${
-                comment.isLiked ? "fill-red-500 text-red-500" : ""
-              }`}
+              className={`h-4 w-4 ${comment.isLiked ? "fill-red-500" : ""}`}
             />
-            <span className="ml-1 text-xs">{comment.likes}</span>
+            <span>{comment.likes}</span>
           </Button>
           <Button
             variant="ghost"
@@ -101,10 +103,10 @@ export function CommentItem({
             onClick={() =>
               setReplyingTo(replyingTo === comment.id ? null : comment.id)
             }
-            className="h-auto p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            className="h-8 gap-1.5 px-2 text-sm text-gray-500 transition-colors hover:text-gray-700"
           >
             <Reply className="h-4 w-4" />
-            <span className="ml-1 text-xs">Reply</span>
+            <span>Reply</span>
           </Button>
         </div>
       </div>
@@ -120,13 +122,20 @@ export function CommentItem({
 
       {/* Replies */}
       {comment.replies && comment.replies.length > 0 && (
-        <div className="ml-10 space-y-3">
+        <div className="ml-11 space-y-4 border-l-2 border-gray-100 pl-6">
+          <div className="mb-2 flex items-center gap-2">
+            <div className="h-1 w-1 rounded-full bg-gray-400"></div>
+            <span className="text-xs font-medium tracking-wide text-gray-500 uppercase">
+              {comment.replies.length}{" "}
+              {comment.replies.length === 1 ? "Reply" : "Replies"}
+            </span>
+          </div>
           {comment.replies.map((reply) => (
-            <div key={reply.id} className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
+            <div key={reply.id} className="space-y-3">
+              <div className="flex items-center gap-3">
+                <Avatar className="h-7 w-7 ring-1 ring-gray-200">
                   <AvatarImage src={reply.author.avatar} />
-                  <AvatarFallback className="bg-gray-100 text-xs text-gray-700">
+                  <AvatarFallback className="bg-gray-100 text-xs font-medium text-gray-600">
                     {reply.author.name
                       .split(" ")
                       .map((n) => n[0])
@@ -139,7 +148,7 @@ export function CommentItem({
                     {reply.author.name}
                   </span>
                   {reply.author.isAuthor && (
-                    <span className="rounded bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
+                    <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
                       Author
                     </span>
                   )}
@@ -148,25 +157,29 @@ export function CommentItem({
                   </span>
                 </div>
               </div>
-              <div className="ml-8">
+              <div className="ml-10">
                 <div
-                  className="prose prose-sm max-w-none"
+                  className="prose prose-sm max-w-none leading-relaxed text-gray-800"
                   dangerouslySetInnerHTML={{ __html: reply.content }}
                 />
               </div>
-              <div className="ml-8 flex items-center gap-4">
+              <div className="ml-10 flex items-center">
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => onLikeComment?.(reply.id)}
-                  className="h-auto p-1 text-gray-500 hover:bg-gray-100 hover:text-red-500"
+                  className={`h-7 gap-1 px-2 text-xs transition-colors ${
+                    reply.isLiked
+                      ? "text-red-500"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
                 >
                   <Heart
-                    className={`h-4 w-4 ${
-                      reply.isLiked ? "fill-red-500 text-red-500" : ""
+                    className={`h-3.5 w-3.5 ${
+                      reply.isLiked ? "fill-red-500" : ""
                     }`}
                   />
-                  <span className="ml-1 text-xs">{reply.likes}</span>
+                  <span>{reply.likes}</span>
                 </Button>
               </div>
             </div>

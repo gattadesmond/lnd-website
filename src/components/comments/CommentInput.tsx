@@ -20,7 +20,10 @@ export function CommentInput({ onAddComment }: CommentInputProps) {
   };
 
   return (
-    <div className="border-b border-gray-200 pb-4">
+    <div className="space-y-4">
+      <div>
+        <p className="text-sm text-gray-600">Share your thoughts</p>
+      </div>
       <SimpleQuillEditor
         value={newComment}
         onChange={setNewComment}
