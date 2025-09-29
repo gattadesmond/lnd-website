@@ -64,9 +64,17 @@ function Navigation() {
         <div className="relative mx-auto w-full max-w-screen-lg px-3 lg:px-4 xl:px-0">
           <div className="flex h-14 items-center justify-between">
             <div className="grow basis-0">
-              <a className="block w-fit py-2 pr-2" href="/">
+              <a
+                className="block w-fit py-2 pr-2"
+                href={`${process.env.NEXT_PUBLIC_BASE_PATH}/`}
+              >
                 <div className="max-w-fit">
-                  <Image src="/LnD.svg" alt="Logo" width={36} height={15} />
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH}/LnD.svg`}
+                    alt="Logo"
+                    width={36}
+                    height={15}
+                  />
                 </div>
               </a>
             </div>
@@ -91,7 +99,7 @@ function Navigation() {
                             <a
                               className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50"
                               data-radix-collection-item
-                              href="/stories"
+                              href={`${process.env.NEXT_PUBLIC_BASE_PATH}/stories`}
                             >
                               {/* Grid Background */}
                               <div
@@ -120,7 +128,7 @@ function Navigation() {
                               <div className="relative mt-10 h-40 grow">
                                 <div className="absolute top-0 left-0 size-full grow overflow-hidden [mask-image:linear-gradient(black_50%,transparent)] px-2">
                                   <Image
-                                    src="/fast-food-6.svg"
+                                    src={`${process.env.NEXT_PUBLIC_BASE_PATH}/fast-food-6.svg`}
                                     alt="Stories"
                                     fill
                                   />
@@ -132,7 +140,7 @@ function Navigation() {
                             <a
                               className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50"
                               data-radix-collection-item
-                              href="/learning"
+                              href={`${process.env.NEXT_PUBLIC_BASE_PATH}/learning`}
                             >
                               {/* Grid Background */}
                               <div
@@ -160,7 +168,7 @@ function Navigation() {
                               <div className="relative mt-10 h-40 grow">
                                 <div className="absolute top-0 left-0 size-full grow overflow-hidden [mask-image:linear-gradient(black_50%,transparent)] px-2">
                                   <Image
-                                    src="/book-lover-81.svg"
+                                    src={`${process.env.NEXT_PUBLIC_BASE_PATH}/book-lover-81.svg`}
                                     alt="Stories"
                                     fill
                                   />
@@ -171,7 +179,7 @@ function Navigation() {
                             <a
                               className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50"
                               data-radix-collection-item
-                              href="/events"
+                              href={`${process.env.NEXT_PUBLIC_BASE_PATH}/events`}
                             >
                               {/* Grid Background */}
                               <div
@@ -198,7 +206,7 @@ function Navigation() {
                               <div className="relative mt-10 h-40 grow">
                                 <div className="absolute top-0 left-0 size-full grow overflow-hidden [mask-image:linear-gradient(black_50%,transparent)] px-2">
                                   <Image
-                                    src="/conference-1-39.svg"
+                                    src={`${process.env.NEXT_PUBLIC_BASE_PATH}/conference-1-39.svg`}
                                     alt="Stories"
                                     fill
                                   />

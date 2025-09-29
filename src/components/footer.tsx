@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { BookOpen, Calendar, GraduationCap } from "lucide-react";
 
@@ -21,15 +22,20 @@ export function Footer() {
         <div className="lg:grid lg:grid-cols-4 lg:gap-8">
           <div className="flex flex-col gap-6">
             <div className="grow">
-              <a className="block max-w-fit" href="/">
+              <Link className="block max-w-fit" href="/">
                 <span className="sr-only">
                   https://product.momo.vn/{/* */}
                   Lnd
                 </span>
                 <div className="max-w-fit">
-                  <Image src="/LnD.svg" alt="Logo" width={48} height={20} />
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH}/LnD.svg`}
+                    alt="Logo"
+                    width={48}
+                    height={20}
+                  />
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-3 lg:col-span-3 lg:mt-0">
@@ -40,37 +46,37 @@ export function Footer() {
                 </h3>
                 <ul role="list" className="mt-2.5 flex flex-col gap-3.5">
                   <li>
-                    <a
+                    <Link
                       className="flex items-center gap-2 text-sm text-neutral-500 transition-colors duration-75 hover:text-neutral-700"
-                      href="/"
+                      href="/stories"
                     >
                       <div className="flex size-4 items-center justify-center rounded bg-orange-400">
                         <BookOpen className="size-3 text-orange-900" />
                       </div>
                       LnD Stories
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       className="flex items-center gap-2 text-sm text-neutral-500 transition-colors duration-75 hover:text-neutral-700"
-                      href="/"
+                      href="/learning"
                     >
                       <div className="flex size-4 items-center justify-center rounded bg-green-400">
                         <GraduationCap className="size-3 text-green-900" />
                       </div>
                       LnD Learning & Development
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       className="flex items-center gap-2 text-sm text-neutral-500 transition-colors duration-75 hover:text-neutral-700"
-                      href="/analytics"
+                      href="/events"
                     >
                       <div className="flex size-4 items-center justify-center rounded bg-violet-400">
                         <Calendar className="size-3 text-violet-900" />
                       </div>
                       LnD Events
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -133,20 +139,20 @@ export function Footer() {
                 <h3 className="text-sm font-medium text-neutral-900">Info</h3>
                 <ul role="list" className="mt-2.5 flex flex-col gap-3.5">
                   <li>
-                    <a
+                    <Link
                       className="flex items-center gap-1 text-sm text-neutral-500 transition-colors duration-75 hover:text-neutral-700"
                       href="/our-projects"
                     >
                       Our Projects
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       className="flex items-center gap-1 text-sm text-neutral-500 transition-colors duration-75 hover:text-neutral-700"
                       href="/feedback"
                     >
                       Feedback
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
