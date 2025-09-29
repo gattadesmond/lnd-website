@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { JetBrains_Mono, Noto_Sans } from "next/font/google";
 
 import "@/styles/globals.css";
 
 import { Toaster } from "sonner";
 
 import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
+import Navigation from "@/components/main-nav/navigation";
 import { AuthErrorHandler } from "@/features/auth/components/auth-error-handler";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Cấu hình font JetBrains Mono (cho headings)
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Cấu hình font Noto Sans (cho body text)
+const notoSans = Noto_Sans({
   subsets: ["latin"],
+  variable: "--font-noto-sans",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -35,17 +41,17 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className="min-h-screen bg-background font-sans antialiased"
+      lang="vi"
+      className={`${jetbrainsMono.variable} ${notoSans.variable} ${notoSans.className} antialiased`}
     >
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} dark amazing-rays antialiased`}
-      >
-        <Header />
-        <main className="">{children}</main>
-        <Footer />
-        <Toaster />
-        <AuthErrorHandler />
+      <body className={`!overflow-x-hidden`}>
+        <div className="relative z-10 bg-white">
+          <Navigation />
+          <main className=" ">{children}</main>
+          <Footer />
+          <Toaster />
+          <AuthErrorHandler />
+        </div>
       </body>
     </html>
   );

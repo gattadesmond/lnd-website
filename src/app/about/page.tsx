@@ -8,7 +8,6 @@ import { getUsersAboutPage } from "@/features/users/api";
 import { UserCard } from "@/features/users/components/user-card";
 import { generatePage } from "@/lib/generatePage";
 import { cn } from "@/lib/utils";
-import { chakra } from "@/styles/fonts";
 
 const About = generatePage(async () => {
   const users = await getUsersAboutPage();
@@ -21,10 +20,7 @@ const About = generatePage(async () => {
         <FadeIn delay={0.1}>
           <h1
             id="project-team"
-            className={cn(
-              "mb-4 text-4xl font-bold md:text-6xl",
-              chakra.className,
-            )}
+            className={cn("mb-4 text-4xl font-bold md:text-6xl")}
           >
             Project Team
           </h1>
@@ -41,10 +37,7 @@ const About = generatePage(async () => {
         <Container>
           <h2
             id="meet-our-team"
-            className={cn(
-              "mb-10 text-2xl font-bold text-foreground/90",
-              chakra.className,
-            )}
+            className={cn("mb-10 text-2xl font-bold text-foreground/90")}
           >
             Meet our team
           </h2>
@@ -57,7 +50,7 @@ const About = generatePage(async () => {
       </section>
       <section
         aria-label="Let&rsquo;s create something awesome"
-        className={cn("mt-24 mb-18", chakra.className)}
+        className={cn("mt-24 mb-18")}
       >
         <Container>
           <div className="flex flex-col items-center justify-center rounded-xl bg-gradient-to-t from-primary to-primary/50 py-8 md:mb-20 md:py-10">

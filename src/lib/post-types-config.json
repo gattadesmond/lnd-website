@@ -1,0 +1,67 @@
+{
+  "story": {
+    "id": 1,
+    "name": "Story",
+    "description": "Product Stories",
+    "basePath": "/stories",
+    "api": {
+      "table": "stories_overview",
+      "categoriesTable": "categories",
+      "fullDetailsTable": "stories_with_full_details"
+    },
+    "metadata": {
+      "title": "Product Stories",
+      "description": "Explore our Blog for a wealth of insightful articles and tips, covering a diverse array of topics. Stay informed, inspired, and ahead of the curve with our expertly crafted content."
+    },
+    "pagination": {
+      "initialPostsCount": 9,
+      "loadMoreCount": 6
+    }
+  },
+  "event": {
+    "id": 2,
+    "name": "Event",
+    "description": "Product Events",
+    "basePath": "/events",
+    "api": {
+      "table": "events_overview",
+      "categoriesTable": "categories",
+      "fullDetailsTable": "events_with_full_details"
+    },
+    "metadata": {
+      "title": "Events",
+      "description": "Coming together is the beginning. Keeping together is progress. Working together is success."
+    },
+    "pagination": {
+      "initialPostsCount": 9,
+      "loadMoreCount": 6
+    }
+  },
+  "learning": {
+    "id": 3,
+    "name": "Learning",
+    "description": "Learning Resources",
+    "basePath": "/learning",
+    "api": {
+      "table": "learning_overview",
+      "categoriesTable": "categories",
+      "fullDetailsTable": "learning_with_full_details"
+    },
+    "metadata": {
+      "title": "Learning & Development",
+      "description": "Learning is a constant process of discovery - a process without end."
+    },
+    "pagination": {
+      "initialPostsCount": 9,
+      "loadMoreCount": 6
+    }
+  },
+  "config": {
+    "revalidate": 60,
+    "orderBy": {
+      "primary": "published_at",
+      "secondary": "created_at",
+      "direction": "desc"
+    }
+  }
+}

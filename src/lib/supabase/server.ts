@@ -8,7 +8,9 @@ import { createServerClient } from "@supabase/ssr";
 
 import { SUPABASE_AUTH_STORAGE_KEY } from "@/features/auth/constants";
 
-export async function createClient() {
+export async function createClient(
+  fetchRequestInit?: NonNullable<Parameters<typeof fetch>[1]>["next"],
+) {
   const cookieStore = await cookies();
 
   return createServerClient(
@@ -33,6 +35,11 @@ export async function createClient() {
       },
       auth: {
         storageKey: SUPABASE_AUTH_STORAGE_KEY,
+      },
+      global: {
+        fetch(input, init) {
+          return fetch(input, { ...fetchRequestInit, ...init });
+        },
       },
     },
   );

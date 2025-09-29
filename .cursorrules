@@ -1,0 +1,261 @@
+# Cursor Rules for Next.js App Router + Tailwind v4 + shadcn/UI Project
+
+## Project Overview
+This is a Next.js 15 project using App Router, Tailwind CSS v4, and shadcn/UI components. Always prioritize shadcn/UI components over custom implementations.
+
+## Package Manager
+- Use `pnpm` for all package management
+- Use `pnpm add` for installing new packages
+- Use `pnpm install` for installing dependencies
+- Use `pnpm run` for running scripts
+
+## Core Technologies & Patterns
+
+### Next.js App Router
+- Use App Router structure with `src/app/` directory
+- Server Components by default, add `"use client"` only when necessary
+- Use proper file naming: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`
+- Implement proper metadata exports for SEO
+- Use proper TypeScript types for props and metadata
+
+### Client Components Guidelines
+- Add `"use client"` directive ONLY when:
+  - Using React hooks (useState, useEffect, useCallback, etc.)
+  - Using browser APIs (localStorage, window, document)
+  - Using event handlers (onClick, onChange, etc.)
+  - Using third-party libraries that require client-side rendering
+- Keep server components as default for better performance
+- Extract client logic into separate components when possible
+
+### Tailwind CSS v4
+- Use Tailwind v4 syntax and features
+- Prefer utility classes over custom CSS
+- Use CSS variables for theming (defined in globals.css)
+- Follow responsive design patterns: mobile-first approach
+- Use Tailwind's built-in animations and transitions
+
+### shadcn/UI Components
+- ALWAYS prefer shadcn/UI components over custom implementations
+- Available components: Button, Card, Input, Dialog, Dropdown, Navigation, etc.
+- Import from `@/components/ui/` path
+- Extend shadcn components using `cn()` utility for styling
+- Use Radix UI primitives when shadcn doesn't have the component
+
+### Editor.js Integration
+- Use `editorjs-html` package for rendering Editor.js JSON content
+- Handle missing parsers gracefully with fallback rendering
+- Support common block types: header, paragraph, list, quote, code, image, table, simpleImage
+- Use `dangerouslySetInnerHTML` for HTML output from Editor.js
+- Implement error handling for malformed JSON content
+
+## Code Structure & Patterns
+
+### File Organization
+```
+src/
+├── app/                    # App Router pages
+├── components/            # Reusable components
+│   ├── ui/               # shadcn/UI components
+│   └── [feature]/        # Feature-specific components
+├── features/             # Feature-based organization
+├── lib/                  # Utilities and configurations
+└── styles/               # Global styles
+```
+
+### Component Patterns
+- Use TypeScript interfaces for props
+- Implement proper error boundaries
+- Use React.forwardRef for components that need ref forwarding
+- Follow compound component patterns for complex UI
+
+### Import Order
+1. React and Next.js imports
+2. Third-party libraries
+3. Internal components (absolute imports with @/)
+4. Relative imports
+5. Type-only imports last
+
+## Styling Guidelines
+
+### Tailwind Classes
+- Use semantic class names
+- Group related classes together
+- Use responsive prefixes (sm:, md:, lg:, xl:)
+- Prefer Tailwind utilities over custom CSS
+
+### Component Styling
+- Use `cn()` utility for conditional classes
+- Leverage CSS variables for theming
+- Use Tailwind's design tokens consistently
+- Implement proper focus states and accessibility
+
+## Performance & Best Practices
+
+### Server vs Client Components
+- Default to Server Components
+- Use Client Components sparingly
+- Implement proper loading states
+- Use Suspense boundaries appropriately
+
+### Data Fetching
+- Use async/await in Server Components
+- Implement proper error handling
+- Use Next.js caching strategies
+- Prefer server-side data fetching
+
+### Accessibility
+- Use semantic HTML elements
+- Implement proper ARIA attributes
+- Ensure keyboard navigation
+- Test with screen readers
+
+## Code Examples
+
+### Server Component (Default)
+```tsx
+import { Metadata } from 'next'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+export const metadata: Metadata = {
+  title: 'Page Title',
+  description: 'Page description'
+}
+
+export default function Page() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Server Component</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p>This renders on the server</p>
+      </CardContent>
+    </Card>
+  )
+}
+```
+
+### Client Component (When Needed)
+```tsx
+'use client'
+
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+
+export default function ClientComponent() {
+  const [value, setValue] = useState('')
+  
+  return (
+    <div className="space-y-4">
+      <Input 
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Enter text"
+      />
+      <Button onClick={() => console.log(value)}>
+        Submit
+      </Button>
+    </div>
+  )
+}
+```
+
+### Layout Component
+```tsx
+import { ReactNode } from 'react'
+import { Navigation } from '@/components/main-nav/navigation'
+import { Footer } from '@/components/footer'
+
+interface LayoutProps {
+  children: ReactNode
+}
+
+export default function Layout({ children }: LayoutProps) {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navigation />
+      <main className="flex-1">
+        {children}
+      </main>
+      <Footer />
+    </div>
+  )
+}
+```
+
+## Development Guidelines
+
+### Before Writing Code
+1. Check if shadcn/UI has the component you need
+2. Determine if component needs client-side features
+3. Plan the component structure and props interface
+4. Consider accessibility requirements
+
+### Code Quality
+- Use TypeScript strictly
+- Implement proper error handling
+- Write clean, readable code
+- Follow React best practices
+- Use proper naming conventions
+
+### Testing Considerations
+- Test both server and client components
+- Verify accessibility compliance
+- Check responsive design
+- Validate TypeScript types
+
+## Common Patterns
+
+### Form Handling
+```tsx
+'use client'
+
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+
+export default function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: ''
+  })
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle form submission
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <Label htmlFor="name">Name</Label>
+        <Input
+          id="name"
+          value={formData.name}
+          onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+        />
+      </div>
+      <Button type="submit">Submit</Button>
+    </form>
+  )
+}
+```
+
+### Loading States
+```tsx
+import { Skeleton } from '@/components/ui/skeleton'
+
+export default function Loading() {
+  return (
+    <div className="space-y-4">
+      <Skeleton className="h-8 w-3/4" />
+      <Skeleton className="h-4 w-1/2" />
+      <Skeleton className="h-4 w-2/3" />
+    </div>
+  )
+}
+```
+
+Remember: Always prioritize shadcn/UI components, use Server Components by default, and only add "use client" when absolutely necessary for client-side functionality.
