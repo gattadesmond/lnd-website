@@ -4,13 +4,11 @@ import { ArrowRightIcon } from "lucide-react";
 
 import { Container } from "@/components/container";
 import { FadeIn } from "@/components/fade-in";
-import { getUsersAboutPage } from "@/features/users/api";
-import { UserCard } from "@/features/users/components/user-card";
+// import { UserCard } from "@/features/users/components/user-card";
 import { generatePage } from "@/lib/generatePage";
 import { cn } from "@/lib/utils";
 
 const About = generatePage(async () => {
-  const users = await getUsersAboutPage();
   return (
     <>
       <section
@@ -41,11 +39,11 @@ const About = generatePage(async () => {
           >
             Meet our team
           </h2>
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+          {/* <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
             {users.map((user) => (
               <UserCard key={user.userName} user={user} />
             ))}
-          </div>
+          </div> */}
         </Container>
       </section>
       <section
