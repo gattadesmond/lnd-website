@@ -1,5 +1,6 @@
 import { ContentPage } from "@/components/content/ContentPage";
 import { generatePage } from "@/lib/generatePage";
+import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
@@ -22,12 +23,12 @@ export const metadata = {
   },
 };
 
-export const revalidate = 60;
+export const revalidate = POST_TYPE_CONFIG.config.revalidate;
 
 // Số bài viết hiển thị ban đầu
-const INITIAL_POSTS_COUNT = 9;
+const INITIAL_POSTS_COUNT = POST_TYPE_CONFIG.story.pagination.initialPostsCount;
 
-const POST_TYPE_ID = 1; // Story
+const POST_TYPE_ID = POST_TYPE_CONFIG.story.id; // Story
 
 const BlogPage = generatePage(async () => {
   // Initialize Supabase client
@@ -35,7 +36,7 @@ const BlogPage = generatePage(async () => {
 
   // Build queries
   const categoriesQuery = supabase
-    .from("categories")
+    .from(POST_TYPE_CONFIG.story.api.categoriesTable)
     .select(
       "title, description, slug, categories_post_types!inner(post_type_id)",
     )
@@ -43,7 +44,7 @@ const BlogPage = generatePage(async () => {
     .order("updated_at", { ascending: false });
 
   const storiesQuery = supabase
-    .from("stories_overview")
+    .from(POST_TYPE_CONFIG.story.api.table)
     .select("*", { count: "exact" });
 
   // Execute queries in parallel for better performance
@@ -68,9 +69,9 @@ const BlogPage = generatePage(async () => {
 
   return (
     <ContentPage
-      title="Product Stories"
-      description="Explore our Blog for a wealth of insightful articles and tips, covering a diverse array of topics. Stay informed, inspired, and ahead of the curve with our expertly crafted content."
-      basePath="/stories"
+      title={POST_TYPE_CONFIG.story.metadata.title}
+      description={POST_TYPE_CONFIG.story.metadata.description}
+      basePath={POST_TYPE_CONFIG.story.basePath}
       stories={stories}
       categories={categories}
       storiesCount={storiesCount}

@@ -3,18 +3,18 @@ import { generatePage } from "@/lib/generatePage";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
-  title: "Product Stories ",
+  title: "Events",
   description:
-    "Explore our collection of product stories, insights, and learnings from building and scaling product-led growth strategies.",
+    "Discover upcoming events, workshops, and conferences. Join our community and stay connected with the latest happenings in the industry.",
   openGraph: {
-    title: "Product Stories ",
+    title: "Events",
     description:
-      "Explore our collection of product stories, insights, and learnings from building and scaling product-led growth strategies.",
-    url: "https://plg-hub.com/blog",
+      "Discover upcoming events, workshops, and conferences. Join our community and stay connected with the latest happenings in the industry.",
+    url: "https://plg-hub.com/events",
     siteName: "PLG Hub",
     images: [
       {
-        url: "https://plg-hub.com/og-blog.png",
+        url: "https://plg-hub.com/og-events.png",
         width: 1200,
         height: 675,
       },
@@ -27,9 +27,9 @@ export const revalidate = 60;
 // Số bài viết hiển thị ban đầu
 const INITIAL_POSTS_COUNT = 9;
 
-const POST_TYPE_ID = 2; // Story
+const POST_TYPE_ID = 2; // Event
 
-const BlogPage = generatePage(async () => {
+const EventsPage = generatePage(async () => {
   // Initialize Supabase client
   const supabase = await createClient();
 
@@ -42,7 +42,9 @@ const BlogPage = generatePage(async () => {
     .eq("categories_post_types.post_type_id", POST_TYPE_ID)
     .order("updated_at", { ascending: false });
 
-  const storiesQuery = supabase.from("events").select("*", { count: "exact" });
+  const storiesQuery = supabase
+    .from("stories_overview")
+    .select("*", { count: "exact" });
 
   // Execute queries in parallel for better performance
   const [
@@ -58,7 +60,7 @@ const BlogPage = generatePage(async () => {
 
   // Handle errors gracefully
   if (loadStoriesError) {
-    console.error("Error loading stories:", loadStoriesError);
+    console.error("Error loading events:", loadStoriesError);
   }
   if (loadCategoriesError) {
     console.error("Error loading categories:", loadCategoriesError);
@@ -66,8 +68,8 @@ const BlogPage = generatePage(async () => {
 
   return (
     <ContentPage
-      title="Product Stories"
-      description="Explore our Blog for a wealth of insightful articles and tips, covering a diverse array of topics. Stay informed, inspired, and ahead of the curve with our expertly crafted content."
+      title="Events"
+      description="Discover upcoming events, workshops, and conferences. Join our community and stay connected with the latest happenings in the industry."
       basePath="/events"
       stories={stories}
       categories={categories}
@@ -78,4 +80,4 @@ const BlogPage = generatePage(async () => {
   );
 });
 
-export default BlogPage;
+export default EventsPage;

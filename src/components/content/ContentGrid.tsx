@@ -26,19 +26,26 @@ interface ContentGridProps {
   stories: BlogStory[] | null;
   storiesCount: number | null;
   initialStories: BlogStory[];
+  basePath?: string;
 }
 
 export function ContentGrid({
   stories,
   storiesCount,
   initialStories,
+  basePath,
 }: ContentGridProps) {
   return (
     <Container className="relative max-w-[1080px]">
       <div className="[&>*]:border-grid-border grid grid-cols-1 gap-0 border-x border-neutral-200 md:grid-cols-3 max-md:[&>*]:border-t md:[&>*:not(:nth-child(3n))]:border-r md:[&>*:nth-child(n+4)]:border-t">
         {stories && stories.length > 0 ? (
           stories.map((story: BlogStory, idx: number) => (
-            <BlogCard key={story.id || idx} story={story} index={idx} />
+            <BlogCard
+              key={story.id || idx}
+              story={story}
+              index={idx}
+              basePath={basePath}
+            />
           ))
         ) : (
           <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
@@ -55,6 +62,7 @@ export function ContentGrid({
           <LoadMoreBlogs
             initialStories={initialStories}
             totalCount={storiesCount || 0}
+            basePath={basePath}
           />
         )}
 

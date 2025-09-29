@@ -47,7 +47,6 @@ export function ContentPage({
   stories,
   categories,
   storiesCount,
-  initialPostsCount,
   currentCategory,
   initialStories,
 }: ContentPageProps) {
@@ -64,7 +63,7 @@ export function ContentPage({
       <ContentGrid
         stories={stories}
         storiesCount={storiesCount}
-        initialPostsCount={initialPostsCount}
+        basePath={basePath}
         initialStories={initialStories}
       />
 

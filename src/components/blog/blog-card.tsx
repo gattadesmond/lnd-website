@@ -18,6 +18,7 @@ interface BlogStory {
   category_title?: string;
   view_count?: number;
   reacted_users_count?: number;
+  basePath?: string;
   authors?: Array<{
     user_name: React.ReactNode;
     full_name: string;
@@ -28,6 +29,7 @@ interface BlogStory {
 interface BlogCardProps {
   story: BlogStory;
   index: number;
+  basePath?: string;
 }
 
 export function BlogCard({ story, index }: BlogCardProps) {
@@ -35,7 +37,7 @@ export function BlogCard({ story, index }: BlogCardProps) {
     <Link
       key={story.id || index}
       className="flex flex-col transition-all hover:bg-neutral-50"
-      href={`/stories/${story.slug || ""}`}
+      href={`${story.basePath || ""}/${story.slug || ""}`}
     >
       <Image
         alt={story.title || "Blog post"}
