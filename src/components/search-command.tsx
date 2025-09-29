@@ -13,7 +13,6 @@ import {
   MessageSquare,
   Search,
   Settings,
-  Smile,
   User,
   Users,
 } from "lucide-react";
