@@ -10,11 +10,11 @@ export const metadata = {
     title: "Learning Resources",
     description:
       "Access our comprehensive learning materials, tutorials, and educational content designed to help you grow and develop new skills.",
-    url: "https://plg-hub.com/learning",
-    siteName: "PLG Hub",
+    url: "https://product.momo.vn/learning",
+    siteName: "LnD Hub",
     images: [
       {
-        url: "https://plg-hub.com/og-learning.png",
+        url: "https://product.momo.vn/og-learning.png",
         width: 1200,
         height: 675,
       },

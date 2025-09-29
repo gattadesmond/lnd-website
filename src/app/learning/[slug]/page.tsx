@@ -34,15 +34,15 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${learning.title} | PLG Hub`,
+    title: `${learning.title} | LnD Hub`,
     description:
-      learning.description || "Read this learning resource on PLG Hub",
+      learning.description || "Read this learning resource on LnD Hub",
     openGraph: {
-      title: `${learning.title} | PLG Hub`,
+      title: `${learning.title} | LnD Hub`,
       description:
-        learning.description || "Read this learning resource on PLG Hub",
-      url: `https://plg-hub.com/learning/${slug}`,
-      siteName: "PLG Hub",
+        learning.description || "Read this learning resource on LnD Hub",
+      url: `https://product.momo.vn/learning/${slug}`,
+      siteName: "LnD Hub",
       images: learning.coverImageUrl
         ? [
             {
@@ -54,7 +54,7 @@ export async function generateMetadata({
         : [],
     },
     twitter: {
-      title: `${learning.title} | PLG Hub`,
+      title: `${learning.title} | LnD Hub`,
       card: "summary_large_image",
     },
   };

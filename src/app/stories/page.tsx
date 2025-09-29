@@ -11,11 +11,11 @@ export const metadata = {
     title: "Product Stories ",
     description:
       "Explore our collection of product stories, insights, and learnings from building and scaling product-led growth strategies.",
-    url: "https://plg-hub.com/blog",
-    siteName: "PLG Hub",
+    url: "https://product.momo.vn/blog",
+    siteName: "LnD Hub",
     images: [
       {
-        url: "https://plg-hub.com/og-blog.png",
+        url: "https://product.momo.vn/og-blog.png",
         width: 1200,
         height: 675,
       },

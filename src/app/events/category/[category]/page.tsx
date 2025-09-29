@@ -16,23 +16,23 @@ export async function generateMetadata({
     .join(" ");
 
   return {
-    title: `${categoryTitle} | PLG Hub Blog`,
-    description: `Explore ${categoryTitle} articles and insights from the PLG Hub team.`,
+    title: `${categoryTitle} | LnD Hub Blog`,
+    description: `Explore ${categoryTitle} articles and insights from the LnD Hub team.`,
     openGraph: {
-      title: `${categoryTitle} | PLG Hub Blog`,
-      description: `Explore ${categoryTitle} articles and insights from the PLG Hub team.`,
-      url: `https://plg-hub.com/blog/category/${category}`,
-      siteName: "PLG Hub",
+      title: `${categoryTitle} | LnD Hub Blog`,
+      description: `Explore ${categoryTitle} articles and insights from the LnD Hub team.`,
+      url: `https://product.momo.vn/blog/category/${category}`,
+      siteName: "LnD Hub",
       images: [
         {
-          url: "https://plg-hub.com/og.png",
+          url: "https://product.momo.vn/og.png",
           width: 1200,
           height: 675,
         },
       ],
     },
     twitter: {
-      title: `${categoryTitle} | PLG Hub Blog`,
+      title: `${categoryTitle} | LnD Hub Blog`,
       card: "summary_large_image",
     },
   };

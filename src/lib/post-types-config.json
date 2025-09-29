@@ -6,7 +6,8 @@
     "basePath": "/stories",
     "api": {
       "table": "stories_overview",
-      "categoriesTable": "categories"
+      "categoriesTable": "categories",
+      "fullDetailsTable": "stories_with_full_details"
     },
     "metadata": {
       "title": "Product Stories",
@@ -23,12 +24,13 @@
     "description": "Product Events",
     "basePath": "/events",
     "api": {
-      "table": "events",
-      "categoriesTable": "categories"
+      "table": "events_overview",
+      "categoriesTable": "categories",
+      "fullDetailsTable": "events_with_full_details"
     },
     "metadata": {
-      "title": "Product Events",
-      "description": "Discover upcoming events, workshops, and conferences. Stay connected with our community and never miss an opportunity to learn and network."
+      "title": "Events",
+      "description": "Coming together is the beginning. Keeping together is progress. Working together is success."
     },
     "pagination": {
       "initialPostsCount": 9,
@@ -42,11 +44,12 @@
     "basePath": "/learning",
     "api": {
       "table": "stories_overview",
-      "categoriesTable": "categories"
+      "categoriesTable": "categories",
+      "fullDetailsTable": "stories_with_full_details"
     },
     "metadata": {
-      "title": "Learning Resources",
-      "description": "Access our comprehensive learning materials, tutorials, and educational content designed to help you grow and develop new skills."
+      "title": "Learning & Development",
+      "description": "Learning is a constant process of discovery - a process without end."
     },
     "pagination": {
       "initialPostsCount": 9,

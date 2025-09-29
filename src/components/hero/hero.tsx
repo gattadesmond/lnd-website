@@ -38,11 +38,11 @@ function Hero() {
             </span>
           </a>
 
-          <h1 className="font-display mt-5 animate-slide-up-fade text-center text-4xl font-medium text-pretty text-neutral-900 [--offset:20px] [animation-delay:100ms] [animation-duration:1s] sm:text-5xl sm:leading-[1.15]">
+          <h1 className="mt-5 animate-slide-up-fade text-center font-display text-4xl font-medium text-pretty text-neutral-900 [--offset:20px] [animation-delay:100ms] [animation-duration:1s] sm:text-5xl sm:leading-[1.15]">
             Product-Led Growth Hub
           </h1>
           <p className="mt-5 animate-slide-up-fade text-base text-pretty text-neutral-600 [--offset:20px] [animation-delay:200ms] [animation-duration:1s] sm:text-xl">
-            Welcome to the PLG Hub – a special space designed just for our
+            Welcome to the LnD Hub – a special space designed just for our
             product team! Here, we come together to soak in crucial knowledge
             and information, fueling the rocket of our product&apos;s growth 🚀
           </p>

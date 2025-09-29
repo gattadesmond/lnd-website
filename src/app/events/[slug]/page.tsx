@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { DateDisplay } from "@/components/ui/DateDisplay";
 import { useRelatedContent } from "@/hooks/useRelatedContent";
 import { generatePage } from "@/lib/generatePage";
+import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { createClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
@@ -38,13 +39,13 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${story.title} | PLG Hub`,
-    description: story.description || "Read this story on PLG Hub",
+    title: `${story.title} | LnD Hub`,
+    description: story.description || "Read this story on LnD Hub",
     openGraph: {
-      title: `${story.title} | PLG Hub`,
-      description: story.description || "Read this story on PLG Hub",
-      url: `https://plg-hub.com/stories/${slug}`,
-      siteName: "PLG Hub",
+      title: `${story.title} | LnD Hub`,
+      description: story.description || "Read this story on LnD Hub",
+      url: `https://product.momo.vn/stories/${slug}`,
+      siteName: "LnD Hub",
       images: story.coverImageUrl
         ? [
             {
@@ -56,7 +57,7 @@ export async function generateMetadata({
         : [],
     },
     twitter: {
-      title: `${story.title} | PLG Hub`,
+      title: `${story.title} | LnD Hub`,
       card: "summary_large_image",
     },
   };
@@ -73,7 +74,7 @@ const StoryPage = generatePage(
 
     // Fetch story details
     const { data: story, error } = await supabase
-      .from("stories_with_full_details")
+      .from(POST_TYPE_CONFIG.event.api.fullDetailsTable)
       .select("*")
       .eq("slug", slug)
       .single();
@@ -84,14 +85,16 @@ const StoryPage = generatePage(
 
     // Fetch related stories from the same category
     const relatedStories = await useRelatedContent({
-      tableName: "stories_overview",
+      tableName: POST_TYPE_CONFIG.event.api.table,
       categorySlug: story.category?.slug || "",
       currentContentId: story.id,
       limit: 4,
     });
-    console.log("🚀 ~ story:", story);
 
     const listHeadings: { id: string; text: string; level: number }[] = [];
+
+    console.log("🚀 ~ story:", story);
+
     return (
       <>
         {/* Interaction Bar */}
@@ -114,7 +117,9 @@ const StoryPage = generatePage(
               <div className="flex items-center space-x-4">
                 {story.category && (
                   <Button variant="secondary" size="sm">
-                    <Link href={`/stories/category/${story.category.slug}`}>
+                    <Link
+                      href={`${POST_TYPE_CONFIG.event.basePath}/category/${story.category.slug}`}
+                    >
                       {story.category.title}
                     </Link>
                   </Button>
@@ -147,10 +152,7 @@ const StoryPage = generatePage(
                   {story.cover_image_url && (
                     <div className="aspect-[1200/630] overflow-hidden">
                       <Image
-                        src={
-                          story.cover_image_url ||
-                          "https://assets.dub.co/cms/program-bounties.jpg"
-                        }
+                        src={story.cover_image_url || "/placeholder-blog.jpg"}
                         alt={story.title || "Story cover"}
                         width={1200}
                         height={630}

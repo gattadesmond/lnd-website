@@ -1,5 +1,6 @@
 import { ContentPage } from "@/components/content/ContentPage";
 import { generatePage } from "@/lib/generatePage";
+import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
@@ -10,11 +11,11 @@ export const metadata = {
     title: "Product Stories ",
     description:
       "Explore our collection of product stories, insights, and learnings from building and scaling product-led growth strategies.",
-    url: "https://plg-hub.com/blog",
-    siteName: "PLG Hub",
+    url: "https://product.momo.vn/blog",
+    siteName: "LnD Hub",
     images: [
       {
-        url: "https://plg-hub.com/og-blog.png",
+        url: "https://product.momo.vn/og-blog.png",
         width: 1200,
         height: 675,
       },
@@ -22,12 +23,12 @@ export const metadata = {
   },
 };
 
-export const revalidate = 60;
+export const revalidate = POST_TYPE_CONFIG.config.revalidate;
 
 // Số bài viết hiển thị ban đầu
-const INITIAL_POSTS_COUNT = 9;
+const INITIAL_POSTS_COUNT = POST_TYPE_CONFIG.event.pagination.initialPostsCount;
 
-const POST_TYPE_ID = 2; // Story
+const POST_TYPE_ID = POST_TYPE_CONFIG.event.id; // Story
 
 const BlogPage = generatePage(async () => {
   // Initialize Supabase client
@@ -35,14 +36,16 @@ const BlogPage = generatePage(async () => {
 
   // Build queries
   const categoriesQuery = supabase
-    .from("categories")
+    .from(POST_TYPE_CONFIG.event.api.categoriesTable)
     .select(
       "title, description, slug, categories_post_types!inner(post_type_id)",
     )
     .eq("categories_post_types.post_type_id", POST_TYPE_ID)
     .order("updated_at", { ascending: false });
 
-  const storiesQuery = supabase.from("events").select("*", { count: "exact" });
+  const storiesQuery = supabase
+    .from(POST_TYPE_CONFIG.event.api.table)
+    .select("*", { count: "exact" });
 
   // Execute queries in parallel for better performance
   const [
@@ -64,11 +67,14 @@ const BlogPage = generatePage(async () => {
     console.error("Error loading categories:", loadCategoriesError);
   }
 
+  console.log("🚀 ~ stories:", stories);
+
   return (
     <ContentPage
-      title="Product Stories"
-      description="Explore our Blog for a wealth of insightful articles and tips, covering a diverse array of topics. Stay informed, inspired, and ahead of the curve with our expertly crafted content."
-      basePath="/events"
+      title={POST_TYPE_CONFIG.event.metadata.title}
+      description={POST_TYPE_CONFIG.event.metadata.description}
+      basePath={POST_TYPE_CONFIG.event.basePath}
+      tableLoadMore={POST_TYPE_CONFIG.event.api.table}
       stories={stories}
       categories={categories}
       storiesCount={storiesCount}
