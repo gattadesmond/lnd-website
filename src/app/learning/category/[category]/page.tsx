@@ -63,7 +63,7 @@ const CategoryPage = generatePage(
     const storiesQuery = supabase
       .from("stories_overview")
       .select("*", { count: "exact" })
-      .eq("category_slug", category);
+      .eq("category->>slug", category);
 
     // Execute queries in parallel for better performance
     const [

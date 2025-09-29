@@ -10,7 +10,10 @@ interface RelatedContent {
   author_name?: string;
   author_avatar?: string;
   published_at?: string;
-  category_title?: string;
+  category?: {
+    slug: string;
+    title: string;
+  };
   view_count?: number;
   reacted_users_count?: number;
   authors?: Array<{
@@ -39,7 +42,7 @@ export async function useRelatedContent({
     const { data: content, error } = await supabase
       .from(tableName)
       .select("*")
-      .eq("category_slug", categorySlug)
+      .eq("category->>slug", categorySlug)
       .neq("id", currentContentId) // Exclude current content
       .order("published_at", { ascending: false })
       .order("created_at", { ascending: false })

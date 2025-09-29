@@ -10,7 +10,6 @@ interface CommentInputProps {
 
 export function CommentInput({ onAddComment }: CommentInputProps) {
   const [newComment, setNewComment] = useState("");
-  console.log("🚀 ~ CommentInput ~ newComment:", newComment);
 
   const handleSubmitComment = (content: string) => {
     if (content.trim()) {

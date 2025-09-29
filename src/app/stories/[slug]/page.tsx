@@ -230,7 +230,6 @@ const StoryPage = generatePage(
                               return html;
                             },
                             code: ({ data }) => {
-                              console.log("🚀 ~ data:", data);
                               // Handle code blocks with proper semantic HTML
                               const code = data.code || "";
                               const language = data.language || "";
@@ -309,7 +308,10 @@ const StoryPage = generatePage(
                             width={36}
                             height={36}
                             className="blur-0 size-9 rounded-full bg-neutral-200 object-cover transition-all group-hover:brightness-90"
-                            src={author.avatar_url || "/placeholder-blog.jpg"}
+                            src={
+                              author.avatar_url.trim() ||
+                              "/placeholder-blog.jpg"
+                            }
                             style={{ color: "transparent" }}
                           />
                           <div className="flex flex-col">

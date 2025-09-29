@@ -16,7 +16,10 @@ interface BlogStory {
   author_name?: string;
   author_avatar?: string;
   published_at?: string;
-  category_title?: string;
+  category?: {
+    slug: string;
+    title: string;
+  };
   authors?: Array<{
     user_name: React.ReactNode;
     full_name: string;

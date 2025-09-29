@@ -93,8 +93,6 @@ const StoryPage = generatePage(
 
     const listHeadings: { id: string; text: string; level: number }[] = [];
 
-    console.log("🚀 ~ story:", story);
-
     return (
       <>
         {/* Interaction Bar */}
@@ -233,7 +231,6 @@ const StoryPage = generatePage(
                               return html;
                             },
                             code: ({ data }) => {
-                              console.log("🚀 ~ data:", data);
                               // Handle code blocks with proper semantic HTML
                               const code = data.code || "";
                               const language = data.language || "";
