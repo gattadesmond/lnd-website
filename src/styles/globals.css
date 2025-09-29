@@ -140,6 +140,28 @@
     }
   }
 
-  --font-display: "Noto Sans Display", sans-serif;
+  --font-display: "JetBrains Mono", monospace;
   --font-body: "Noto Sans", sans-serif;
+}
+
+.prose code {
+  @apply block px-3 py-3 whitespace-pre-wrap text-neutral-800;
+  letter-spacing: -1px;
+  background-color: #fef3c7;
+  box-shadow: -4px 4px 0px -2px #fef3c7;
+  border: 2px solid #fff;
+  font-family: "JetBrains Mono", monospace;
+}
+.prose code:before,
+.prose code:after {
+  content: "";
+  display: none;
+}
+
+.prose
+  :where(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ) {
+  font-weight: inherit;
+  text-decoration: inherit;
 }

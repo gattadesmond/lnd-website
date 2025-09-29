@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { chakra } from "@/styles/fonts";
 
 import { Event } from "../schemas";
 
@@ -49,8 +48,7 @@ export function EventPreviewCard({ event }: EventPreviewCardProps) {
         <Link href={`/events/${event.urlRewrite}`} className="mx-2 block">
           <h3
             className={cn(
-              chakra.className,
-              "mb-2 text-xl leading-tight font-bold tracking-tight hover:text-primary-200 hover:underline",
+              "hover:text-primary-200 mb-2 text-xl leading-tight font-bold tracking-tight hover:underline",
             )}
           >
             {event.title}

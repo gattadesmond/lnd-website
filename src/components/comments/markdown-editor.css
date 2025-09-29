@@ -1,0 +1,63 @@
+/* Prevent MDEditor from affecting body overflow */
+.wmd-editor {
+  /* Ensure the editor doesn't affect body scroll */
+  position: relative;
+  overflow: visible;
+}
+
+/* Override any global styles that might affect body */
+.wmd-editor * {
+  box-sizing: border-box;
+}
+
+/* Prevent MDEditor from setting body overflow hidden */
+.wmd-editor .w-md-editor {
+  position: relative;
+}
+
+/* Ensure toolbar doesn't affect body */
+.wmd-editor .w-md-editor-toolbar {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hide unnecessary toolbar buttons - only show Bold, Italic, List, Link */
+.wmd-editor
+  .w-md-editor-toolbar
+  button:not([data-name="bold"]):not([data-name="italic"]):not(
+    [data-name="unordered-list"]
+  ):not([data-name="link"]) {
+  display: none !important;
+}
+
+/* Show only essential buttons */
+.wmd-editor .w-md-editor-toolbar button[data-name="bold"],
+.wmd-editor .w-md-editor-toolbar button[data-name="italic"],
+.wmd-editor .w-md-editor-toolbar button[data-name="unordered-list"],
+.wmd-editor .w-md-editor-toolbar button[data-name="link"] {
+  display: inline-flex !important;
+}
+
+/* Hide toolbar in preview mode */
+.wmd-editor .w-md-editor-preview .w-md-editor-toolbar {
+  display: none !important;
+}
+
+/* Simplify toolbar layout */
+.wmd-editor .w-md-editor-toolbar {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+/* Style the textarea */
+.wmd-editor .w-md-editor-text {
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Prevent any global body modifications */
+body {
+  overflow: auto !important;
+}

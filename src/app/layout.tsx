@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans, Noto_Sans_Display } from "next/font/google";
+import { JetBrains_Mono, Noto_Sans } from "next/font/google";
 
 import "@/styles/globals.css";
 
@@ -9,10 +9,10 @@ import { Footer } from "@/components/footer";
 import Navigation from "@/components/main-nav/navigation";
 import { AuthErrorHandler } from "@/features/auth/components/auth-error-handler";
 
-// Cấu hình font Noto Sans Display (cho headings)
-const notoSansDisplay = Noto_Sans_Display({
+// Cấu hình font JetBrains Mono (cho headings)
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-noto-sans-display",
+  variable: "--font-jetbrains-mono",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${notoSansDisplay.variable} ${notoSans.variable} ${notoSans.className} antialiased`}
+      className={`${jetbrainsMono.variable} ${notoSans.variable} ${notoSans.className} antialiased`}
     >
       <body className={`!overflow-x-hidden`}>
         <div className="relative z-10 bg-white">

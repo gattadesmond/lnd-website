@@ -103,7 +103,7 @@ function NavigationMobile() {
                 </Link>
                 <Link
                   className="flex w-full items-center gap-3"
-                  href="/partners"
+                  href="/learning"
                 >
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-gradient-to-t from-neutral-100">
                     <div className="flex size-5 items-center justify-center rounded bg-violet-400">
@@ -123,10 +123,7 @@ function NavigationMobile() {
                     </p>
                   </div>
                 </Link>
-                <Link
-                  className="flex w-full items-center gap-3"
-                  href="/analytics"
-                >
+                <Link className="flex w-full items-center gap-3" href="/events">
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-gradient-to-t from-neutral-100">
                     <div className="flex size-5 items-center justify-center rounded bg-green-400">
                       <Calendar className="size-3.5 text-green-900" />

@@ -12,7 +12,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Story } from "@/features/stories/schemas";
 import { UserHoverCard } from "@/features/users/components/user-hover-card";
 import { cn } from "@/lib/utils";
-import { chakra } from "@/styles/fonts";
 
 interface StoryPreviewCardProps {
   story: Story;
@@ -75,8 +74,7 @@ export function StoryPreviewCard({ story }: StoryPreviewCardProps) {
         <Link href={`/stories/${story.urlRewrite}`}>
           <h3
             className={cn(
-              chakra.className,
-              "mb-2 line-clamp-2 text-xl leading-tight font-bold tracking-tight hover:text-primary-200 hover:underline",
+              "hover:text-primary-200 mb-2 line-clamp-2 text-xl leading-tight font-bold tracking-tight hover:underline",
             )}
           >
             {story.title}

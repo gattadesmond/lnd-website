@@ -93,6 +93,28 @@ export function LoadMoreBlogs({
         </>
       )}
 
+      {/* Fill remaining grid slots for additional stories if needed */}
+      {additionalStories.length > 0 &&
+        (() => {
+          // Calculate how many items are in the last row of additional stories
+          const itemsPerRow = 3; // md:grid-cols-3
+          const totalAdditionalItems = additionalStories.length;
+          const itemsInLastRow = totalAdditionalItems % itemsPerRow;
+
+          // If last row is not full, add empty divs to fill it
+          const emptySlotsNeeded =
+            itemsInLastRow > 0 ? itemsPerRow - itemsInLastRow : 0;
+
+          return emptySlotsNeeded > 0
+            ? Array.from({ length: emptySlotsNeeded }).map((_, idx) => (
+                <div
+                  key={`additional-empty-${idx}`}
+                  className="hidden size-full md:block"
+                ></div>
+              ))
+            : null;
+        })()}
+
       {/* Load More Button */}
       {hasMore && (
         <div className="flex justify-center !border-r-0 bg-neutral-50 py-8 md:col-span-3">

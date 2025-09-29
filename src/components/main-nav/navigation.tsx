@@ -88,7 +88,7 @@ function Navigation() {
                       <NavigationMenuContent>
                         <div className="grid w-[1020px] grid-cols-1 gap-4 p-4">
                           <div className="grid grid-cols-3 gap-4">
-                            <Link
+                            <a
                               className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50"
                               data-radix-collection-item
                               href="/stories"
@@ -127,12 +127,12 @@ function Navigation() {
                                 </div>
                               </div>
                               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,orange,transparent)] opacity-[0.04] transition-opacity duration-150 group-hover:opacity-15" />
-                            </Link>
+                            </a>
 
                             <a
                               className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50"
                               data-radix-collection-item
-                              href="/analytics"
+                              href="/learning"
                             >
                               {/* Grid Background */}
                               <div
@@ -171,7 +171,7 @@ function Navigation() {
                             <a
                               className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50"
                               data-radix-collection-item
-                              href="/partners"
+                              href="/events"
                             >
                               {/* Grid Background */}
                               <div

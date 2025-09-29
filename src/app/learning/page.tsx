@@ -3,18 +3,18 @@ import { generatePage } from "@/lib/generatePage";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
-  title: "Events",
+  title: "Learning Resources",
   description:
-    "Discover upcoming events, workshops, and conferences. Join our community and stay connected with the latest happenings in the industry.",
+    "Access our comprehensive learning materials, tutorials, and educational content designed to help you grow and develop new skills.",
   openGraph: {
-    title: "Events",
+    title: "Learning Resources",
     description:
-      "Discover upcoming events, workshops, and conferences. Join our community and stay connected with the latest happenings in the industry.",
-    url: "https://plg-hub.com/events",
+      "Access our comprehensive learning materials, tutorials, and educational content designed to help you grow and develop new skills.",
+    url: "https://plg-hub.com/learning",
     siteName: "PLG Hub",
     images: [
       {
-        url: "https://plg-hub.com/og-events.png",
+        url: "https://plg-hub.com/og-learning.png",
         width: 1200,
         height: 675,
       },
@@ -27,9 +27,9 @@ export const revalidate = 60;
 // Số bài viết hiển thị ban đầu
 const INITIAL_POSTS_COUNT = 9;
 
-const POST_TYPE_ID = 2; // Event
+const POST_TYPE_ID = 3; // Learning
 
-const EventsPage = generatePage(async () => {
+const LearningPage = generatePage(async () => {
   // Initialize Supabase client
   const supabase = await createClient();
 
@@ -60,7 +60,7 @@ const EventsPage = generatePage(async () => {
 
   // Handle errors gracefully
   if (loadStoriesError) {
-    console.error("Error loading events:", loadStoriesError);
+    console.error("Error loading learning resources:", loadStoriesError);
   }
   if (loadCategoriesError) {
     console.error("Error loading categories:", loadCategoriesError);
@@ -68,9 +68,9 @@ const EventsPage = generatePage(async () => {
 
   return (
     <ContentPage
-      title="Events"
-      description="Discover upcoming events, workshops, and conferences. Join our community and stay connected with the latest happenings in the industry."
-      basePath="/events"
+      title="Learning Resources"
+      description="Access our comprehensive learning materials, tutorials, and educational content designed to help you grow and develop new skills."
+      basePath="/learning"
       stories={stories}
       categories={categories}
       storiesCount={storiesCount}
@@ -80,4 +80,4 @@ const EventsPage = generatePage(async () => {
   );
 });
 
-export default EventsPage;
+export default LearningPage;
