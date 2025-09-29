@@ -4,6 +4,7 @@ import Link from "next/link";
 import { EyeIcon, ThumbsUp } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { formatDisplayDate, getDateTimeAttribute } from "@/lib/dateUtils";
 
 interface BlogStory {
   id?: string;
@@ -99,16 +100,10 @@ export function BlogCard({ story, index }: BlogCardProps) {
             {/* View count và reaction count */}
             <div className="mt-0 flex items-center space-x-3 text-xs text-neutral-500">
               <time
-                dateTime={story.published_at || new Date().toISOString()}
+                dateTime={getDateTimeAttribute(story.published_at)}
                 className="text-xs text-neutral-500"
               >
-                {story.published_at
-                  ? new Date(story.published_at).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })
-                  : "Recently"}
+                {formatDisplayDate(story.published_at)}
               </time>
 
               {story.view_count !== undefined && (

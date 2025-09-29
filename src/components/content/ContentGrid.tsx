@@ -27,6 +27,7 @@ interface ContentGridProps {
   storiesCount: number | null;
   initialStories: BlogStory[];
   basePath?: string;
+  tableLoadMore?: string;
 }
 
 export function ContentGrid({
@@ -34,6 +35,7 @@ export function ContentGrid({
   storiesCount,
   initialStories,
   basePath,
+  tableLoadMore,
 }: ContentGridProps) {
   return (
     <Container className="relative max-w-[1080px]">
@@ -63,6 +65,7 @@ export function ContentGrid({
             initialStories={initialStories}
             totalCount={storiesCount || 0}
             basePath={basePath}
+            tableLoadMore={tableLoadMore}
           />
         )}
 

@@ -27,6 +27,8 @@ interface BlogStory {
 interface LoadMoreBlogsProps {
   initialStories: BlogStory[];
   totalCount: number;
+  basePath?: string;
+  tableLoadMore?: string;
 }
 
 const POSTS_PER_LOAD = 6;
@@ -34,6 +36,8 @@ const POSTS_PER_LOAD = 6;
 export function LoadMoreBlogs({
   initialStories,
   totalCount,
+  basePath,
+  tableLoadMore = "stories_overview",
 }: LoadMoreBlogsProps) {
   const [additionalStories, setAdditionalStories] = useState<BlogStory[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +53,7 @@ export function LoadMoreBlogs({
       const supabase = createClient();
 
       const { data: stories, error } = await supabase
-        .from("stories_overview")
+        .from(tableLoadMore)
         .select("*", { count: "exact" })
         .order("published_at", { ascending: false })
         .order("created_at", { ascending: false })
@@ -88,6 +92,7 @@ export function LoadMoreBlogs({
               key={story.id || `additional-${idx}`}
               story={story}
               index={idx}
+              basePath={basePath}
             />
           ))}
         </>

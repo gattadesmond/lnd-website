@@ -38,6 +38,7 @@ interface ContentPageProps {
   initialPostsCount: number;
   currentCategory?: string | null;
   initialStories: BlogStory[];
+  tableLoadMore?: string;
 }
 
 export function ContentPage({
@@ -49,6 +50,7 @@ export function ContentPage({
   storiesCount,
   currentCategory,
   initialStories,
+  tableLoadMore,
 }: ContentPageProps) {
   return (
     <>
@@ -65,6 +67,7 @@ export function ContentPage({
         storiesCount={storiesCount}
         basePath={basePath}
         initialStories={initialStories}
+        tableLoadMore={tableLoadMore}
       />
 
       <div className="h-0 border-t border-neutral-200" />

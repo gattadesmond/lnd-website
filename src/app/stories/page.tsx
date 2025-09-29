@@ -72,6 +72,7 @@ const BlogPage = generatePage(async () => {
       title={POST_TYPE_CONFIG.story.metadata.title}
       description={POST_TYPE_CONFIG.story.metadata.description}
       basePath={POST_TYPE_CONFIG.story.basePath}
+      tableLoadMore={POST_TYPE_CONFIG.story.api.table}
       stories={stories}
       categories={categories}
       storiesCount={storiesCount}
