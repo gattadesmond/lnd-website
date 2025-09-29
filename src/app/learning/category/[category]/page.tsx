@@ -16,23 +16,23 @@ export async function generateMetadata({
     .join(" ");
 
   return {
-    title: `${categoryTitle} Learning | LnD Hub`,
-    description: `Explore ${categoryTitle} learning resources and tutorials from the LnD Hub team.`,
+    title: `${categoryTitle} | LnD Hub Blog`,
+    description: `Explore ${categoryTitle} articles and insights from the LnD Hub team.`,
     openGraph: {
-      title: `${categoryTitle} Learning | LnD Hub`,
-      description: `Explore ${categoryTitle} learning resources and tutorials from the LnD Hub team.`,
-      url: `https://product.momo.vn/learning/category/${category}`,
+      title: `${categoryTitle} | LnD Hub Blog`,
+      description: `Explore ${categoryTitle} articles and insights from the LnD Hub team.`,
+      url: `https://product.momo.vn/blog/category/${category}`,
       siteName: "LnD Hub",
       images: [
         {
-          url: "https://product.momo.vn/og-learning.png",
+          url: "https://product.momo.vn/og.png",
           width: 1200,
           height: 675,
         },
       ],
     },
     twitter: {
-      title: `${categoryTitle} Learning | LnD Hub`,
+      title: `${categoryTitle} | LnD Hub Blog`,
       card: "summary_large_image",
     },
   };
@@ -43,7 +43,7 @@ export const revalidate = 60;
 // Số bài viết hiển thị ban đầu
 const INITIAL_POSTS_COUNT = 9;
 
-const POST_TYPE_ID = 3; // Learning
+const POST_TYPE_ID = 1; // Story
 
 const CategoryPage = generatePage(
   async ({ params }: { params: Promise<{ category: string }> }) => {
@@ -82,7 +82,7 @@ const CategoryPage = generatePage(
 
     // Handle errors gracefully
     if (loadStoriesError) {
-      console.error("Error loading learning resources:", loadStoriesError);
+      console.error("Error loading stories:", loadStoriesError);
     }
     if (loadCategoriesError) {
       console.error("Error loading categories:", loadCategoriesError);
@@ -97,7 +97,7 @@ const CategoryPage = generatePage(
       <ContentPage
         title={categoryNow.title}
         description={categoryNow.description || ""}
-        basePath="/learning"
+        basePath="/stories"
         stories={stories}
         categories={categories}
         storiesCount={storiesCount}

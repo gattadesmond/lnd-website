@@ -43,9 +43,9 @@
     "description": "Learning Resources",
     "basePath": "/learning",
     "api": {
-      "table": "stories_overview",
+      "table": "learning_overview",
       "categoriesTable": "categories",
-      "fullDetailsTable": "stories_with_full_details"
+      "fullDetailsTable": "learning_with_full_details"
     },
     "metadata": {
       "title": "Learning & Development",

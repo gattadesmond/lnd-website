@@ -1,15 +1,14 @@
 import { ContentPage } from "@/components/content/ContentPage";
 import { generatePage } from "@/lib/generatePage";
+import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
-  title: "Learning Resources",
-  description:
-    "Access our comprehensive learning materials, tutorials, and educational content designed to help you grow and develop new skills.",
+  title: POST_TYPE_CONFIG.learning.metadata.title,
+  description: POST_TYPE_CONFIG.learning.metadata.description,
   openGraph: {
-    title: "Learning Resources",
-    description:
-      "Access our comprehensive learning materials, tutorials, and educational content designed to help you grow and develop new skills.",
+    title: POST_TYPE_CONFIG.learning.metadata.title,
+    description: POST_TYPE_CONFIG.learning.metadata.description,
     url: "https://product.momo.vn/learning",
     siteName: "LnD Hub",
     images: [
@@ -22,20 +21,21 @@ export const metadata = {
   },
 };
 
-export const revalidate = 60;
+export const revalidate = POST_TYPE_CONFIG.config.revalidate;
 
 // Số bài viết hiển thị ban đầu
-const INITIAL_POSTS_COUNT = 9;
+const INITIAL_POSTS_COUNT =
+  POST_TYPE_CONFIG.learning.pagination.initialPostsCount;
 
-const POST_TYPE_ID = 3; // Learning
+const POST_TYPE_ID = POST_TYPE_CONFIG.learning.id; // Learning
 
-const LearningPage = generatePage(async () => {
+const BlogPage = generatePage(async () => {
   // Initialize Supabase client
   const supabase = await createClient();
 
   // Build queries
   const categoriesQuery = supabase
-    .from("categories")
+    .from(POST_TYPE_CONFIG.learning.api.categoriesTable)
     .select(
       "title, description, slug, categories_post_types!inner(post_type_id)",
     )
@@ -43,7 +43,7 @@ const LearningPage = generatePage(async () => {
     .order("updated_at", { ascending: false });
 
   const storiesQuery = supabase
-    .from("stories_overview")
+    .from(POST_TYPE_CONFIG.learning.api.table)
     .select("*", { count: "exact" });
 
   // Execute queries in parallel for better performance
@@ -60,7 +60,7 @@ const LearningPage = generatePage(async () => {
 
   // Handle errors gracefully
   if (loadStoriesError) {
-    console.error("Error loading learning resources:", loadStoriesError);
+    console.error("Error loading stories:", loadStoriesError);
   }
   if (loadCategoriesError) {
     console.error("Error loading categories:", loadCategoriesError);
@@ -68,9 +68,10 @@ const LearningPage = generatePage(async () => {
 
   return (
     <ContentPage
-      title="Learning Resources"
-      description="Access our comprehensive learning materials, tutorials, and educational content designed to help you grow and develop new skills."
-      basePath="/learning"
+      title={POST_TYPE_CONFIG.learning.metadata.title}
+      description={POST_TYPE_CONFIG.learning.metadata.description}
+      basePath={POST_TYPE_CONFIG.learning.basePath}
+      tableLoadMore={POST_TYPE_CONFIG.learning.api.table}
       stories={stories}
       categories={categories}
       storiesCount={storiesCount}
@@ -80,4 +81,4 @@ const LearningPage = generatePage(async () => {
   );
 });
 
-export default LearningPage;
+export default BlogPage;
