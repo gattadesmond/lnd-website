@@ -162,12 +162,9 @@ export function InteractionBar({
             variant="ghost"
             size="sm"
             className="size-9 cursor-pointer rounded-full"
-            onClick={handleLike}
           >
             <List
-              className={`size-5 transition-colors ${
-                liked ? "fill-red-500 text-red-500" : "text-neutral-700"
-              }`}
+              className={`size-5 transition-colors ${"text-neutral-700"}`}
             />
           </Button>
         </div>
@@ -179,12 +176,9 @@ export function InteractionBar({
             variant="ghost"
             size="sm"
             className="size-9 cursor-pointer rounded-full"
-            onClick={handleLike}
           >
             <Share2
-              className={`size-5 transition-colors ${
-                liked ? "fill-red-500 text-red-500" : "text-neutral-700"
-              }`}
+              className={`size-5 transition-colors ${"text-neutral-700"}`}
             />
           </Button>
         </div>
