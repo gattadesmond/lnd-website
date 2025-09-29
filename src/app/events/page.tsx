@@ -23,7 +23,7 @@ export const metadata = {
   },
 };
 
-export const revalidate = POST_TYPE_CONFIG.config.revalidate;
+export const revalidate = 60;
 
 // Số bài viết hiển thị ban đầu
 const INITIAL_POSTS_COUNT = POST_TYPE_CONFIG.event.pagination.initialPostsCount;
