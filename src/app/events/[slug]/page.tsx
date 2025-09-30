@@ -280,7 +280,7 @@ const StoryPage = generatePage(
                     content={relatedStories}
                     currentContentId={story.id}
                     title="Read more"
-                    basePath="/stories"
+                    basePath="/events"
                   />
                 )}
               </div>
