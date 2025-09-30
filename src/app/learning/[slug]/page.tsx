@@ -314,7 +314,7 @@ const LearningPage = generatePage(
                             height={36}
                             className="blur-0 size-9 rounded-full bg-neutral-200 object-cover transition-all group-hover:brightness-90"
                             src={
-                              author.avatar_url.trim() ||
+                              author?.avatar_url?.trim() ||
                               "/placeholder-blog.jpg"
                             }
                             style={{ color: "transparent" }}
