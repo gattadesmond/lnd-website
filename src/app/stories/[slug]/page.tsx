@@ -7,6 +7,7 @@ import { AlignLeftIcon } from "lucide-react";
 import { InteractionBar } from "@/components/blog/interaction-bar";
 import TableOfContent from "@/components/blog/table-of-content";
 import { Container } from "@/components/container";
+import { AuthorDisplayList } from "@/components/content/AuthorDisplay";
 import { EditorContentRenderer } from "@/components/content/EditorContentRenderer";
 import { RelatedContent } from "@/components/content/RelatedContent";
 import { Button } from "@/components/ui/button";
@@ -180,43 +181,11 @@ const StoryPage = generatePage(
                   <p className="font-display text-sm text-neutral-500">
                     Written by
                   </p>
-                  {story.authors &&
-                    story.authors.length > 0 &&
-                    story.authors.map(
-                      (author: {
-                        id: string;
-                        full_name: string;
-                        user_name: string;
-                        avatar_url: string;
-                      }) => (
-                        <Link
-                          className="group pointer-events-none flex items-center space-x-3 select-none"
-                          href={`/members/${author.id}`}
-                          key={author.id}
-                        >
-                          <Image
-                            alt={author?.full_name || "Author"}
-                            loading="lazy"
-                            width={36}
-                            height={36}
-                            className="blur-0 size-9 rounded-full bg-neutral-200 object-cover transition-all group-hover:brightness-90"
-                            src={
-                              author?.avatar_url?.trim() ||
-                              "/placeholder-blog.jpg"
-                            }
-                            style={{ color: "transparent" }}
-                          />
-                          <div className="flex flex-col">
-                            <p className="font-display text-sm font-semibold whitespace-nowrap text-neutral-700">
-                              {author.full_name}
-                            </p>
-                            <p className="font-display text-sm text-neutral-500">
-                              {author.user_name}
-                            </p>
-                          </div>
-                        </Link>
-                      ),
-                    )}
+                  <AuthorDisplayList
+                    authors={story.authors || []}
+                    size="md"
+                    showUsername={true}
+                  />
                 </div>
                 <div className="sticky top-16 pt-4 pb-8">
                   <div className="max-h-[58vh] overflow-y-auto pr-4 pb-8">
