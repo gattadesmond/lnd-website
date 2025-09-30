@@ -303,7 +303,7 @@ const StoryPage = generatePage(
                           key={author.id}
                         >
                           <Image
-                            alt={author.full_name}
+                            alt={author?.full_name || "Author"}
                             loading="lazy"
                             width={36}
                             height={36}
