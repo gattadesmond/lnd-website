@@ -14,7 +14,7 @@ export function EditorContentRenderer({
   onHeadingsChange,
   className = "prose prose-base max-w-none px-5 py-8 text-neutral-800 prose-neutral sm:px-12 prose-headings:scroll-mt-20 prose-headings:font-display prose-headings:text-neutral-900 prose-a:font-medium prose-a:text-black prose-a:underline-offset-4 prose-a:hover:text-neutral-700 prose-strong:text-neutral-900",
 }: EditorContentRendererProps) {
-  if (!content || typeof content !== "string") {
+  if (!content || typeof content !== "object") {
     return (
       <div className={className}>
         <div className="text-neutral-500">No content available</div>
@@ -23,13 +23,17 @@ export function EditorContentRenderer({
   }
 
   try {
-    const editorData = JSON.parse(content);
+    const editorData = content;
     const listHeadings: { id: string; text: string; level: number }[] = [];
 
     const edjsParser = EditorJsHtml({
+      raw: ({ data }) => {
+        return data.html || "";
+      },
       embed: ({ data }) => {
-        console.log("🚀 ~ EditorContentRenderer ~ embed:", data);
-        return `<iframe src="${data.embed}" scrolling="no" frameborder="0" style="border: none;" class="aspect-video" data-external="1"></iframe>`;
+        return `<div style='aspect-ratio:16/9; position:relative; width:100%;'>
+                         <iframe src="${data.embed}" scrolling="no" frameborder="0" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allowfullscreen  data-external="1"></iframe>
+                         </div>`;
       },
       header: ({ data }) => {
         // Custom header renderer with class
@@ -101,12 +105,49 @@ export function EditorContentRenderer({
         const caption = data.caption
           ? `<figcaption class="text-sm text-neutral-500 mt-2 text-center">${data.caption}</figcaption>`
           : "";
-
         const html = `<figure class="my-6">
-          <code class="language-${language}">${code}</code>
-          ${caption}
-        </figure>`;
+                    <code class="language-${language}">${code}</code>
+                    ${caption}
+                    </figure>`;
         return html;
+      },
+      paragraph: ({ data }) => {
+        // Handle paragraph blocks
+        return `<p>${data.text || ""}</p>`;
+      },
+      quote: ({ data }) => {
+        // Handle quote blocks
+        const caption = data.caption
+          ? `<figcaption class="text-sm text-neutral-500 mt-2 text-center">${data.caption}</figcaption>`
+          : "";
+        return `<blockquote class="border-l-4 border-neutral-300 pl-4 italic text-neutral-600">
+                     ${data.text || ""}
+                     ${caption}
+                 </blockquote>`;
+      },
+      delimiter: () => {
+        // Handle delimiter blocks
+        return `<div class="text-center my-8">
+                     <span class="text-4xl text-neutral-300">***</span>
+                 </div>`;
+      },
+      warning: ({ data }) => {
+        // Handle warning blocks
+        return `<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-4">
+                     <div class="flex">
+                         <div class="flex-shrink-0">
+                             <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                                 <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                             </svg>
+                         </div>
+                         <div class="ml-3">
+                             <h3 class="text-sm font-medium text-yellow-800">${data.title || "Warning"}</h3>
+                             <div class="mt-2 text-sm text-yellow-700">
+                                 <p>${data.message || ""}</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>`;
       },
     });
 
