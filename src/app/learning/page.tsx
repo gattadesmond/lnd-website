@@ -4,11 +4,13 @@ import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
-  title: POST_TYPE_CONFIG.learning.metadata.title,
-  description: POST_TYPE_CONFIG.learning.metadata.description,
+  title: "Learning & Development",
+  description:
+    "Explore our collection of learning resources, courses, and educational content to enhance your skills and knowledge.",
   openGraph: {
-    title: POST_TYPE_CONFIG.learning.metadata.title,
-    description: POST_TYPE_CONFIG.learning.metadata.description,
+    title: "Learning & Development",
+    description:
+      "Explore our collection of learning resources, courses, and educational content to enhance your skills and knowledge.",
     url: "https://product.momo.vn/learning",
     siteName: "LnD Hub",
     images: [
@@ -29,7 +31,7 @@ const INITIAL_POSTS_COUNT =
 
 const POST_TYPE_ID = POST_TYPE_CONFIG.learning.id; // Learning
 
-const BlogPage = generatePage(async () => {
+const LearningPage = generatePage(async () => {
   // Initialize Supabase client
   const supabase = await createClient();
 
@@ -42,16 +44,16 @@ const BlogPage = generatePage(async () => {
     .eq("categories_post_types.post_type_id", POST_TYPE_ID)
     .order("updated_at", { ascending: false });
 
-  const storiesQuery = supabase
+  const learningQuery = supabase
     .from(POST_TYPE_CONFIG.learning.api.table)
     .select("*", { count: "exact" });
 
   // Execute queries in parallel for better performance
   const [
-    { data: stories, error: loadStoriesError, count: storiesCount },
+    { data: learning, error: loadLearningError, count: learningCount },
     { data: categories, error: loadCategoriesError },
   ] = await Promise.all([
-    storiesQuery
+    learningQuery
       .order("published_at", { ascending: false })
       .order("created_at", { ascending: false })
       .range(0, INITIAL_POSTS_COUNT - 1),
@@ -59,8 +61,8 @@ const BlogPage = generatePage(async () => {
   ]);
 
   // Handle errors gracefully
-  if (loadStoriesError) {
-    console.error("Error loading stories:", loadStoriesError);
+  if (loadLearningError) {
+    console.error("Error loading learning:", loadLearningError);
   }
   if (loadCategoriesError) {
     console.error("Error loading categories:", loadCategoriesError);
@@ -72,13 +74,13 @@ const BlogPage = generatePage(async () => {
       description={POST_TYPE_CONFIG.learning.metadata.description}
       basePath={POST_TYPE_CONFIG.learning.basePath}
       tableLoadMore={POST_TYPE_CONFIG.learning.api.table}
-      stories={stories}
+      stories={learning}
       categories={categories}
-      storiesCount={storiesCount}
+      storiesCount={learningCount}
       initialPostsCount={INITIAL_POSTS_COUNT}
-      initialStories={stories || []}
+      initialStories={learning || []}
     />
   );
 });
 
-export default BlogPage;
+export default LearningPage;

@@ -25,31 +25,33 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const supabase = await createClient();
-  const { data: story } = await supabase
-    .from("stories_with_full_details")
+  const { data: learning } = await supabase
+    .from("learnings_with_full_details")
     .select("title, description, coverImageUrl")
     .eq("urlRewrite", slug)
     .single();
 
-  if (!story) {
+  if (!learning) {
     return {
-      title: "Story Not Found",
-      description: "The requested story could not be found.",
+      title: "Learning Resource Not Found",
+      description: "The requested learning resource could not be found.",
     };
   }
 
   return {
-    title: `${story.title} | LnD Hub`,
-    description: story.description || "Read this story on LnD Hub",
+    title: `${learning.title} | LnD Hub`,
+    description:
+      learning.description || "Read this learning resource on LnD Hub",
     openGraph: {
-      title: `${story.title} | LnD Hub`,
-      description: story.description || "Read this story on LnD Hub",
-      url: `https://product.momo.vn/stories/${slug}`,
+      title: `${learning.title} | LnD Hub`,
+      description:
+        learning.description || "Read this learning resource on LnD Hub",
+      url: `https://product.momo.vn/learning/${slug}`,
       siteName: "LnD Hub",
-      images: story.coverImageUrl
+      images: learning.coverImageUrl
         ? [
             {
-              url: story.coverImageUrl,
+              url: learning.coverImageUrl,
               width: 1200,
               height: 675,
             },
@@ -57,7 +59,7 @@ export async function generateMetadata({
         : [],
     },
     twitter: {
-      title: `${story.title} | LnD Hub`,
+      title: `${learning.title} | LnD Hub`,
       card: "summary_large_image",
     },
   };
@@ -65,29 +67,29 @@ export async function generateMetadata({
 
 export const revalidate = 60;
 
-const StoryPage = generatePage(
+const LearningPage = generatePage(
   async ({ params }: { params: Promise<{ slug: string }> }) => {
     const { slug } = await params;
 
     // Initialize Supabase client
     const supabase = await createClient();
 
-    // Fetch story details
-    const { data: story, error } = await supabase
-      .from(POST_TYPE_CONFIG.story.api.fullDetailsTable)
+    // Fetch learning details
+    const { data: learning, error } = await supabase
+      .from(POST_TYPE_CONFIG.learning.api.fullDetailsTable)
       .select("*")
       .eq("slug", slug)
       .single();
 
-    if (error || !story) {
+    if (error || !learning) {
       notFound();
     }
 
-    // Fetch related stories from the same category
-    const relatedStories = await useRelatedContent({
-      tableName: POST_TYPE_CONFIG.story.api.table,
-      categorySlug: story.category?.slug || "",
-      currentContentId: story.id,
+    // Fetch related learning from the same category
+    const relatedLearning = await useRelatedContent({
+      tableName: POST_TYPE_CONFIG.learning.api.table,
+      categorySlug: learning.category?.slug || "",
+      currentContentId: learning.id,
       limit: 4,
     });
 
@@ -96,9 +98,9 @@ const StoryPage = generatePage(
       <>
         {/* Interaction Bar */}
         <InteractionBar
-          likes={story.reacted_users_count || 0}
+          likes={learning.reacted_users_count || 0}
           comments={0}
-          storyId={story.id} // You can add comments functionality later
+          storyId={learning.id} // You can add comments functionality later
         />
 
         {/* Header */}
@@ -112,29 +114,29 @@ const StoryPage = generatePage(
           >
             <div className="border-grid-border relative z-0 px-4 pt-16 pb-12 sm:px-12">
               <div className="flex items-center space-x-4">
-                {story.category && (
+                {learning.category && (
                   <Button variant="secondary" size="sm">
                     <Link
-                      href={`${POST_TYPE_CONFIG.story.basePath}/category/${story.category.slug}`}
+                      href={`${POST_TYPE_CONFIG.learning.basePath}/category/${learning.category.slug}`}
                     >
-                      {story.category.title}
+                      {learning.category.title}
                     </Link>
                   </Button>
                 )}
 
                 <DateDisplay
-                  date={story.published_at}
+                  date={learning.published_at}
                   variant="display"
                   className="text-sm text-neutral-500 transition-colors hover:text-neutral-800"
                 />
               </div>
               <h1 className="mt-5 text-left font-display text-4xl font-semibold text-balance text-neutral-900 sm:text-4xl sm:leading-[1.25]">
-                {story.title}
+                {learning.title}
               </h1>
 
-              {story.description && (
+              {learning.description && (
                 <p className="sm:text-l mt-5 text-balance text-neutral-500">
-                  {story.description}
+                  {learning.description}
                 </p>
               )}
             </div>
@@ -146,11 +148,13 @@ const StoryPage = generatePage(
               <div className="relative col-span-3 md:col-span-2">
                 <div className="bg-white">
                   {/* Cover Image */}
-                  {story.cover_image_url && (
+                  {learning.cover_image_url && (
                     <div className="aspect-[1200/630] overflow-hidden">
                       <Image
-                        src={story.cover_image_url || "/placeholder-blog.jpg"}
-                        alt={story.title || "Story cover"}
+                        src={
+                          learning.cover_image_url || "/placeholder-blog.jpg"
+                        }
+                        alt={learning.title || "Learning resource cover"}
                         width={1200}
                         height={630}
                         className="h-full w-full object-cover"
@@ -159,10 +163,11 @@ const StoryPage = generatePage(
                   )}
 
                   <div className="prose prose-base max-w-none px-5 py-8 text-neutral-800 prose-neutral sm:px-12 prose-headings:scroll-mt-20 prose-headings:font-display prose-headings:text-neutral-900 prose-a:font-medium prose-a:text-black prose-a:underline-offset-4 prose-a:hover:text-neutral-700 prose-strong:text-neutral-900">
-                    {story.content && typeof story.content === "string" ? (
+                    {learning.content &&
+                    typeof learning.content === "string" ? (
                       (() => {
                         try {
-                          const editorData = JSON.parse(story.content);
+                          const editorData = JSON.parse(learning.content);
 
                           const edjsParser = EditorJsHtml({
                             header: ({ data }) => {
@@ -260,7 +265,7 @@ const StoryPage = generatePage(
                           return (
                             <div
                               dangerouslySetInnerHTML={{
-                                __html: story.content,
+                                __html: learning.content,
                               }}
                             />
                           );
@@ -273,13 +278,13 @@ const StoryPage = generatePage(
                     )}
                   </div>
                 </div>
-                {/* Related Stories */}
-                {relatedStories.length > 0 && (
+                {/* Related Learning */}
+                {relatedLearning.length > 0 && (
                   <RelatedContent
-                    content={relatedStories}
-                    currentContentId={story.id}
-                    title="Read more"
-                    basePath="/stories"
+                    content={relatedLearning}
+                    currentContentId={learning.id}
+                    title="Learn more"
+                    basePath="/learning"
                   />
                 )}
               </div>
@@ -288,9 +293,9 @@ const StoryPage = generatePage(
                   <p className="font-display text-sm text-neutral-500">
                     Written by
                   </p>
-                  {story.authors &&
-                    story.authors.length > 0 &&
-                    story.authors.map(
+                  {learning.authors &&
+                    learning.authors.length > 0 &&
+                    learning.authors.map(
                       (author: {
                         id: string;
                         full_name: string;
@@ -308,7 +313,10 @@ const StoryPage = generatePage(
                             width={36}
                             height={36}
                             className="blur-0 size-9 rounded-full bg-neutral-200 object-cover transition-all group-hover:brightness-90"
-                            src={author.avatar_url}
+                            src={
+                              author.avatar_url.trim() ||
+                              "/placeholder-blog.jpg"
+                            }
                             style={{ color: "transparent" }}
                           />
                           <div className="flex flex-col">
@@ -344,4 +352,4 @@ const StoryPage = generatePage(
   },
 );
 
-export default StoryPage;
+export default LearningPage;
