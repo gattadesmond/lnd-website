@@ -6,9 +6,33 @@ import { BlogCard } from "@/components/blog/blog-card";
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 
+interface BlogStory {
+  id?: string;
+  slug?: string;
+  title?: string;
+  excerpt?: string;
+  description?: string;
+  cover_image_url?: string;
+  author_name?: string;
+  author_avatar?: string;
+  published_at?: string;
+  category?: {
+    slug: string;
+    title: string;
+  };
+  view_count?: number;
+  reacted_users_count?: number;
+  basePath?: string;
+  authors?: Array<{
+    user_name: React.ReactNode;
+    full_name: string;
+    avatar_url: string;
+  }>;
+}
+
 interface Section {
   title: string;
-  content: unknown[];
+  content: BlogStory[];
   basePath: string;
   viewAllPath: string;
   viewAllText: string;
