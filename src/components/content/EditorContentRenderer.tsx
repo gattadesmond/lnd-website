@@ -12,7 +12,7 @@ interface EditorContentRendererProps {
 export function EditorContentRenderer({
   content,
   onHeadingsChange,
-  className = "prose prose-base max-w-none px-5 py-8 text-neutral-800 prose-neutral sm:px-12 prose-headings:scroll-mt-20 prose-headings:font-display prose-headings:text-neutral-900 prose-a:font-medium prose-a:text-black prose-a:underline-offset-4 prose-a:hover:text-neutral-700 prose-strong:text-neutral-900",
+  className = "prose prose-base max-w-none px-5 py-8 text-neutral-800 prose-neutral sm:px-12 prose-headings:scroll-mt-20 prose-headings:font-display prose-headings:text-neutral-900 prose-a:font-medium prose-a:text-black prose-a:underline-offset-4 prose-a:hover:text-neutral-500 prose-strong:text-neutral-900",
 }: EditorContentRendererProps) {
   if (!content || typeof content !== "object") {
     return (
