@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import { ArrowUpRightIcon, BookOpenIcon, FileTextIcon } from "lucide-react";
 
@@ -47,18 +48,18 @@ function Hero() {
             and information, fueling the rocket of our product&apos;s growth 🚀
           </p>
         </div>
-        <div className="relative mx-auto mt-10 flex max-w-fit animate-slide-up-fade gap-4 space-x-4 [--offset:20px] [animation-delay:300ms] [animation-duration:1s]">
+        <div className="relative mx-auto mt-10 flex max-w-fit animate-slide-up-fade gap-4 [--offset:20px] [animation-delay:300ms] [animation-duration:1s]">
           <Button asChild className="mx-auto max-w-fit">
-            <a href="/">
+            <Link href="/learning">
               <BookOpenIcon className="h-4 w-4" />
               Start Learning
-            </a>
+            </Link>
           </Button>
           <Button asChild variant="outline" className="mx-auto max-w-fit">
-            <a href="/">
+            <Link href="/stories/huong-dan-dong-gop-product-stories">
               <FileTextIcon className="h-4 w-4" />
               Contribution Guides
-            </a>
+            </Link>
           </Button>
         </div>
       </Container>
