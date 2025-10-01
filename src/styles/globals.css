@@ -140,17 +140,18 @@
     }
   }
 
-  --font-display: "JetBrains Mono", monospace;
+  --font-display: "Noto Sans Display", monospace;
   --font-body: "Noto Sans", sans-serif;
 }
 
 .prose code {
   @apply block px-3 py-3 whitespace-pre-wrap text-neutral-800;
-  letter-spacing: -1px;
   background-color: #fef3c7;
   box-shadow: -4px 4px 0px -2px #fef3c7;
   border: 2px solid #fff;
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Noto Sans", monospace;
+  letter-spacing: 0px;
+  font-size: 1rem;
 }
 .prose code:before,
 .prose code:after {

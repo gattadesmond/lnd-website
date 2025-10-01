@@ -71,7 +71,7 @@ export function RelatedContent({
                     height={100}
                     decoding="async"
                     className="blur-0 aspect-video w-full shrink-0 rounded-lg border border-neutral-200 sm:w-[200px]"
-                    src={item.cover_image_url}
+                    src={item?.cover_image_url || "/placeholder-blog.jpg"}
                     style={{ color: "transparent" }}
                   />
                 )}

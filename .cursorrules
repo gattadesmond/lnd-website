@@ -48,6 +48,13 @@ This is a Next.js 15 project using App Router, Tailwind CSS v4, and shadcn/UI co
 - Use `dangerouslySetInnerHTML` for HTML output from Editor.js
 - Implement error handling for malformed JSON content
 
+### Content Status Management
+- **Posts (stories, learnings, events)**: Use status values "draft", "preview", "published"
+- **Members**: Use status values "active", "disabled", "pending"
+- Always validate status values when creating or updating content
+- Implement proper status-based filtering and access control
+- Use TypeScript enums or union types for status validation
+
 ## Code Structure & Patterns
 
 ### File Organization

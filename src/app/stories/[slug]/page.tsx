@@ -2,20 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import EditorJsHtml from "editorjs-html";
 import { AlignLeftIcon } from "lucide-react";
-import slugify from "slugify";
 
 import { InteractionBar } from "@/components/blog/interaction-bar";
 import TableOfContent from "@/components/blog/table-of-content";
 import { Container } from "@/components/container";
+import { AuthorDisplayList } from "@/components/content/AuthorDisplay";
+import { EditorContentRenderer } from "@/components/content/EditorContentRenderer";
 import { RelatedContent } from "@/components/content/RelatedContent";
 import { Button } from "@/components/ui/button";
 import { DateDisplay } from "@/components/ui/DateDisplay";
 import { useRelatedContent } from "@/hooks/useRelatedContent";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
-import { createClient } from "@/lib/supabase/server";
+import { createDynamicClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
   params,
@@ -24,7 +24,7 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
 
-  const supabase = await createClient();
+  const supabase = await createDynamicClient();
   const { data: story } = await supabase
     .from("stories_with_full_details")
     .select("title, description, coverImageUrl")
@@ -70,7 +70,7 @@ const StoryPage = generatePage(
     const { slug } = await params;
 
     // Initialize Supabase client
-    const supabase = await createClient();
+    const supabase = await createDynamicClient();
 
     // Fetch story details
     const { data: story, error } = await supabase
@@ -158,120 +158,13 @@ const StoryPage = generatePage(
                     </div>
                   )}
 
-                  <div className="prose prose-base max-w-none px-5 py-8 text-neutral-800 prose-neutral sm:px-12 prose-headings:scroll-mt-20 prose-headings:font-display prose-headings:text-neutral-900 prose-a:font-medium prose-a:text-black prose-a:underline-offset-4 prose-a:hover:text-neutral-700 prose-strong:text-neutral-900">
-                    {story.content && typeof story.content === "string" ? (
-                      (() => {
-                        try {
-                          const editorData = JSON.parse(story.content);
-
-                          const edjsParser = EditorJsHtml({
-                            header: ({ data }) => {
-                              // Custom header renderer with class
-                              const level = data.level || 2;
-                              const text = data.text;
-                              const id = slugify(data.text || "", {
-                                lower: true,
-                                strict: false,
-                                remove: /[*+~.()'"!:@]/g,
-                                replacement: "-",
-                                locale: "vi",
-                              });
-
-                              if (level === 2) {
-                                listHeadings.push({ id, text, level });
-                                return `<h2 id="${id}" class="group">
-                                  <a href="#${id}" class="group flex items-start gap-x-2  !text-neutral-800 ">
-                                    ${text}
-                                    <div class="rounded-lg border border-neutral-200 bg-white p-1.5 opacity-0 transition-all hover:border-neutral-300 hover:shadow group-hover:opacity-100">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2 size-4 text-neutral-600" aria-label="Link to section">
-                                        <path d="M9 17H7A5 5 0 0 1 7 7h2" />
-                                        <path d="M15 7h2a5 5 0 1 1 0 10h-2" />
-                                        <line x1="8" x2="16" y1="12" y2="12" />
-                                      </svg>
-                                    </div>
-                                  </a>
-                                </h2>`;
-                              }
-
-                              if (level === 3) {
-                                listHeadings.push({ id, text, level });
-                                return `<h3 id="${id}" class="group">
-                                  <a href="#${id}" class="group flex items-start gap-x-2  !text-neutral-800 ">
-                                    ${text}
-                                  </a>
-                                </h2>`;
-                              }
-
-                              return `<h${level}>${text}</h${level}>`;
-                            },
-                            table: (data: { content?: unknown[][] }) => {
-                              // Custom table renderer
-                              if (!data.content || !Array.isArray(data.content))
-                                return "";
-                              const rows = data.content
-                                .map(
-                                  (row: unknown[]) =>
-                                    `<tr>${row.map((cell) => `<td>${cell || ""}</td>`).join("")}</tr>`,
-                                )
-                                .join("");
-                              return `<table class="border-collapse border border-neutral-300 w-full my-4"><tbody>${rows}</tbody></table>`;
-                            },
-                            simpleImage: ({ data }) => {
-                              // Handle different data structures
-                              const imageUrl = data.url || data.file?.url;
-                              if (!imageUrl) {
-                                return "";
-                              }
-                              const caption = data.caption
-                                ? `<figcaption class="text-sm text-neutral-500 mt-2 text-center">${data.caption}</figcaption>`
-                                : "";
-
-                              const html = `<figure ><img src="${imageUrl}" alt="${data.caption || "Image"}" class="rounded-lg border border-neutral-200 w-full" />${caption}</figure>`;
-                              return html;
-                            },
-                            code: ({ data }) => {
-                              // Handle code blocks with proper semantic HTML
-                              const code = data.code || "";
-                              const language = data.language || "";
-                              const caption = data.caption
-                                ? `<figcaption class="text-sm text-neutral-500 mt-2 text-center">${data.caption}</figcaption>`
-                                : "";
-
-                              const html = `<figure class="my-6">
-                                <code class="language-${language}">${code}</code>
-                                ${caption}
-                              </figure>`;
-                              return html;
-                            },
-                          });
-                          const html = edjsParser.parse(editorData);
-
-                          return (
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: Array.isArray(html)
-                                  ? html.join("")
-                                  : html,
-                              }}
-                            />
-                          );
-                        } catch {
-                          // Fallback for non-JSON content
-                          return (
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: story.content,
-                              }}
-                            />
-                          );
-                        }
-                      })()
-                    ) : (
-                      <div className="text-neutral-500">
-                        No content available
-                      </div>
-                    )}
-                  </div>
+                  <EditorContentRenderer
+                    content={story.content}
+                    onHeadingsChange={(headings) => {
+                      listHeadings.length = 0;
+                      listHeadings.push(...headings);
+                    }}
+                  />
                 </div>
                 {/* Related Stories */}
                 {relatedStories.length > 0 && (
@@ -288,43 +181,11 @@ const StoryPage = generatePage(
                   <p className="font-display text-sm text-neutral-500">
                     Written by
                   </p>
-                  {story.authors &&
-                    story.authors.length > 0 &&
-                    story.authors.map(
-                      (author: {
-                        id: string;
-                        full_name: string;
-                        user_name: string;
-                        avatar_url: string;
-                      }) => (
-                        <Link
-                          className="group pointer-events-none flex items-center space-x-3 select-none"
-                          href={`/members/${author.id}`}
-                          key={author.id}
-                        >
-                          <Image
-                            alt={author.full_name}
-                            loading="lazy"
-                            width={36}
-                            height={36}
-                            className="blur-0 size-9 rounded-full bg-neutral-200 object-cover transition-all group-hover:brightness-90"
-                            src={
-                              author.avatar_url.trim() ||
-                              "/placeholder-blog.jpg"
-                            }
-                            style={{ color: "transparent" }}
-                          />
-                          <div className="flex flex-col">
-                            <p className="font-display text-sm font-semibold whitespace-nowrap text-neutral-700">
-                              {author.full_name}
-                            </p>
-                            <p className="font-display text-sm text-neutral-500">
-                              {author.user_name}
-                            </p>
-                          </div>
-                        </Link>
-                      ),
-                    )}
+                  <AuthorDisplayList
+                    authors={story.authors || []}
+                    size="md"
+                    showUsername={true}
+                  />
                 </div>
                 <div className="sticky top-16 pt-4 pb-8">
                   <div className="max-h-[58vh] overflow-y-auto pr-4 pb-8">

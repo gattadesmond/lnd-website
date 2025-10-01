@@ -47,7 +47,7 @@ function Hero() {
             and information, fueling the rocket of our product&apos;s growth 🚀
           </p>
         </div>
-        <div className="relative mx-auto mt-10 flex max-w-fit animate-slide-up-fade space-x-4 [--offset:20px] [animation-delay:300ms] [animation-duration:1s]">
+        <div className="relative mx-auto mt-10 flex max-w-fit animate-slide-up-fade gap-4 space-x-4 [--offset:20px] [animation-delay:300ms] [animation-duration:1s]">
           <Button asChild className="mx-auto max-w-fit">
             <a href="/">
               <BookOpenIcon className="h-4 w-4" />
