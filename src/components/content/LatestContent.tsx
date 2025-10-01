@@ -37,7 +37,7 @@ export function LatestContent({ sections }: LatestContentProps) {
                     key={content.id || index}
                     story={content}
                     index={index}
-                    basePath={section.basePath}
+                    basePath={content.basePath || section.basePath}
                   />
                 ))}
               </div>

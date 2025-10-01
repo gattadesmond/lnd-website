@@ -32,6 +32,32 @@ const Home = generatePage(async () => {
       .limit(6),
   ]);
 
+  // Combine all content and sort by published_at to get the latest
+  const allContent = [
+    ...(storiesResult.data || []).map((item) => ({
+      ...item,
+      type: "story",
+      basePath: POST_TYPE_CONFIG.story.basePath,
+    })),
+    ...(eventsResult.data || []).map((item) => ({
+      ...item,
+      type: "event",
+      basePath: POST_TYPE_CONFIG.event.basePath,
+    })),
+    ...(learningResult.data || []).map((item) => ({
+      ...item,
+      type: "learning",
+      basePath: POST_TYPE_CONFIG.learning.basePath,
+    })),
+  ].sort((a, b) => {
+    const dateA = new Date(a.published_at || a.created_at);
+    const dateB = new Date(b.published_at || b.created_at);
+    return dateB.getTime() - dateA.getTime();
+  });
+
+  // Get the latest 6 items from all content types
+  const latestContent = allContent.slice(0, 1);
+
   const sections = [
     {
       title: "Latest Stories",
@@ -58,7 +84,7 @@ const Home = generatePage(async () => {
 
   return (
     <>
-      <Hero />
+      <Hero latestContent={latestContent} />
       <LatestContent sections={sections} />
       <div className="h-[1px] w-full bg-neutral-200"></div>
     </>
