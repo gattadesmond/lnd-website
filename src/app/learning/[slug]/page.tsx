@@ -15,7 +15,7 @@ import { DateDisplay } from "@/components/ui/DateDisplay";
 import { useRelatedContent } from "@/hooks/useRelatedContent";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
-import { createDynamicClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
   params,
@@ -24,7 +24,7 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
 
-  const supabase = await createDynamicClient();
+  const supabase = await createStaticClient();
   const { data: learning } = await supabase
     .from("learnings_with_full_details")
     .select("title, description, coverImageUrl")
@@ -72,7 +72,7 @@ const LearningPage = generatePage(
     const { slug } = await params;
 
     // Initialize Supabase client
-    const supabase = await createDynamicClient();
+    const supabase = await createStaticClient();
 
     // Fetch learning details
     const { data: learning, error } = await supabase

@@ -40,7 +40,7 @@ export function BlogCard({ story, index, basePath }: BlogCardProps) {
   return (
     <Link
       key={story.id || index}
-      className="flex flex-col transition-all hover:bg-neutral-50"
+      className="flex flex-col bg-white transition-all hover:bg-neutral-50"
       href={`${basePath || ""}/${story.slug || ""}`}
     >
       <Image

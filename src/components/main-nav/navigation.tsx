@@ -70,7 +70,7 @@ function Navigation() {
               >
                 <div className="max-w-fit">
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_BASE_PATH}/LnD.svg`}
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH}/momo-lnd.svg`}
                     alt="Logo"
                     width={36}
                     height={15}

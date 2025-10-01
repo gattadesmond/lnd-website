@@ -6,11 +6,11 @@ import { BlogCard } from "@/components/blog/blog-card";
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
-import { createDynamicClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/server";
 
 export async function LatestContent() {
   // Initialize Supabase client
-  const supabase = await createDynamicClient();
+  const supabase = await createStaticClient();
 
   // Fetch latest content from all three types
   const [storiesResult, eventsResult, learningResult] = await Promise.all([

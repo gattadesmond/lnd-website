@@ -1,4 +1,4 @@
-import { createDynamicClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/server";
 
 interface RelatedContent {
   id: string;
@@ -36,7 +36,7 @@ export async function useRelatedContent({
   currentContentId,
   limit = 4, // Get 4 to account for filtering out current content
 }: UseRelatedContentParams): Promise<RelatedContent[]> {
-  const supabase = await createDynamicClient();
+  const supabase = await createStaticClient();
 
   try {
     const { data: content, error } = await supabase

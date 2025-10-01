@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ContentPage } from "@/components/content/ContentPage";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
-import { createDynamicClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
   params,
@@ -51,7 +51,7 @@ const CategoryPage = generatePage(
     const { category } = await params;
 
     // Initialize Supabase client
-    const supabase = await createDynamicClient();
+    const supabase = await createStaticClient();
 
     const categoriesQuery = supabase
       .from(POST_TYPE_CONFIG.story.api.categoriesTable)
