@@ -1,7 +1,7 @@
 import { ContentPage } from "@/components/content/ContentPage";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
-import { createClient } from "@/lib/supabase/server";
+import { createDynamicClient } from "@/lib/supabase/server";
 
 export const metadata = {
   title: POST_TYPE_CONFIG.learning.metadata.title,
@@ -31,7 +31,7 @@ const POST_TYPE_ID = POST_TYPE_CONFIG.learning.id; // Learning
 
 const BlogPage = generatePage(async () => {
   // Initialize Supabase client
-  const supabase = await createClient();
+  const supabase = await createDynamicClient();
 
   // Build queries
   const categoriesQuery = supabase

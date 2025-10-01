@@ -8,7 +8,7 @@ import { createServerClient } from "@supabase/ssr";
 
 import { SUPABASE_AUTH_STORAGE_KEY } from "@/features/auth/constants";
 
-export async function createClient(
+export async function createDynamicClient(
   fetchRequestInit?: NonNullable<Parameters<typeof fetch>[1]>["next"],
 ) {
   const cookieStore = await cookies();
@@ -40,6 +40,23 @@ export async function createClient(
         fetch(input, init) {
           return fetch(input, { ...fetchRequestInit, ...init });
         },
+      },
+    },
+  );
+}
+
+export async function createStaticClient() {
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SECRET_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return [];
+        },
+      },
+      auth: {
+        storageKey: SUPABASE_AUTH_STORAGE_KEY,
       },
     },
   );
