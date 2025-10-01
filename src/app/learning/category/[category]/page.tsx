@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ContentPage } from "@/components/content/ContentPage";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
-import { createClient } from "@/lib/supabase/server";
+import { createDynamicClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
   params,
@@ -52,7 +52,7 @@ const CategoryPage = generatePage(
     const { category } = await params;
 
     // Initialize Supabase client
-    const supabase = await createClient();
+    const supabase = await createDynamicClient();
 
     const categoriesQuery = supabase
       .from(POST_TYPE_CONFIG.learning.api.categoriesTable)

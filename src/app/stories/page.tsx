@@ -1,7 +1,7 @@
 import { ContentPage } from "@/components/content/ContentPage";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
-import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/server";
 
 export const metadata = {
   title: "Product Stories ",
@@ -32,7 +32,7 @@ const POST_TYPE_ID = POST_TYPE_CONFIG.story.id; // Story
 
 const BlogPage = generatePage(async () => {
   // Initialize Supabase client
-  const supabase = await createClient();
+  const supabase = await createStaticClient();
 
   // Build queries
   const categoriesQuery = supabase
