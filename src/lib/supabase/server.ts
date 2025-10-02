@@ -35,6 +35,13 @@ export async function createDynamicClient(
       },
       auth: {
         storageKey: SUPABASE_AUTH_STORAGE_KEY,
+        userStorage: {
+          setItem: () => {},
+          getItem: () => {
+            return null;
+          },
+          removeItem: () => {},
+        },
       },
       global: {
         fetch(input, init) {
