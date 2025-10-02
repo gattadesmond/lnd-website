@@ -15,6 +15,7 @@ import { DateDisplay } from "@/components/ui/DateDisplay";
 import { useRelatedContent } from "@/hooks/useRelatedContent";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
+import { ReactionsDetails, sortReactionsDetails } from "@/lib/reaction";
 import { createStaticClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
@@ -93,13 +94,26 @@ const StoryPage = generatePage(
 
     const listHeadings: { id: string; text: string; level: number }[] = [];
 
+    const { data: emojis } = await supabase
+      .from("emojis")
+      .select("emoji, animated_url")
+      .order("emoji", { ascending: true });
+
+    const sortedReactionsDetails = sortReactionsDetails(
+      (story.reactions_details || {}) as ReactionsDetails,
+      (emojis ?? []).map((e) => e.emoji),
+    );
+
     return (
       <>
         {/* Interaction Bar */}
         <InteractionBar
-          likes={story.reacted_users_count || 0}
+          reactions_count={story.reacted_users_count || 0}
+          emojis={emojis ?? []}
+          postType="events"
+          reactions_details={sortedReactionsDetails}
           comments={0}
-          storyId={story.id} // You can add comments functionality later
+          postId={story.id} // You can add comments functionality later
         />
 
         {/* Header */}

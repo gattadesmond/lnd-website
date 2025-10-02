@@ -15,6 +15,7 @@ import { DateDisplay } from "@/components/ui/DateDisplay";
 import { useRelatedContent } from "@/hooks/useRelatedContent";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
+import { ReactionsDetails, sortReactionsDetails } from "@/lib/reaction";
 import { createStaticClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
@@ -27,7 +28,7 @@ export async function generateMetadata({
   const supabase = await createStaticClient();
   const { data: story } = await supabase
     .from("stories_with_full_details")
-    .select("title, description, coverImageUrl")
+    .select("title, description, cover_image_url")
     .eq("urlRewrite", slug)
     .single();
 
@@ -46,10 +47,10 @@ export async function generateMetadata({
       description: story.description || "Read this story on LnD Hub",
       url: `https://product.momo.vn/stories/${slug}`,
       siteName: "LnD Hub",
-      images: story.coverImageUrl
+      images: story.cover_image_url
         ? [
             {
-              url: story.coverImageUrl,
+              url: story.cover_image_url,
               width: 1200,
               height: 675,
             },
@@ -73,15 +74,20 @@ const StoryPage = generatePage(
     const supabase = await createStaticClient();
 
     // Fetch story details
-    const { data: story, error } = await supabase
+    const { data: storyRes, error } = await supabase
       .from(POST_TYPE_CONFIG.story.api.fullDetailsTable)
       .select("*")
-      .eq("slug", slug)
-      .single();
+      .eq("slug", slug);
 
-    if (error || !story) {
+    if (error) {
+      notFound(); // Should be error handling
+    }
+
+    if (storyRes.length === 0) {
       notFound();
     }
+
+    const story = storyRes[0];
 
     // Fetch related stories from the same category
     const relatedStories = await useRelatedContent({
@@ -92,17 +98,30 @@ const StoryPage = generatePage(
     });
 
     const listHeadings: { id: string; text: string; level: number }[] = [];
+
+    const { data: emojis } = await supabase
+      .from("emojis")
+      .select("emoji, animated_url")
+      .order("emoji", { ascending: true });
+
+    const sortedReactionsDetails = sortReactionsDetails(
+      (story.reactions_details || {}) as ReactionsDetails,
+      (emojis ?? []).map((e) => e.emoji),
+    );
+
     return (
       <>
         {/* Interaction Bar */}
         <InteractionBar
-          likes={story.reacted_users_count || 0}
+          emojis={emojis ?? []}
+          reactions_count={story.reactions_count || 0}
+          reactions_details={sortedReactionsDetails}
           comments={0}
-          storyId={story.id} // You can add comments functionality later
+          postId={story.id} // You can add comments functionality later
+          postType="stories"
         />
 
         {/* Header */}
-
         <section className="overflow-hidden border-b border-neutral-200">
           <Container
             isBorderX

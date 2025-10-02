@@ -18,8 +18,30 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu-lnd";
+import { createClient } from "@/lib/supabase/client";
 
 import NavigationMobile from "./navigation-mobile";
+
+const buildNextParam = (): string => {
+  const { pathname, search, hash } = window.location;
+  const raw = `${pathname}${search}${hash}`;
+  try {
+    return encodeURIComponent(raw);
+  } catch {
+    return "/";
+  }
+};
+
+const handleLogin = () => {
+  const supabase = createClient();
+  const next = buildNextParam();
+  supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}/auth/callback?next=${next}`,
+    },
+  });
+};
 
 function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -259,7 +281,11 @@ function Navigation() {
                 </kbd>
               </Button>
 
-              <Button size="sm" className="cursor-pointer">
+              <Button
+                size="sm"
+                className="cursor-pointer"
+                onClick={handleLogin}
+              >
                 Đăng nhập
               </Button>
             </div>
