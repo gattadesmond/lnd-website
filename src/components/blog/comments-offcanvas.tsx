@@ -10,7 +10,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 
-interface Comment {
+export interface Comment {
   id: string;
   author: {
     name: string;
