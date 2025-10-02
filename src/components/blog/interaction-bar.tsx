@@ -7,24 +7,29 @@ import { List, MessageCircle, Share2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { PostType } from "@/actions/reacting";
+import { AddEmojiIcon } from "@/components/add-emoji-icon";
+import { CommentsOffcanvas } from "@/components/blog/comments-offcanvas";
+import {
+  ReactionButton,
+  UserSP,
+  type EmojiData,
+} from "@/components/blog/reaction-components";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { buildComments, CommentDb } from "@/lib/comment";
 import { preserveEmojiOrder, ReactionsDetails } from "@/lib/reaction";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 import { notoEmoji } from "@/styles/font";
 
-import { AddEmojiIcon } from "../add-emoji-icon";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Comment, CommentsOffcanvas } from "./comments-offcanvas";
-import { ReactionButton, UserSP, type EmojiData } from "./reaction-components";
-
-// Mock comments data - replace with real data from your API
-const mockComments: Comment[] = [];
-
 interface InteractionBarProps {
   emojis: EmojiData[];
   reactions_count: number;
-  comments?: number;
+  comments: CommentDb[];
   isLiked?: boolean;
   postId: number;
   reactions_details: ReactionsDetails;
@@ -34,7 +39,7 @@ interface InteractionBarProps {
 const MAX_EMOJIS_DISPLAY = 2;
 
 export function InteractionBar({
-  comments = 0,
+  comments,
   reactions_details,
   postId,
   emojis,
@@ -175,7 +180,7 @@ export function InteractionBar({
         >
           <MessageCircle className="size-5 text-neutral-700" />
           <span className="text-sm font-medium text-neutral-800">
-            {comments}
+            {comments.length}
           </span>
         </Button>
 
@@ -206,7 +211,7 @@ export function InteractionBar({
       <CommentsOffcanvas
         isOpen={commentsOpen}
         onClose={() => setCommentsOpen(false)}
-        comments={mockComments}
+        comments={buildComments(comments)}
         onAddComment={(content: string) =>
           console.log("Adding comment:", content)
         }

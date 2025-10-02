@@ -109,6 +109,11 @@ const StoryPage = generatePage(
       (emojis ?? []).map((e) => e.emoji),
     );
 
+    const { data: comments } = await supabase
+      .from("story_comments")
+      .select("*, commented_by:members(id,full_name,avatar_url)")
+      .eq("story_id", story.id);
+
     return (
       <>
         {/* Interaction Bar */}
@@ -116,7 +121,7 @@ const StoryPage = generatePage(
           emojis={emojis ?? []}
           reactions_count={story.reactions_count || 0}
           reactions_details={sortedReactionsDetails}
-          comments={0}
+          comments={comments!}
           postId={story.id} // You can add comments functionality later
           postType="stories"
         />
