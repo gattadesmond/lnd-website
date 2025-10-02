@@ -160,15 +160,11 @@ export function InteractionBar({
     <div className="fixed right-0 bottom-7 left-0 z-50 flex h-12 w-full flex-wrap justify-center 2xl:h-14">
       <div className="relative mx-auto flex h-12 max-w-full shrink flex-nowrap items-center justify-center space-x-2 rounded-full border border-neutral-200 bg-white px-2 py-1 text-sm text-neutral-800 shadow-xl">
         {/* Reactions Section */}
-        {existingReactions.length > 0 && (
-          <>
-            <Popover>
-              <PopoverTrigger asChild>{renderReactionSummary()}</PopoverTrigger>
-              {renderPopoverContent()}
-            </Popover>
-            <div className="h-5 w-[1px] shrink-0 bg-neutral-200" />
-          </>
-        )}
+        <Popover>
+          <PopoverTrigger asChild>{renderReactionSummary()}</PopoverTrigger>
+          {renderPopoverContent()}
+        </Popover>
+        <div className="h-5 w-[1px] shrink-0 bg-neutral-200" />
 
         {/* Comments Button */}
         <Button

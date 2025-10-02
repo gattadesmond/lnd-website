@@ -133,10 +133,6 @@ export function ReactionButton({
         "group h-8 cursor-pointer rounded-full px-2",
         users?.some((u) => u.id === currentUserId) &&
           "ring-1 ring-blue-200 hover:bg-neutral-100",
-        isPending && "cursor-not-allowed opacity-50",
-        isPending &&
-          users?.some((u) => u.id === currentUserId) &&
-          "animate-spin",
       )}
       onClick={handleReaction}
       onTouchStart={handleLongPressStart}
