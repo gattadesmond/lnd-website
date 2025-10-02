@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import Image from "next/image";
 
-import { PostType } from "@/actions/reacting";
+import { addReaction, PostType, removeReaction } from "@/actions/reacting";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -12,6 +12,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { getErrorMessage } from "@/lib/error-codes";
 import { cn } from "@/lib/utils";
 import { notoEmoji } from "@/styles/font";
 
@@ -92,11 +93,6 @@ export function ReactionButton({
 
     startTransition(async () => {
       try {
-        const { addReaction, removeReaction } = await import(
-          "@/actions/reacting"
-        );
-        const { getErrorMessage } = await import("@/lib/error-codes");
-
         const result = isUserReacted
           ? await removeReaction({
               emoji,
