@@ -15,11 +15,11 @@ import { notoEmoji } from "@/styles/font";
 
 import { AddEmojiIcon } from "../add-emoji-icon";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { CommentsOffcanvas } from "./comments-offcanvas";
+import { Comment, CommentsOffcanvas } from "./comments-offcanvas";
 import { ReactionButton, UserSP, type EmojiData } from "./reaction-components";
 
 // Mock comments data - replace with real data from your API
-const mockComments = [];
+const mockComments: Comment[] = [];
 
 interface InteractionBarProps {
   emojis: EmojiData[];
