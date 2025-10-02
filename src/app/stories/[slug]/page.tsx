@@ -15,7 +15,8 @@ import { DateDisplay } from "@/components/ui/DateDisplay";
 import { useRelatedContent } from "@/hooks/useRelatedContent";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
-import { createDynamicClient } from "@/lib/supabase/server";
+import { ReactionsDetails, sortReactionsDetails } from "@/lib/reaction";
+import { createDynamicClient, createStaticClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
   params,
@@ -27,7 +28,7 @@ export async function generateMetadata({
   const supabase = await createDynamicClient();
   const { data: story } = await supabase
     .from("stories_with_full_details")
-    .select("title, description, coverImageUrl")
+    .select("title, description, cover_image_url")
     .eq("urlRewrite", slug)
     .single();
 
@@ -46,10 +47,10 @@ export async function generateMetadata({
       description: story.description || "Read this story on LnD Hub",
       url: `https://product.momo.vn/stories/${slug}`,
       siteName: "LnD Hub",
-      images: story.coverImageUrl
+      images: story.cover_image_url
         ? [
             {
-              url: story.coverImageUrl,
+              url: story.cover_image_url,
               width: 1200,
               height: 675,
             },
@@ -70,18 +71,23 @@ const StoryPage = generatePage(
     const { slug } = await params;
 
     // Initialize Supabase client
-    const supabase = await createDynamicClient();
+    const supabase = await createStaticClient();
 
     // Fetch story details
-    const { data: story, error } = await supabase
+    const { data: storyRes, error } = await supabase
       .from(POST_TYPE_CONFIG.story.api.fullDetailsTable)
       .select("*")
-      .eq("slug", slug)
-      .single();
+      .eq("slug", slug);
 
-    if (error || !story) {
+    if (error) {
+      notFound(); // Should be error handling
+    }
+
+    if (storyRes.length === 0) {
       notFound();
     }
+
+    const story = storyRes[0];
 
     // Fetch related stories from the same category
     const relatedStories = await useRelatedContent({
@@ -92,17 +98,30 @@ const StoryPage = generatePage(
     });
 
     const listHeadings: { id: string; text: string; level: number }[] = [];
+
+    const { data: emojis } = await supabase
+      .from("emojis")
+      .select("emoji, animated_url")
+      .order("emoji", { ascending: true });
+
+    const sortedReactionsDetails = sortReactionsDetails(
+      (story.reactions_details || {}) as ReactionsDetails,
+      (emojis ?? []).map((e) => e.emoji),
+    );
+
     return (
       <>
         {/* Interaction Bar */}
         <InteractionBar
-          likes={story.reacted_users_count || 0}
+          emojis={emojis ?? []}
+          reactions_count={story.reactions_count || 0}
+          reactions_details={sortedReactionsDetails}
           comments={0}
-          storyId={story.id} // You can add comments functionality later
+          postId={story.id} // You can add comments functionality later
+          postType="stories"
         />
 
         {/* Header */}
-
         <section className="overflow-hidden border-b border-neutral-200">
           <Container
             isBorderX
@@ -159,27 +178,24 @@ const StoryPage = generatePage(
                   )}
 
                   <div className="prose prose-base max-w-none px-5 py-8 text-neutral-800 prose-neutral sm:px-12 prose-headings:scroll-mt-20 prose-headings:font-display prose-headings:text-neutral-900 prose-a:font-medium prose-a:text-black prose-a:underline-offset-4 prose-a:hover:text-neutral-700 prose-strong:text-neutral-900">
-                    {story.content && typeof story.content === "string" ? (
+                    {story.content ? (
                       (() => {
-                        try {
-                          const editorData = JSON.parse(story.content);
+                        const edjsParser = EditorJsHtml({
+                          header: ({ data }) => {
+                            // Custom header renderer with class
+                            const level = data.level || 2;
+                            const text = data.text;
+                            const id = slugify(data.text || "", {
+                              lower: true,
+                              strict: false,
+                              remove: /[*+~.()'"!:@]/g,
+                              replacement: "-",
+                              locale: "vi",
+                            });
 
-                          const edjsParser = EditorJsHtml({
-                            header: ({ data }) => {
-                              // Custom header renderer with class
-                              const level = data.level || 2;
-                              const text = data.text;
-                              const id = slugify(data.text || "", {
-                                lower: true,
-                                strict: false,
-                                remove: /[*+~.()'"!:@]/g,
-                                replacement: "-",
-                                locale: "vi",
-                              });
-
-                              if (level === 2) {
-                                listHeadings.push({ id, text, level });
-                                return `<h2 id="${id}" class="group">
+                            if (level === 2) {
+                              listHeadings.push({ id, text, level });
+                              return `<h2 id="${id}" class="group">
                                   <a href="#${id}" class="group flex items-start gap-x-2  !text-neutral-800 ">
                                     ${text}
                                     <div class="rounded-lg border border-neutral-200 bg-white p-1.5 opacity-0 transition-all hover:border-neutral-300 hover:shadow group-hover:opacity-100">
@@ -191,80 +207,70 @@ const StoryPage = generatePage(
                                     </div>
                                   </a>
                                 </h2>`;
-                              }
+                            }
 
-                              if (level === 3) {
-                                listHeadings.push({ id, text, level });
-                                return `<h3 id="${id}" class="group">
+                            if (level === 3) {
+                              listHeadings.push({ id, text, level });
+                              return `<h3 id="${id}" class="group">
                                   <a href="#${id}" class="group flex items-start gap-x-2  !text-neutral-800 ">
                                     ${text}
                                   </a>
                                 </h2>`;
-                              }
+                            }
 
-                              return `<h${level}>${text}</h${level}>`;
-                            },
-                            table: (data: { content?: unknown[][] }) => {
-                              // Custom table renderer
-                              if (!data.content || !Array.isArray(data.content))
-                                return "";
-                              const rows = data.content
-                                .map(
-                                  (row: unknown[]) =>
-                                    `<tr>${row.map((cell) => `<td>${cell || ""}</td>`).join("")}</tr>`,
-                                )
-                                .join("");
-                              return `<table class="border-collapse border border-neutral-300 w-full my-4"><tbody>${rows}</tbody></table>`;
-                            },
-                            simpleImage: ({ data }) => {
-                              // Handle different data structures
-                              const imageUrl = data.url || data.file?.url;
-                              if (!imageUrl) {
-                                return "";
-                              }
-                              const caption = data.caption
-                                ? `<figcaption class="text-sm text-neutral-500 mt-2 text-center">${data.caption}</figcaption>`
-                                : "";
+                            return `<h${level}>${text}</h${level}>`;
+                          },
+                          table: (data: { content?: unknown[][] }) => {
+                            // Custom table renderer
+                            if (!data.content || !Array.isArray(data.content))
+                              return "";
+                            const rows = data.content
+                              .map(
+                                (row: unknown[]) =>
+                                  `<tr>${row.map((cell) => `<td>${cell || ""}</td>`).join("")}</tr>`,
+                              )
+                              .join("");
+                            return `<table class="border-collapse border border-neutral-300 w-full my-4"><tbody>${rows}</tbody></table>`;
+                          },
+                          simpleImage: ({ data }) => {
+                            // Handle different data structures
+                            const imageUrl = data.url || data.file?.url;
+                            if (!imageUrl) {
+                              return "";
+                            }
+                            const caption = data.caption
+                              ? `<figcaption class="text-sm text-neutral-500 mt-2 text-center">${data.caption}</figcaption>`
+                              : "";
 
-                              const html = `<figure ><img src="${imageUrl}" alt="${data.caption || "Image"}" class="rounded-lg border border-neutral-200 w-full" />${caption}</figure>`;
-                              return html;
-                            },
-                            code: ({ data }) => {
-                              // Handle code blocks with proper semantic HTML
-                              const code = data.code || "";
-                              const language = data.language || "";
-                              const caption = data.caption
-                                ? `<figcaption class="text-sm text-neutral-500 mt-2 text-center">${data.caption}</figcaption>`
-                                : "";
+                            const html = `<figure ><img src="${imageUrl}" alt="${data.caption || "Image"}" class="rounded-lg border border-neutral-200 w-full" />${caption}</figure>`;
+                            return html;
+                          },
+                          code: ({ data }) => {
+                            // Handle code blocks with proper semantic HTML
+                            const code = data.code || "";
+                            const language = data.language || "";
+                            const caption = data.caption
+                              ? `<figcaption class="text-sm text-neutral-500 mt-2 text-center">${data.caption}</figcaption>`
+                              : "";
 
-                              const html = `<figure class="my-6">
+                            const html = `<figure class="my-6">
                                 <code class="language-${language}">${code}</code>
                                 ${caption}
                               </figure>`;
-                              return html;
-                            },
-                          });
-                          const html = edjsParser.parse(editorData);
+                            return html;
+                          },
+                        });
+                        const html = edjsParser.parse(story.content);
 
-                          return (
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: Array.isArray(html)
-                                  ? html.join("")
-                                  : html,
-                              }}
-                            />
-                          );
-                        } catch {
-                          // Fallback for non-JSON content
-                          return (
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: story.content,
-                              }}
-                            />
-                          );
-                        }
+                        return (
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: Array.isArray(html)
+                                ? html.join("")
+                                : html,
+                            }}
+                          />
+                        );
                       })()
                     ) : (
                       <div className="text-neutral-500">
