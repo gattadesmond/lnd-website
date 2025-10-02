@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import type { User } from "@supabase/supabase-js";
+import { jwtDecode } from "jwt-decode";
 
 import { createClient } from "@/lib/supabase/client";
 
@@ -14,19 +14,47 @@ interface AuthButtonsProps {
 }
 
 export function AuthButtons({ className }: AuthButtonsProps) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<{
+    full_name?: string;
+    email?: string;
+    avatar_url?: string;
+  } | null>(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) {
+        setUser(null);
+      } else {
+        const accessToken = data.session.access_token;
+        const decodedAccessToken = jwtDecode<{
+          user_metadata: {
+            full_name?: string;
+            email?: string;
+            avatar_url?: string;
+          };
+        }>(accessToken);
+        setUser(decodedAccessToken.user_metadata);
+      }
       setLoaded(true);
     });
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      const accessToken = session?.access_token;
+      if (!accessToken) {
+        setUser(null);
+      } else {
+        const decodedAccessToken = jwtDecode<{
+          user_metadata: {
+            full_name?: string;
+            email?: string;
+            avatar_url?: string;
+          };
+        }>(accessToken);
+        setUser(decodedAccessToken.user_metadata);
+      }
       setLoaded(true);
     });
     return () => subscription.unsubscribe();
@@ -39,6 +67,6 @@ export function AuthButtons({ className }: AuthButtonsProps) {
   return user ? (
     <ProfileButton user={user} className={className} />
   ) : (
-    <LoginButton className={className} />
+    <LoginButton size={"sm"} className={className} />
   );
 }

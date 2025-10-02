@@ -2,8 +2,6 @@
 
 import { useRouter } from "next/navigation";
 
-import type { User } from "@supabase/supabase-js";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +17,7 @@ import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 interface ProfileButtonProps extends React.ComponentProps<typeof Button> {
-  user: User;
+  user: { full_name?: string; email?: string; avatar_url?: string };
 }
 
 export function ProfileButton({
@@ -29,15 +27,8 @@ export function ProfileButton({
 }: ProfileButtonProps) {
   const router = useRouter();
 
-  const name =
-    (user.user_metadata?.full_name as string) ||
-    (user.user_metadata?.name as string) ||
-    (user.email?.split("@")[0] as string) ||
-    "User";
-  const avatarUrl =
-    (user.user_metadata?.avatar_url as string) ||
-    (user.user_metadata?.picture as string) ||
-    "";
+  const name = (user.full_name as string) || "User";
+  const avatarUrl = (user.avatar_url as string) || "";
   const initial = name.charAt(0)?.toUpperCase();
 
   return (

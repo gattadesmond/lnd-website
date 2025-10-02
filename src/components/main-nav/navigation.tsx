@@ -18,30 +18,10 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu-lnd";
+import { AuthButtons } from "@/features/auth/components/auth-buttons";
 import { createClient } from "@/lib/supabase/client";
 
 import NavigationMobile from "./navigation-mobile";
-
-const buildNextParam = (): string => {
-  const { pathname, search, hash } = window.location;
-  const raw = `${pathname}${search}${hash}`;
-  try {
-    return encodeURIComponent(raw);
-  } catch {
-    return "/";
-  }
-};
-
-const handleLogin = () => {
-  const supabase = createClient();
-  const next = buildNextParam();
-  supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}${process.env.NEXT_PUBLIC_BASE_PATH}/auth/callback?next=${next}`,
-    },
-  });
-};
 
 function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -280,14 +260,7 @@ function Navigation() {
                   <span className="text-sm">⌘</span>K
                 </kbd>
               </Button>
-
-              <Button
-                size="sm"
-                className="cursor-pointer"
-                onClick={handleLogin}
-              >
-                Đăng nhập
-              </Button>
+              <AuthButtons />
             </div>
           </div>
         </div>

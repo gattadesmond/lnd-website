@@ -7,7 +7,8 @@
     "api": {
       "table": "stories_overview",
       "categoriesTable": "categories",
-      "fullDetailsTable": "stories_with_full_details"
+      "fullDetailsTable": "stories_with_full_details",
+      "commentDetailsTable": "story_comments_with_details"
     },
     "metadata": {
       "title": "Product Stories",

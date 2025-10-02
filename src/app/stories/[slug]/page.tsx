@@ -110,8 +110,8 @@ const StoryPage = generatePage(
     );
 
     const { data: comments } = await supabase
-      .from("story_comments")
-      .select("*, commented_by:members(id,full_name,avatar_url)")
+      .from("story_comments_with_details")
+      .select("*")
       .eq("story_id", story.id);
 
     return (

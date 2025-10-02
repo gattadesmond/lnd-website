@@ -40,7 +40,7 @@ export const LoginButton = forwardRef<
         handleLogin();
       }}
     >
-      Login
+      Đăng nhập
     </Button>
   );
 });

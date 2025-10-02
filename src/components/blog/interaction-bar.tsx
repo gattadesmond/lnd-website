@@ -1,14 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 import { User } from "@supabase/supabase-js";
 import { List, MessageCircle, Share2 } from "lucide-react";
 import { toast } from "sonner";
 
+import {
+  addComment,
+  addCommentReaction,
+  removeCommentReaction,
+} from "@/actions/commenting";
 import { PostType } from "@/actions/reacting";
 import { AddEmojiIcon } from "@/components/add-emoji-icon";
-import { CommentsOffcanvas } from "@/components/blog/comments-offcanvas";
+import {
+  Comment,
+  CommentsOffcanvas,
+} from "@/components/blog/comments-offcanvas";
 import {
   ReactionButton,
   UserSP,
@@ -20,7 +28,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { buildComments, CommentDb } from "@/lib/comment";
+import { getErrorMessage } from "@/lib/error-codes";
 import { preserveEmojiOrder, ReactionsDetails } from "@/lib/reaction";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -29,7 +37,7 @@ import { notoEmoji } from "@/styles/font";
 interface InteractionBarProps {
   emojis: EmojiData[];
   reactions_count: number;
-  comments: CommentDb[];
+  comments: Comment[];
   isLiked?: boolean;
   postId: number;
   reactions_details: ReactionsDetails;
@@ -39,18 +47,20 @@ interface InteractionBarProps {
 const MAX_EMOJIS_DISPLAY = 2;
 
 export function InteractionBar({
-  comments,
+  comments: initialComments,
   reactions_details,
   postId,
   emojis,
   reactions_count,
   postType,
 }: InteractionBarProps) {
-  // State management (removed useTransition)
+  // State management
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [reactionsDetails, setReactionsDetails] = useState(reactions_details);
   const [reactionsCount, setReactionsCount] = useState(reactions_count);
   const [user, setUser] = useState<User | null>(null);
+  const [comments, setComments] = useState<Comment[]>(initialComments);
+  const [isPending, startTransition] = useTransition();
 
   // Initialize user authentication
   useEffect(() => {
@@ -90,6 +100,104 @@ export function InteractionBar({
 
   const handleComment = () => {
     setCommentsOpen(true);
+  };
+
+  const handleAddComment = async (content: string) => {
+    startTransition(async () => {
+      try {
+        const result = await addComment({
+          content,
+          parentId: null,
+          postId,
+          postType,
+        });
+
+        startTransition(() => {
+          if (!result.success) {
+            const errorMessage = result.errorCode
+              ? getErrorMessage(result.errorCode)
+              : "Failed to add comment";
+            toast.error(errorMessage);
+            return;
+          }
+
+          if (result.data) {
+            setComments(result.data);
+            toast.success("Comment added successfully");
+          }
+        });
+      } catch {
+        toast.error("An unexpected error occurred");
+      }
+    });
+  };
+
+  const handleLikeComment = async (commentId: string) => {
+    startTransition(async () => {
+      try {
+        // Check if comment is already liked by current user
+        const comment = comments.find((c) => c.id === commentId);
+        const isLiked = comment?.isLiked;
+
+        const result = isLiked
+          ? await removeCommentReaction({
+              commentId: parseInt(commentId),
+              postId,
+              postType,
+            })
+          : await addCommentReaction({
+              commentId: parseInt(commentId),
+              postId,
+              postType,
+            });
+        startTransition(() => {
+          if (!result.success) {
+            const errorMessage = result.errorCode
+              ? getErrorMessage(result.errorCode)
+              : isLiked
+                ? "Failed to remove like"
+                : "Failed to like comment";
+            toast.error(errorMessage);
+            return;
+          }
+
+          if (result.data) {
+            setComments(result.data);
+          }
+        });
+      } catch {
+        toast.error("An unexpected error occurred");
+      }
+    });
+  };
+
+  const handleReplyComment = async (commentId: string, content: string) => {
+    startTransition(async () => {
+      try {
+        const result = await addComment({
+          content,
+          parentId: commentId,
+          postId,
+          postType,
+        });
+        startTransition(() => {
+          if (!result.success) {
+            const errorMessage = result.errorCode
+              ? getErrorMessage(result.errorCode)
+              : "Failed to add reply";
+            toast.error(errorMessage);
+            return;
+          }
+
+          if (result.data) {
+            setComments(result.data);
+            toast.success("Reply added successfully");
+          }
+        });
+      } catch {
+        toast.error("An unexpected error occurred");
+      }
+    });
   };
 
   // Render reaction summary button
@@ -211,16 +319,10 @@ export function InteractionBar({
       <CommentsOffcanvas
         isOpen={commentsOpen}
         onClose={() => setCommentsOpen(false)}
-        comments={buildComments(comments)}
-        onAddComment={(content: string) =>
-          console.log("Adding comment:", content)
-        }
-        onLikeComment={(commentId: string) =>
-          console.log("Liking comment:", commentId)
-        }
-        onReplyComment={(commentId: string, content: string) =>
-          console.log("Replying to comment:", commentId, content)
-        }
+        comments={comments}
+        onAddComment={handleAddComment}
+        onLikeComment={handleLikeComment}
+        onReplyComment={handleReplyComment}
       />
     </div>
   );
