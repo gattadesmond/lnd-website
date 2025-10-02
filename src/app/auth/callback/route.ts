@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-import { createStaticClient } from "@/lib/supabase/server";
+import { createDynamicClient } from "@/lib/supabase/server";
 
 const getDecodedNext = (next: string) => {
   if (!next || !next.startsWith("/") || next.startsWith("//")) return "/";
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
   if (!code) {
     return response;
   }
-  const supabase = await createStaticClient();
+  const supabase = await createDynamicClient();
   const { error, data } = await supabase.auth.exchangeCodeForSession(code);
   if (error) {
     return response;
