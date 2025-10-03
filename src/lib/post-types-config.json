@@ -8,7 +8,8 @@
       "table": "stories_overview",
       "categoriesTable": "categories",
       "fullDetailsTable": "stories_with_full_details",
-      "commentDetailsTable": "story_comments_with_details"
+      "commentDetailsTable": "story_comments_with_details",
+      "stats": "story_stats"
     },
     "metadata": {
       "title": "Product Stories",
@@ -27,7 +28,8 @@
     "api": {
       "table": "events_overview",
       "categoriesTable": "categories",
-      "fullDetailsTable": "events_with_full_details"
+      "fullDetailsTable": "events_with_full_details",
+      "stats": "event_stats"
     },
     "metadata": {
       "title": "Events",
@@ -46,7 +48,8 @@
     "api": {
       "table": "learnings_overview",
       "categoriesTable": "categories",
-      "fullDetailsTable": "learnings_with_full_details"
+      "fullDetailsTable": "learnings_with_full_details",
+      "stats": "learning_stats"
     },
     "metadata": {
       "title": "Learning & Development",

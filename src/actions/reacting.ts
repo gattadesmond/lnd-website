@@ -76,12 +76,12 @@ export async function addReaction({
     }
 
     const { data, error: fetchError } = await supabase
-      .from(POST_TYPE_CONFIG.story.api.fullDetailsTable)
+      .from(POST_TYPE_CONFIG[getPostTypeSingular(postType)].api.stats)
       .select("reactions_details, reactions_count")
-      .eq("id", postId)
+      .eq(`${getPostTypeSingular(postType)}_id`, postId)
       .single();
 
-    if (fetchError || !data) {
+    if (fetchError) {
       return {
         success: false,
         errorCode: REACTION_ERROR_CODES.FETCH_DATA_FAILED,
@@ -142,7 +142,7 @@ export async function removeReaction({
       .eq("id", postId)
       .single();
 
-    if (fetchError || !data) {
+    if (fetchError) {
       return {
         success: false,
         errorCode: REACTION_ERROR_CODES.FETCH_DATA_FAILED,

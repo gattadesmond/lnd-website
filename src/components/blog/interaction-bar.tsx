@@ -202,14 +202,12 @@ export function InteractionBar({
 
   // Render reaction summary button
   const renderReactionSummary = () => (
-    <Button
-      variant="ghost"
-      className={cn(notoEmoji.className, "size-fit gap-1 p-2")}
-    >
+    <Button variant="ghost" className={"size-fit gap-1 p-2"}>
       {visibleEmojis.map(([emoji], idx) => (
         <span
           key={emoji}
           className={cn(
+            notoEmoji.className,
             "-me-2.5 inline-flex size-6 items-center justify-center rounded-full bg-neutral-200 text-sm",
             idx === 0 ? "z-20" : "z-10",
           )}

@@ -21,7 +21,7 @@ interface BlogStory {
     title: string;
   };
   view_count?: number;
-  reacted_users_count?: number;
+  reactions_count?: number;
   basePath?: string;
   authors?: Array<{
     user_name: React.ReactNode;
@@ -118,10 +118,10 @@ export function BlogCard({ story, index, basePath }: BlogCardProps) {
                 </div>
               )}
 
-              {story.reacted_users_count !== undefined && (
+              {story.reactions_count !== undefined && (
                 <div className="flex items-center space-x-1">
                   <ThumbsUp className="h-3 w-3" aria-hidden="true" />
-                  <span>{story.reacted_users_count.toLocaleString()}</span>
+                  <span>{story.reactions_count.toLocaleString()}</span>
                 </div>
               )}
             </div>

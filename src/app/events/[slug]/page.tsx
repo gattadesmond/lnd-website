@@ -108,7 +108,7 @@ const StoryPage = generatePage(
       <>
         {/* Interaction Bar */}
         <InteractionBar
-          reactions_count={story.reacted_users_count || 0}
+          reactions_count={story.reactions_count || 0}
           emojis={emojis ?? []}
           postType="events"
           reactions_details={sortedReactionsDetails}
