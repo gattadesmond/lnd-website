@@ -9,6 +9,7 @@ interface ContainerProps extends React.ComponentPropsWithoutRef<"div"> {
   isBorderX?: boolean;
   borderXClassName?: string;
   isGridArea?: boolean;
+  gridAreaClassName?: string;
 }
 
 export function Container({
@@ -17,6 +18,7 @@ export function Container({
   asChild,
   isBorderX = false,
   isGridArea = false,
+  gridAreaClassName = "",
   borderXClassName = "",
   ...props
 }: ContainerProps) {
@@ -43,7 +45,10 @@ export function Container({
       {isGridArea && (
         <>
           <div
-            className="pointer-events-none absolute inset-0 z-0 [mask-image:linear-gradient(transparent,black)] bg-bottom-left [mask-composite:intersect]"
+            className={cn(
+              "pointer-events-none absolute inset-0 z-0 [mask-image:linear-gradient(transparent,black)] bg-bottom-left [mask-composite:intersect]",
+              gridAreaClassName,
+            )}
             style={{
               backgroundImage: `
         linear-gradient(to right, #eee 1px, transparent 1px),
