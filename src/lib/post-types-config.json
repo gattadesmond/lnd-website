@@ -29,6 +29,7 @@
       "table": "events_overview",
       "categoriesTable": "categories",
       "fullDetailsTable": "events_with_full_details",
+      "commentDetailsTable": "event_comments_with_details",
       "stats": "event_stats"
     },
     "metadata": {
@@ -49,6 +50,7 @@
       "table": "learnings_overview",
       "categoriesTable": "categories",
       "fullDetailsTable": "learnings_with_full_details",
+      "commentDetailsTable": "learning_comments_with_details",
       "stats": "learning_stats"
     },
     "metadata": {

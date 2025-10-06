@@ -141,7 +141,7 @@ export function Footer() {
                   <li>
                     <Link
                       className="flex items-center gap-1 text-sm text-neutral-500 transition-colors duration-75 hover:text-neutral-700"
-                      href="/our-projects"
+                      href="/about"
                     >
                       Our Projects
                     </Link>

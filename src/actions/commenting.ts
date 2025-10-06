@@ -1,5 +1,7 @@
 "use server";
 
+import { get } from "http";
+
 import { Comment } from "@/components/blog/comments-offcanvas";
 import {
   COMMENTING_ERROR_CODES,
@@ -65,6 +67,7 @@ export async function addComment({
       });
 
     if (error) {
+      console.log("🚀 ~ addComment ~ error:", error);
       return {
         success: false,
         errorCode: COMMENTING_ERROR_CODES.ADD_COMMENT_FAILED,
@@ -72,11 +75,14 @@ export async function addComment({
     }
 
     const { data, error: fetchError } = await supabase
-      .from(POST_TYPE_CONFIG.story.api.commentDetailsTable)
+      .from(
+        POST_TYPE_CONFIG[getPostTypeSingular(postType)].api.commentDetailsTable,
+      )
       .select("*")
       .eq(`${getPostTypeSingular(postType)}_id`, postId);
 
     if (fetchError || !data) {
+      console.log("🚀 ~ addComment ~ fetchError:", fetchError);
       return {
         success: false,
         errorCode: COMMENTING_ERROR_CODES.FETCH_DATA_FAILED,
