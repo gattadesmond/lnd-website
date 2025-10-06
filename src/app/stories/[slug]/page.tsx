@@ -121,7 +121,6 @@ const StoryPage = generatePage(
           emojis={emojis ?? []}
           reactions_count={story.reactions_count || 0}
           reactions_details={sortedReactionsDetails}
-          comments={comments!}
           postId={story.id} // You can add comments functionality later
           postType="stories"
         />
