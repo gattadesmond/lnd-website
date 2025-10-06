@@ -58,7 +58,7 @@ export function LatestContent({ sections }: LatestContentProps) {
               viewBox="0 0 85 64"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="h-full w-auto shrink-0 translate-x-px translate-y-px overflow-visible"
+              className="h-full w-auto shrink-0 translate-x-px translate-y-px overflow-visible max-sm:hidden"
             >
               <rect
                 x={0}
@@ -73,11 +73,11 @@ export function LatestContent({ sections }: LatestContentProps) {
                 fill="currentColor"
               />
             </svg>
-            <div className="relative z-10 h-[calc(100%+1px)] min-w-0 grow border-t-1 border-current bg-current">
+            <div className="relative z-10 h-[calc(100%+1px)] min-w-0 grow border-current sm:border-t-1 sm:bg-current">
               <TabsList className="flex size-full flex-wrap items-center justify-center gap-3 bg-transparent max-md:pt-4">
                 <TabsTrigger
                   value="stories"
-                  className="h-auto cursor-pointer bg-neutral-100 px-3 py-1.5 shadow-none data-[state=active]:border data-[state=active]:border-neutral-200 data-[state=active]:bg-white"
+                  className="h-auto flex-[0] cursor-pointer border border-neutral-200 bg-neutral-100 px-3 py-1.5 shadow-none data-[state=active]:border data-[state=active]:border-neutral-200 data-[state=active]:bg-white data-[state=active]:shadow-none sm:flex-1"
                 >
                   <div className="flex size-5 items-center justify-center rounded bg-orange-400">
                     <BookOpen className="size-3.5 text-orange-900" />
@@ -88,7 +88,7 @@ export function LatestContent({ sections }: LatestContentProps) {
                 </TabsTrigger>
                 <TabsTrigger
                   value="learning"
-                  className="h-auto cursor-pointer bg-neutral-100 px-3 py-1.5 shadow-none data-[state=active]:border data-[state=active]:border-neutral-200 data-[state=active]:bg-white"
+                  className="h-auto flex-[0] cursor-pointer border border-neutral-200 bg-neutral-100 px-3 py-1.5 shadow-none data-[state=active]:border data-[state=active]:border-neutral-200 data-[state=active]:bg-white data-[state=active]:shadow-none sm:flex-1"
                 >
                   <div className="flex size-5 items-center justify-center rounded bg-violet-400">
                     <GraduationCap className="size-3.5 text-violet-900" />
@@ -99,7 +99,7 @@ export function LatestContent({ sections }: LatestContentProps) {
                 </TabsTrigger>
                 <TabsTrigger
                   value="events"
-                  className="h-auto cursor-pointer bg-neutral-100 px-3 py-1.5 shadow-none data-[state=active]:border data-[state=active]:border-neutral-200 data-[state=active]:bg-white"
+                  className="h-auto flex-[0] cursor-pointer border border-neutral-200 bg-neutral-100 px-3 py-1.5 shadow-none data-[state=active]:border data-[state=active]:border-neutral-200 data-[state=active]:bg-white data-[state=active]:shadow-none sm:flex-1"
                 >
                   <div className="flex size-5 items-center justify-center rounded bg-green-400">
                     <Calendar className="size-3.5 text-green-900" />
@@ -114,7 +114,7 @@ export function LatestContent({ sections }: LatestContentProps) {
               viewBox="0 0 85 64"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="h-full w-auto shrink-0 -translate-x-px translate-y-px -scale-x-100 overflow-visible"
+              className="h-full w-auto shrink-0 -translate-x-px translate-y-px -scale-x-100 overflow-visible max-sm:hidden"
             >
               <rect
                 x={0}
@@ -130,7 +130,7 @@ export function LatestContent({ sections }: LatestContentProps) {
               />
             </svg>
           </div>
-          <div className="mt-5 size-full border-x border-t border-neutral-200 px-1.5 pt-1.5 transition-transform duration-300 sm:px-3 sm:pt-3">
+          <div className="mt-5 size-full border-neutral-200 transition-transform duration-300 sm:border-x sm:border-t sm:px-3 sm:pt-3 md:px-1.5 md:pt-1.5">
             <TabsContent value="stories">
               {sections
                 .filter((section) => section.title === "Latest Stories")
