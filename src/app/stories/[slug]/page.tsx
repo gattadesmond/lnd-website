@@ -109,11 +109,6 @@ const StoryPage = generatePage(
       (emojis ?? []).map((e) => e.emoji),
     );
 
-    const { data: comments } = await supabase
-      .from("story_comments_with_details")
-      .select("*")
-      .eq("story_id", story.id);
-
     return (
       <>
         {/* Interaction Bar */}
