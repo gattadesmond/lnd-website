@@ -1,3 +1,4 @@
+import CTASection from "@/components/content/CTASection";
 import { LatestContent } from "@/components/content/LatestContent";
 import QuestionSection from "@/components/content/QuestionSection";
 import ReasonSection from "@/components/content/ReasonSection";
@@ -93,6 +94,7 @@ const Home = generatePage(async () => {
       <ReasonSection />
 
       <QuestionSection />
+      <CTASection />
 
       <div className="h-[1px] w-full bg-neutral-200"></div>
     </>

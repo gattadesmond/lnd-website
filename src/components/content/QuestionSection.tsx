@@ -56,18 +56,18 @@ function QuestionSection() {
         </p>
       </div>
 
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-2xl">
         <Accordion type="single" collapsible className="w-full">
           {faqData.map((faq, index) => (
             <AccordionItem
               key={faq.id}
               value={faq.id}
-              className="mb-4 rounded-lg border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+              className="border-neutral-200 bg-white"
             >
-              <AccordionTrigger className="px-6 py-4 text-left font-medium text-neutral-900 hover:no-underline">
+              <AccordionTrigger className="cursor-pointer py-4 text-left text-base font-medium text-neutral-900 hover:no-underline">
                 {faq.title}
               </AccordionTrigger>
-              <AccordionContent className="px-6 pb-4">
+              <AccordionContent className="pb-4">
                 <div className="prose prose-sm !w-full !max-w-full leading-relaxed text-neutral-600">
                   {faq.content && parse(faq.content)}
                 </div>
