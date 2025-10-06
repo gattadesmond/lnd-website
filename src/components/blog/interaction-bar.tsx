@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 
 import { User } from "@supabase/supabase-js";
 import { List, MessageCircle, Share2 } from "lucide-react";
@@ -11,7 +11,6 @@ import {
   addCommentReaction,
   removeCommentReaction,
 } from "@/actions/commenting";
-import { PostType } from "@/actions/reacting";
 import { AddEmojiIcon } from "@/components/add-emoji-icon";
 import {
   Comment,
@@ -29,6 +28,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { getErrorMessage } from "@/lib/error-codes";
+import { getPostTypeSingular, PostType } from "@/lib/post";
 import { preserveEmojiOrder, ReactionsDetails } from "@/lib/reaction";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -37,7 +37,6 @@ import { notoEmoji } from "@/styles/font";
 interface InteractionBarProps {
   emojis: EmojiData[];
   reactions_count: number;
-  comments: Comment[];
   isLiked?: boolean;
   postId: number;
   reactions_details: ReactionsDetails;
@@ -47,7 +46,6 @@ interface InteractionBarProps {
 const MAX_EMOJIS_DISPLAY = 2;
 
 export function InteractionBar({
-  comments: initialComments,
   reactions_details,
   postId,
   emojis,
@@ -55,20 +53,31 @@ export function InteractionBar({
   postType,
 }: InteractionBarProps) {
   // State management
+
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [reactionsDetails, setReactionsDetails] = useState(reactions_details);
   const [reactionsCount, setReactionsCount] = useState(reactions_count);
   const [user, setUser] = useState<User | null>(null);
-  const [comments, setComments] = useState<Comment[]>(initialComments);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [isPending, startTransition] = useTransition();
+  const supabase = useMemo(() => createClient(), []);
+
+  useEffect(() => {
+    (async () => {
+      const { data: comments } = await supabase
+        .from(`${getPostTypeSingular(postType)}_comments_with_details`)
+        .select("*")
+        .eq(`${getPostTypeSingular(postType)}_id`, postId);
+      setComments(comments ?? []);
+    })();
+  }, [postId, postType, supabase]);
 
   // Initialize user authentication
   useEffect(() => {
-    const supabase = createClient();
     supabase.auth.getUser().then(({ data: { user } }) => {
       setUser(user);
     });
-  }, []);
+  }, [supabase]);
 
   // Computed values
   const existingReactions = Object.entries(reactionsDetails || {}).filter(
@@ -137,7 +146,10 @@ export function InteractionBar({
       try {
         // Check if comment is already liked by current user
         const comment = comments.find((c) => c.id === commentId);
-        const isLiked = comment?.isLiked;
+        const reply = comments
+          ?.find((c) => c.replies?.some((r) => r.id === commentId))
+          ?.replies?.find((r) => r.id === commentId);
+        const isLiked = comment?.isLiked || reply?.isLiked;
 
         const result = isLiked
           ? await removeCommentReaction({

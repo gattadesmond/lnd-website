@@ -4,23 +4,9 @@ import {
   REACTION_ERROR_CODES,
   type ReactionErrorCode,
 } from "@/lib/error-codes";
+import { getPostTypeSingular, PostType } from "@/lib/post";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { createDynamicClient } from "@/lib/supabase/server";
-
-export type PostType = "stories" | "events" | "learnings";
-
-const getPostTypeSingular = (postType: PostType) => {
-  switch (postType) {
-    case "stories":
-      return "story";
-    case "events":
-      return "event";
-    case "learnings":
-      return "learning";
-    default:
-      throw new Error(`Unknown post type: ${postType}`);
-  }
-};
 
 interface ReactionParams {
   emoji: string;

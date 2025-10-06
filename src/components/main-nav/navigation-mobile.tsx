@@ -20,6 +20,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { AuthButtons } from "@/features/auth/components/auth-buttons";
 import { cn } from "@/lib/utils";
 
 function NavigationMobile() {
@@ -48,9 +49,7 @@ function NavigationMobile() {
       <Button size="sm" className="cursor-pointer" variant="outline">
         <Search className="size-4" /> Tìm kiếm
       </Button>{" "}
-      <Button size="sm" className="cursor-pointer">
-        Đăng nhập
-      </Button>
+      <AuthButtons />
       <button
         className="z-30 rounded-full p-2 transition-colors duration-200 hover:bg-neutral-200 focus:outline-none active:bg-neutral-300"
         onClick={toggleMenu}

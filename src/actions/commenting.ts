@@ -1,29 +1,13 @@
 "use server";
 
-import { get } from "http";
-
 import { Comment } from "@/components/blog/comments-offcanvas";
 import {
   COMMENTING_ERROR_CODES,
   type CommentingErrorCode,
 } from "@/lib/error-codes";
+import { getPostTypeSingular, PostType } from "@/lib/post";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { createDynamicClient } from "@/lib/supabase/server";
-
-export type PostType = "stories" | "events" | "learnings";
-
-const getPostTypeSingular = (postType: PostType) => {
-  switch (postType) {
-    case "stories":
-      return "story";
-    case "events":
-      return "event";
-    case "learnings":
-      return "learning";
-    default:
-      throw new Error(`Unknown post type: ${postType}`);
-  }
-};
 
 interface AddCommentParams {
   content: string;
@@ -67,7 +51,6 @@ export async function addComment({
       });
 
     if (error) {
-      console.log("🚀 ~ addComment ~ error:", error);
       return {
         success: false,
         errorCode: COMMENTING_ERROR_CODES.ADD_COMMENT_FAILED,
@@ -82,7 +65,6 @@ export async function addComment({
       .eq(`${getPostTypeSingular(postType)}_id`, postId);
 
     if (fetchError || !data) {
-      console.log("🚀 ~ addComment ~ fetchError:", fetchError);
       return {
         success: false,
         errorCode: COMMENTING_ERROR_CODES.FETCH_DATA_FAILED,
@@ -141,7 +123,9 @@ export async function addCommentReaction({
     }
 
     const { data, error: fetchError } = await supabase
-      .from(POST_TYPE_CONFIG.story.api.commentDetailsTable)
+      .from(
+        POST_TYPE_CONFIG[getPostTypeSingular(postType)].api.commentDetailsTable,
+      )
       .select("*")
       .eq(`${getPostTypeSingular(postType)}_id`, postId);
 
@@ -156,8 +140,7 @@ export async function addCommentReaction({
       success: true,
       data,
     };
-  } catch (error) {
-    console.error("Unexpected error in addCommentReaction:", error);
+  } catch {
     return {
       success: false,
       errorCode: COMMENTING_ERROR_CODES.UNEXPECTED_ERROR,
@@ -197,7 +180,9 @@ export async function removeCommentReaction({
     }
 
     const { data, error: fetchError } = await supabase
-      .from(POST_TYPE_CONFIG.story.api.commentDetailsTable)
+      .from(
+        POST_TYPE_CONFIG[getPostTypeSingular(postType)].api.commentDetailsTable,
+      )
       .select("*")
       .eq(`${getPostTypeSingular(postType)}_id`, postId);
 

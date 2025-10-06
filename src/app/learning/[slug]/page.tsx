@@ -113,7 +113,6 @@ const LearningPage = generatePage(
           emojis={emojis ?? []}
           reactions_details={sortedReactionsDetails}
           reactions_count={learning.reactions_count || 0}
-          comments={[]}
           postId={learning.id} // You can add comments functionality later
           postType="learnings"
         />

@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import Image from "next/image";
 
-import { addReaction, PostType, removeReaction } from "@/actions/reacting";
+import { addReaction, removeReaction } from "@/actions/reacting";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -13,6 +13,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { getErrorMessage } from "@/lib/error-codes";
+import { PostType } from "@/lib/post";
 import { cn } from "@/lib/utils";
 import { notoEmoji } from "@/styles/font";
 
@@ -76,7 +77,6 @@ export function ReactionButton({
     if (!isMobile || !users?.length) return;
     const timer = window.setTimeout(() => {
       setOpenSheet(true);
-      console.log("Get called");
     }, 400);
     setPressTimer(timer);
   };
