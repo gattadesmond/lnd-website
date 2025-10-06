@@ -1,10 +1,8 @@
 import { Container } from "@/components/container";
 import { FadeIn } from "@/components/fade-in";
-// import { UserCard } from "@/features/users/components/user-card";
-import { generatePage } from "@/lib/generatePage";
 import { cn } from "@/lib/utils";
 
-const Feedback = generatePage(async () => {
+const Feedback = async () => {
   return (
     <>
       <section
@@ -45,6 +43,6 @@ const Feedback = generatePage(async () => {
       </section>
     </>
   );
-});
+};
 
 export default Feedback;
