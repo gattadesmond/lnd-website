@@ -8,12 +8,14 @@ import { Button } from "@/components/ui/button";
 
 function Hero({ latestContent }: { latestContent: unknown[] }) {
   return (
-    <section className="overflow-hidden border-b border-neutral-200">
+    <section className="overflow-hidden">
+      {/* [mask-composite:intersect] [mask-image:linear-gradient(transparent,black),radial-gradient(130%_50%_at_50%_100%,transparent,black)] */}
       <Container
         isBorderX
         className="relative py-20"
         isGridArea
         borderXClassName="[mask-image:linear-gradient(transparent,black)]"
+        gridAreaClassName="[mask-composite:intersect] [mask-image:linear-gradient(transparent,black),radial-gradient(130%_50%_at_50%_100%,transparent,black)]"
       >
         <div className="relative mx-auto flex w-full max-w-2xl flex-col items-center text-center">
           {latestContent &&
@@ -62,13 +64,17 @@ function Hero({ latestContent }: { latestContent: unknown[] }) {
           </p>
         </div>
         <div className="relative mx-auto mt-10 flex max-w-fit animate-slide-up-fade gap-4 [--offset:20px] [animation-delay:300ms] [animation-duration:1s]">
-          <Button asChild className="mx-auto max-w-fit">
+          <Button asChild className="mx-auto max-w-fit font-medium">
             <Link href="/learning">
               <BookOpenIcon className="h-4 w-4" />
               Start Learning
             </Link>
           </Button>
-          <Button asChild variant="outline" className="mx-auto max-w-fit">
+          <Button
+            asChild
+            variant="outline"
+            className="mx-auto max-w-fit font-medium"
+          >
             <Link href="/stories/huong-dan-dong-gop-product-stories">
               <FileTextIcon className="h-4 w-4" />
               Contribution Guides
