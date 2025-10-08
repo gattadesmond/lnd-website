@@ -111,19 +111,20 @@ export function BlogCard({ story, index, basePath }: BlogCardProps) {
                 {formatDisplayDate(story.published_at)}
               </time>
 
-              {story.view_count !== undefined && (
+              {story.view_count !== undefined && story.view_count > 50 && (
                 <div className="flex items-center space-x-1">
                   <EyeIcon className="h-3 w-3" aria-hidden="true" />
                   <span>{story.view_count.toLocaleString()}</span>
                 </div>
               )}
 
-              {story.reactions_count !== undefined && (
-                <div className="flex items-center space-x-1">
-                  <ThumbsUp className="h-3 w-3" aria-hidden="true" />
-                  <span>{story.reactions_count.toLocaleString()}</span>
-                </div>
-              )}
+              {story.reactions_count !== undefined &&
+                story.reactions_count > 5 && (
+                  <div className="flex items-center space-x-1">
+                    <ThumbsUp className="h-3 w-3" aria-hidden="true" />
+                    <span>{story.reactions_count.toLocaleString()}</span>
+                  </div>
+                )}
             </div>
           </div>
         </div>
