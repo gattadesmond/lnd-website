@@ -79,11 +79,10 @@ function CTASection() {
         </div>
         <div className="relative flex flex-col items-center px-4 pt-24 pb-32 text-center">
           <h2 className="max-w-xl font-display text-4xl font-medium text-neutral-50 sm:text-5xl">
-            Product-Led Growth Hub
+            Want to contribute to our knowledge hub?
           </h2>
           <p className="mt-6 max-w-[560px] text-lg font-medium text-pretty text-neutral-400 sm:text-xl">
-            Here, we come together to soak in crucial knowledge and information,
-            fueling the rocket of our product&apos;s growth 🚀
+            Let&rsquo;s create something awesome.
           </p>
           <div className="mt-10 flex items-center justify-center gap-3">
             <a
