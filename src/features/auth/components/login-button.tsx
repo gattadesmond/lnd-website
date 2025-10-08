@@ -35,6 +35,7 @@ export const LoginButton = forwardRef<
     <Button
       {...props}
       ref={ref}
+      className="font-semibold"
       onClick={(e) => {
         props.onClick?.(e);
         handleLogin();

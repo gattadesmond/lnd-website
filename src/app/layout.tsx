@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans, Noto_Sans_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import "@/styles/globals.css";
 
@@ -9,18 +9,10 @@ import { Footer } from "@/components/footer";
 import Navigation from "@/components/main-nav/navigation";
 import { AuthErrorHandler } from "@/features/auth/components/auth-error-handler";
 
-// Cấu hình font Noto Sans Display (cho headings)
-const notoSansDisplay = Noto_Sans_Display({
+// Cấu hình font Inter (cho tất cả text)
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-noto-sans-display",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-// Cấu hình font Noto Sans (cho body text)
-const notoSans = Noto_Sans({
-  subsets: ["latin"],
-  variable: "--font-noto-sans",
+  variable: "--font-inter",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
@@ -42,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${notoSansDisplay.variable} ${notoSans.variable} ${notoSans.className} antialiased`}
+      className={`${inter.variable} ${inter.className} antialiased`}
     >
       <body className={`!overflow-x-hidden`}>
         <div className="relative z-10 bg-white">

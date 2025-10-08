@@ -124,6 +124,45 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Tối ưu letter spacing cho Inter font với các size lớn */
+  h1,
+  .text-4xl,
+  .text-5xl,
+  .text-6xl,
+  .text-7xl,
+  .text-8xl,
+  .text-9xl {
+    letter-spacing: -0.025em;
+  }
+
+  h2,
+  .text-3xl {
+    letter-spacing: -0.02em;
+  }
+
+  h3,
+  .text-2xl {
+    letter-spacing: -0.015em;
+  }
+
+  h4,
+  .text-xl {
+    letter-spacing: -0.01em;
+  }
+
+  /* Letter spacing cho body text */
+  p,
+  .text-base,
+  .text-lg {
+    letter-spacing: -0.005em;
+  }
+
+  /* Letter spacing cho small text */
+  .text-sm,
+  .text-xs {
+    letter-spacing: 0;
+  }
 }
 
 @theme {
@@ -139,8 +178,8 @@
     }
   }
 
-  --font-display: "Noto Sans Display", monospace;
-  --font-body: "Noto Sans", sans-serif;
+  --font-display: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
 }
 
 .prose code {
@@ -148,7 +187,7 @@
   background-color: #fef3c7;
   box-shadow: -4px 4px 0px -2px #fef3c7;
   border: 2px solid #fff;
-  font-family: "Noto Sans", monospace;
+  font-family: "Inter", monospace;
   letter-spacing: 0px;
   font-size: 1rem;
 }

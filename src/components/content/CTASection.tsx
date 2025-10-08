@@ -87,13 +87,13 @@ function CTASection() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-3">
             <a
-              className="flex h-10 items-center justify-center rounded-lg border border-neutral-200 bg-white px-5 text-center text-sm font-medium text-neutral-900 ring-white/20 transition-all hover:ring"
+              className="flex h-10 items-center justify-center rounded-lg border border-neutral-200 bg-white px-5 text-center text-sm font-semibold text-neutral-900 ring-white/20 transition-all hover:ring"
               href="/learning"
             >
               Start Learning
             </a>
             <a
-              className="flex h-10 items-center justify-center rounded-lg border border-transparent bg-white/20 px-5 text-center text-sm font-medium text-white ring-white/10 backdrop-blur-sm transition-all hover:ring"
+              className="flex h-10 items-center justify-center rounded-lg border border-transparent bg-white/20 px-5 text-center text-sm font-semibold text-white ring-white/10 backdrop-blur-sm transition-all hover:ring"
               href="/stories/huong-dan-dong-gop-product-stories"
             >
               Contribution Guides
