@@ -3,9 +3,34 @@ import React from "react";
 function CTASection() {
   return (
     <div className="relative bg-neutral-900 px-4">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-30 mix-blend-overlay">
+      {/* <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-30 mix-blend-overlay">
         <div className="absolute -inset-[40px] bg-[conic-gradient(from_-81deg,#3A8BFD_-72deg,#855AFC_33deg,#F00_70deg,#EAB308_136deg,#5CFF80_214deg,#00FFF9_259deg,#3A8BFD_288deg,#855AFC_393deg)] blur-[30px]" />
-      </div>
+      </div> */}
+      {/* <div
+        className="absolute inset-0 z-0"
+        style={{
+          background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(236, 72, 153, 0.25), transparent 70%), #000000",
+        }}
+      /> */}
+
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background: `
+          radial-gradient(ellipse 120% 80% at 70% 20%, rgba(255, 20, 147, 0.15), transparent 50%),
+          radial-gradient(ellipse 100% 60% at 30% 10%, rgba(0, 255, 255, 0.12), transparent 60%),
+          radial-gradient(ellipse 90% 70% at 50% 0%, rgba(138, 43, 226, 0.18), transparent 65%),
+          radial-gradient(ellipse 110% 50% at 80% 30%, rgba(255, 215, 0, 0.08), transparent 40%),
+          #000000
+        `,
+        }}
+      />
+      {/* <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `radial-gradient(circle 500px at 50% 100px, rgba(236,72,153,0.4), transparent)`,
+        }}
+      /> */}
       <div className="max-w-grid-width relative mx-auto">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 border-x border-white/5 [mask-image:linear-gradient(black,transparent)]" />

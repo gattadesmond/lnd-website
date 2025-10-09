@@ -47,7 +47,7 @@ export function CommentItem({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Main Comment */}
       <div className="space-y-3">
         <div className="flex items-center gap-3">
@@ -61,23 +61,24 @@ export function CommentItem({
                 .toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <div className="flex items-center gap-2">
-            <span className="font-medium text-gray-900">
+          <div className="">
+            <div className="text-sm font-medium text-gray-900">
               {comment.author.name}
-            </span>
-            {comment.author.isAuthor && (
+            </div>
+            <div className="text-xs text-gray-500">
+              {formatDate(comment.createdAt)}
+            </div>
+
+            {/* {comment.author.isAuthor && (
               <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
                 Author
               </span>
-            )}
-            <span className="text-sm text-gray-500">
-              {formatDate(comment.createdAt)}
-            </span>
+            )} */}
           </div>
         </div>
         <div className="ml-11">
           <div
-            className="prose prose-sm max-w-none leading-relaxed text-gray-800"
+            className="prose prose-sm max-w-none leading-relaxed break-words text-gray-800"
             dangerouslySetInnerHTML={{ __html: comment.content }}
           />
         </div>
@@ -122,16 +123,16 @@ export function CommentItem({
 
       {/* Replies */}
       {comment.replies && comment.replies.length > 0 && (
-        <div className="ml-11 space-y-4 border-l-2 border-gray-100 pl-6">
-          <div className="mb-2 flex items-center gap-2">
+        <div className="pl-10">
+          {/* <div className="mb-2 flex items-center gap-2">
             <div className="h-1 w-1 rounded-full bg-gray-400"></div>
             <span className="text-xs font-medium tracking-wide text-gray-500 uppercase">
               {comment.replies.length}{" "}
               {comment.replies.length === 1 ? "Reply" : "Replies"}
             </span>
-          </div>
+          </div> */}
           {comment.replies.map((reply) => (
-            <div key={reply.id} className="space-y-3">
+            <div key={reply.id} className="space-y-1">
               <div className="flex items-center gap-3">
                 <Avatar className="h-7 w-7 ring-1 ring-gray-200">
                   <AvatarImage src={reply.author.avatar} />
@@ -143,23 +144,25 @@ export function CommentItem({
                       .toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-900">
+
+                <div className="">
+                  <div className="text-sm font-medium text-gray-900">
                     {reply.author.name}
-                  </span>
-                  {reply.author.isAuthor && (
-                    <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
-                      Author
-                    </span>
-                  )}
-                  <span className="text-xs text-gray-500">
+                  </div>
+                  <div className="text-xs text-gray-500">
                     {formatDate(reply.createdAt)}
-                  </span>
+                  </div>
+
+                  {/* {reply.author.isAuthor && (
+              <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+                Author
+              </span>
+            )} */}
                 </div>
               </div>
               <div className="ml-10">
                 <div
-                  className="prose prose-sm max-w-none leading-relaxed text-gray-800"
+                  className="prose prose-sm max-w-none leading-relaxed break-words text-gray-800"
                   dangerouslySetInnerHTML={{ __html: reply.content }}
                 />
               </div>

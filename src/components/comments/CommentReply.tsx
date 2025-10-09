@@ -28,10 +28,9 @@ export function CommentReply({
   return (
     <div className="ml-11 space-y-4 border-l-2 border-gray-100 pl-6">
       <div className="flex items-center gap-2">
-        <div className="h-1 w-1 rounded-full bg-gray-400"></div>
         <h4 className="text-sm font-medium text-gray-700">Write a reply</h4>
       </div>
-      <div className="rounded-lg bg-gray-50 p-4">
+      <div className="">
         <SimpleQuillEditor
           value={replyContent}
           onChange={setReplyContent}
