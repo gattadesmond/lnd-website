@@ -27,6 +27,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useShare } from "@/hooks/useShare";
 import { getErrorMessage } from "@/lib/error-codes";
 import { getPostTypeSingular, PostType } from "@/lib/post";
 import { preserveEmojiOrder, ReactionsDetails } from "@/lib/reaction";
@@ -59,8 +60,9 @@ export function InteractionBar({
   const [reactionsCount, setReactionsCount] = useState(reactions_count);
   const [user, setUser] = useState<User | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const supabase = useMemo(() => createClient(), []);
+  const { share } = useShare();
 
   useEffect(() => {
     (async () => {
@@ -81,7 +83,7 @@ export function InteractionBar({
 
   // Computed values
   const existingReactions = Object.entries(reactionsDetails || {}).filter(
-    ([_, data]) => data.total > 0,
+    ([, data]) => data.total > 0,
   );
 
   const visibleEmojis = existingReactions.slice(0, MAX_EMOJIS_DISPLAY);
@@ -109,6 +111,13 @@ export function InteractionBar({
 
   const handleComment = () => {
     setCommentsOpen(true);
+  };
+
+  const handleShare = () => {
+    share({
+      title: document.title,
+      text: `Check out this ${getPostTypeSingular(postType)} on LnD`,
+    });
   };
 
   const handleAddComment = async (content: string) => {
@@ -320,6 +329,7 @@ export function InteractionBar({
           variant="ghost"
           size="sm"
           className="size-9 cursor-pointer rounded-full"
+          onClick={handleShare}
         >
           <Share2 className="size-5 text-neutral-700 transition-colors" />
         </Button>
