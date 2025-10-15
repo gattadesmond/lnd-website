@@ -42,6 +42,7 @@ export async function useRelatedContent({
     const { data: content, error } = await supabase
       .from(tableName)
       .select("*")
+      .eq("status", "published")
       .eq("category->>slug", categorySlug)
       .neq("id", currentContentId) // Exclude current content
       .order("published_at", { ascending: false })

@@ -30,6 +30,7 @@ export async function generateMetadata({
     .from("learnings_with_full_details")
     .select("title, description, coverImageUrl")
     .eq("urlRewrite", slug)
+    .eq("status", "published")
     .single();
 
   if (!learning) {
@@ -80,6 +81,7 @@ const LearningPage = generatePage(
       .from(POST_TYPE_CONFIG.learning.api.fullDetailsTable)
       .select("*")
       .eq("slug", slug)
+      .eq("status", "published")
       .single();
 
     if (error || !learning) {

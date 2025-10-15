@@ -30,6 +30,7 @@ export async function generateMetadata({
     .from("stories_with_full_details")
     .select("title, description, cover_image_url")
     .eq("urlRewrite", slug)
+    .eq("status", "published")
     .single();
 
   if (!story) {
@@ -77,7 +78,8 @@ const StoryPage = generatePage(
     const { data: storyRes, error } = await supabase
       .from(POST_TYPE_CONFIG.story.api.fullDetailsTable)
       .select("*")
-      .eq("slug", slug);
+      .eq("slug", slug)
+      .eq("status", "published");
 
     if (error) {
       notFound(); // Should be error handling

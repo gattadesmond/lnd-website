@@ -65,6 +65,7 @@ const CategoryPage = generatePage(
     const learningQuery = supabase
       .from(POST_TYPE_CONFIG.learning.api.table)
       .select("*", { count: "exact" })
+      .eq("status", "published")
       .eq("category->>slug", category);
 
     // Execute queries in parallel for better performance

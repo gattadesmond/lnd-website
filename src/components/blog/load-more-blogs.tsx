@@ -58,6 +58,7 @@ export function LoadMoreBlogs({
       const { data: stories, error } = await supabase
         .from(tableLoadMore)
         .select("*", { count: "exact" })
+        .eq("status", "published")
         .order("published_at", { ascending: false })
         .order("created_at", { ascending: false })
         .range(currentOffset, currentOffset + POSTS_PER_LOAD - 1);

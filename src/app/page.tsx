@@ -18,18 +18,21 @@ const Home = generatePage(async () => {
     supabase
       .from(POST_TYPE_CONFIG.story.api.table)
       .select("*")
+      .eq("status", "published")
       .order("published_at", { ascending: false })
       .order("created_at", { ascending: false })
       .limit(6),
     supabase
       .from(POST_TYPE_CONFIG.event.api.table)
       .select("*")
+      .eq("status", "published")
       .order("published_at", { ascending: false })
       .order("created_at", { ascending: false })
       .limit(6),
     supabase
       .from(POST_TYPE_CONFIG.learning.api.table)
       .select("*")
+      .eq("status", "published")
       .order("published_at", { ascending: false })
       .order("created_at", { ascending: false })
       .limit(6),

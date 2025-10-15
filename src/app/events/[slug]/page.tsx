@@ -27,9 +27,10 @@ export async function generateMetadata({
 
   const supabase = await createStaticClient();
   const { data: story } = await supabase
-    .from("stories_with_full_details")
+    .from("events_with_full_details")
     .select("title, description, coverImageUrl")
     .eq("urlRewrite", slug)
+    .eq("status", "published")
     .single();
 
   if (!story) {
@@ -78,6 +79,7 @@ const StoryPage = generatePage(
       .from(POST_TYPE_CONFIG.event.api.fullDetailsTable)
       .select("*")
       .eq("slug", slug)
+      .eq("status", "published")
       .single();
 
     if (error || !event) {
