@@ -59,7 +59,7 @@ function ReasonSection() {
       </div>
 
       <div className="grid grid-cols-1 gap-8 p-8 py-10 lg:grid-cols-3">
-        {reasons.map((reason, index) => (
+        {reasons.map((reason) => (
           <a
             key={reason.number}
             target="_blank"

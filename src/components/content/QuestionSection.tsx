@@ -58,7 +58,7 @@ function QuestionSection() {
 
       <div className="mx-auto max-w-2xl">
         <Accordion type="single" collapsible className="w-full">
-          {faqData.map((faq, index) => (
+          {faqData.map((faq) => (
             <AccordionItem
               key={faq.id}
               value={faq.id}
