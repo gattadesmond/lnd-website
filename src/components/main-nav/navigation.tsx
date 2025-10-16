@@ -31,6 +31,9 @@ function Navigation() {
       setIsScrolled(scrollTop > 10);
     };
 
+    // Check scroll hiện tại ngay khi component mount
+    handleScroll();
+
     // Throttle scroll event để tối ưu hiệu suất
     let ticking = false;
     const throttledHandleScroll = () => {
