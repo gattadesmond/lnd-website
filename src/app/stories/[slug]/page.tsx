@@ -10,6 +10,7 @@ import { Container } from "@/components/container";
 import { AuthorDisplayList } from "@/components/content/AuthorDisplay";
 import { EditorContentRenderer } from "@/components/content/EditorContentRenderer";
 import { RelatedContent } from "@/components/content/RelatedContent";
+import { StoryViewTracker } from "@/components/content/ViewTracker";
 import { Button } from "@/components/ui/button";
 import { DateDisplay } from "@/components/ui/DateDisplay";
 import { useRelatedContent } from "@/hooks/useRelatedContent";
@@ -113,6 +114,9 @@ const StoryPage = generatePage(
 
     return (
       <>
+        {/* View Tracker */}
+        <StoryViewTracker contentId={story.id} />
+
         {/* Interaction Bar */}
         <InteractionBar
           emojis={emojis ?? []}
