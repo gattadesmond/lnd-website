@@ -11,6 +11,7 @@ import { AuthorDisplayList } from "@/components/content/AuthorDisplay";
 import { EditorContentRenderer } from "@/components/content/EditorContentRenderer";
 import { RelatedContent } from "@/components/content/RelatedContent";
 import { EventViewTracker } from "@/components/content/ViewTracker";
+import { BackButton } from "@/components/ui/back-button";
 import { Button } from "@/components/ui/button";
 import { DateDisplay } from "@/components/ui/DateDisplay";
 import { useRelatedContent } from "@/hooks/useRelatedContent";
@@ -131,9 +132,10 @@ const StoryPage = generatePage(
             borderXClassName="[mask-image:linear-gradient(transparent,black)]"
           >
             <div className="border-grid-border relative z-0 px-4 pt-16 pb-12 sm:px-12">
-              <div className="flex items-center space-x-4">
+              <div className="relative flex items-center space-x-4">
+                <BackButton className="absolute top-0 -left-10 max-sm:hidden" />
                 {event.category && (
-                  <Button variant="secondary" size="sm">
+                  <Button variant="secondary" size="sm" asChild>
                     <Link
                       href={`${POST_TYPE_CONFIG.event.basePath}/category/${event.category.slug}`}
                     >
