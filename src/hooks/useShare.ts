@@ -18,7 +18,9 @@ export function useShare() {
     );
 
   const canUseNativeShare =
-    typeof window !== "undefined" && navigator.share && isMobile;
+    typeof window !== "undefined" &&
+    typeof navigator.share === "function" &&
+    isMobile;
 
   const share = useCallback(
     async (options: ShareOptions = {}) => {

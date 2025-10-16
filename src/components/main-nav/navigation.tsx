@@ -5,10 +5,9 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { BookOpen, Calendar, GraduationCap, Search } from "lucide-react";
+import { BookOpen, Calendar, GraduationCap } from "lucide-react";
 
 import { SearchCommand, useSearchCommand } from "@/components/search-command";
-import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -19,7 +18,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu-lnd";
 import { AuthButtons } from "@/features/auth/components/auth-buttons";
-import { createClient } from "@/lib/supabase/client";
 
 import NavigationMobile from "./navigation-mobile";
 
