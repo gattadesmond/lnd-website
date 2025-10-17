@@ -35,6 +35,7 @@ export default function RootLayout({
     <html
       lang="vi"
       className={`${inter.variable} ${inter.className} antialiased`}
+      suppressHydrationWarning
     >
       <body className={`!overflow-x-hidden`}>
         <div className="relative z-10 bg-white">
