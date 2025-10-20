@@ -221,6 +221,17 @@ function Navigation() {
                         </div>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
+
+                    <NavigationMenuItem>
+                      <NavigationMenuLink
+                        asChild
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <Link href="/learn" className="bg-transparent">
+                          Learn
+                        </Link>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
                     <NavigationMenuItem>
                       <NavigationMenuLink
                         asChild

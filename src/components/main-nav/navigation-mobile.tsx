@@ -46,7 +46,7 @@ function NavigationMobile() {
 
   return (
     <div className="fixed top-0 right-0 z-40 flex items-center gap-4 p-2.5 lg:hidden">
-      <Button size="sm" className="cursor-pointer" variant="outline">
+      <Button size="sm" className="hidden cursor-pointer" variant="outline">
         <Search className="size-4" /> Tìm kiếm
       </Button>{" "}
       <AuthButtons />
@@ -143,6 +143,13 @@ function NavigationMobile() {
               </div>
             </AccordionContent>
           </AccordionItem>
+          <Link
+            href="/learn"
+            className="flex flex-1 items-start justify-between gap-4 border-b py-4 text-left text-lg font-medium transition-all outline-none last:border-b-0 hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Learn
+          </Link>
           <Link
             href="/about"
             className="flex flex-1 items-start justify-between gap-4 border-b py-4 text-left text-lg font-medium transition-all outline-none last:border-b-0 hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180"
