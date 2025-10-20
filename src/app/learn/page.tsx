@@ -1,9 +1,4 @@
-import {
-  ArrowRightIcon,
-  CircleStarIcon,
-  NotebookPenIcon,
-  UserStarIcon,
-} from "lucide-react";
+import { ArrowRightIcon, NotebookPenIcon, UserStarIcon } from "lucide-react";
 
 import { Container } from "@/components/container";
 import CTASection from "@/components/content/CTASection";
@@ -36,7 +31,6 @@ const features = [
   },
 ];
 
-// Reusable FeatureCard component
 const FeatureCard = ({
   image,
   title,
