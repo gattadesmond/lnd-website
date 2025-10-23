@@ -3,9 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { EditorContentRenderer } from "@/components/content/EditorContentRenderer";
-import { BackButton } from "@/components/ui/back-button";
-import { Button } from "@/components/ui/button";
-import { DateDisplay } from "@/components/ui/DateDisplay";
+import { CourseNextStep } from "@/components/course";
+import { Quiz } from "@/components/quiz";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { createStaticClient } from "@/lib/supabase/server";
@@ -39,7 +38,7 @@ const CoursePage = generatePage(
     // Fetch danh sách bài học đc map
     const { data: learnings, error: learningsError } = await supabase
       .from("course_learnings")
-      .select("*, learnings!inner(title, slug)")
+      .select("*, learnings!inner(title, slug, description)")
       .eq("course_id", courseId)
       .order("position", { ascending: true });
 
@@ -68,6 +67,8 @@ const CoursePage = generatePage(
     if (learningDetailError || !learningDetail) {
       notFound();
     }
+
+    const quizId = learning.quiz_id;
 
     return (
       <>
@@ -154,6 +155,33 @@ const CoursePage = generatePage(
                   content={learningDetail.content}
                   classNames="mt-0 pt-0 prose-sm"
                 />
+
+                {/* Quiz Section */}
+                {quizId && (
+                  <div className="mt-8 mb-10">
+                    <Quiz quizId={quizId} />
+                  </div>
+                )}
+
+                {/* Course Next Step Section */}
+                {(() => {
+                  const nextLearning = learnings.find(
+                    (item) => item.position === learning.position + 1,
+                  );
+                  if (nextLearning) {
+                    return (
+                      <div className="mt-20 mb-12">
+                        <CourseNextStep
+                          nextChapter={nextLearning.position}
+                          nextTitle={nextLearning.learnings.title}
+                          nextDescription={nextLearning.learnings.description}
+                          nextChapterUrl={`/courses/${courseSlug}/${nextLearning.learnings.slug}`}
+                        />
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
               </div>
             </div>
             <div className="flex h-full border-l border-neutral-200 bg-neutral-50 p-6">
