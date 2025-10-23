@@ -1,23 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { AlignLeftIcon } from "lucide-react";
-
-import { InteractionBar } from "@/components/blog/interaction-bar";
-import TableOfContent from "@/components/blog/table-of-content";
-import { Container } from "@/components/container";
-import { AuthorDisplayList } from "@/components/content/AuthorDisplay";
-import { EditorContentRenderer } from "@/components/content/EditorContentRenderer";
-import { RelatedContent } from "@/components/content/RelatedContent";
-import { EventViewTracker } from "@/components/content/ViewTracker";
-import { BackButton } from "@/components/ui/back-button";
-import { Button } from "@/components/ui/button";
-import { DateDisplay } from "@/components/ui/DateDisplay";
-import { fetchRelatedContent } from "@/lib/fetchRelatedContent";
 import { generatePage } from "@/lib/generatePage";
-import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
-import { ReactionsDetails, sortReactionsDetails } from "@/lib/reaction";
 import { createStaticClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
@@ -77,54 +60,24 @@ const CoursePage = generatePage(
     const supabase = await createStaticClient();
 
     // Fetch story details
-    const { data: event, error } = await supabase
-      .from(POST_TYPE_CONFIG.event.api.fullDetailsTable)
+    const { data: courses, error } = await supabase
+      .from("courses")
       .select("*")
       .eq("slug", slug)
       .eq("status", "published")
       .single();
+    console.log("🚀 ~ courses:", courses);
 
-    if (error || !event) {
+    if (error || !courses) {
+      console.log("fewfew");
       notFound();
     }
-
-    // Fetch related stories from the same category
-    const relatedStories = await fetchRelatedContent({
-      tableName: POST_TYPE_CONFIG.event.api.table,
-      categorySlug: event.category?.slug || "",
-      currentContentId: event.id,
-      limit: 4,
-    });
-
-    const listHeadings: { id: string; text: string; level: number }[] = [];
-
-    const { data: emojis } = await supabase
-      .from("emojis")
-      .select("emoji, animated_url")
-      .order("emoji", { ascending: true });
-
-    const sortedReactionsDetails = sortReactionsDetails(
-      (event.reactions_details || {}) as ReactionsDetails,
-      (emojis ?? []).map((e) => e.emoji),
-    );
 
     return (
       <>
         {/* View Tracker */}
-        <EventViewTracker contentId={event.id} />
 
-        {/* Interaction Bar */}
-        <InteractionBar
-          reactions_count={event.reactions_count || 0}
-          emojis={emojis ?? []}
-          postType="events"
-          reactions_details={sortedReactionsDetails}
-          postId={event.id} // You can add comments functionality later
-        />
-
-        {/* Header */}
-
-        <section className="overflow-hidden border-b border-neutral-200">
+        {/* <section className="overflow-hidden border-b border-neutral-200">
           <Container
             isBorderX
             className="relative"
@@ -167,7 +120,6 @@ const CoursePage = generatePage(
             <div className="relative z-auto grid grid-cols-3 border-x border-neutral-200">
               <div className="relative col-span-3 md:col-span-2">
                 <div className="bg-white">
-                  {/* Cover Image */}
                   {event.cover_image_url && (
                     <div className="aspect-[1200/630] overflow-hidden">
                       <Image
@@ -188,7 +140,6 @@ const CoursePage = generatePage(
                     }}
                   />
                 </div>
-                {/* Related Stories */}
                 {relatedStories.length > 0 && (
                   <RelatedContent
                     content={relatedStories}
@@ -224,7 +175,7 @@ const CoursePage = generatePage(
               </div>
             </div>
           </Container>
-        </section>
+        </section> */}
       </>
     );
   },
