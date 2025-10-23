@@ -10,7 +10,7 @@ Bộ components được tối ưu hóa để tái sử dụng cho tất cả lo
 - UI giống hệt design system hiện tại
 - Hỗ trợ tất cả loại nội dung
 
-### 2. **useRelatedContent Hook**
+### 2. **fetchRelatedContent Function**
 
 - Hook tổng quát để fetch dữ liệu
 - Nhận `tableName` parameter
@@ -21,7 +21,7 @@ Bộ components được tối ưu hóa để tái sử dụng cho tất cả lo
 ### Stories
 
 ```typescript
-const relatedStories = await useRelatedContent({
+const relatedStories = await fetchRelatedContent({
   tableName: "stories_overview",
   categorySlug: story.category?.slug || "",
   currentContentId: story.id,
@@ -39,7 +39,7 @@ const relatedStories = await useRelatedContent({
 ### Events
 
 ```typescript
-const relatedEvents = await useRelatedContent({
+const relatedEvents = await fetchRelatedContent({
   tableName: "events_overview",
   categorySlug: event.category?.slug || "",
   currentContentId: event.id,
@@ -57,7 +57,7 @@ const relatedEvents = await useRelatedContent({
 ### Learning
 
 ```typescript
-const relatedLearning = await useRelatedContent({
+const relatedLearning = await fetchRelatedContent({
   tableName: "learning_overview",
   categorySlug: learning.category?.slug || "",
   currentContentId: learning.id,
@@ -81,8 +81,8 @@ src/
 │   ├── ContentPage.tsx            # Page component
 │   ├── ContentPageHeader.tsx      # Header component
 │   └── CategoryNavigation.tsx     # Navigation component
-├── hooks/
-│   └── useRelatedContent.ts       # Hook tổng quát
+├── lib/
+│   └── fetchRelatedContent.ts     # Function tổng quát
 └── app/
     ├── stories/[slug]/page.tsx    # Stories detail
     ├── events/[slug]/page.tsx     # Events detail

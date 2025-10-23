@@ -14,7 +14,7 @@ import { LearningViewTracker } from "@/components/content/ViewTracker";
 import { BackButton } from "@/components/ui/back-button";
 import { Button } from "@/components/ui/button";
 import { DateDisplay } from "@/components/ui/DateDisplay";
-import { useRelatedContent } from "@/hooks/useRelatedContent";
+import { fetchRelatedContent } from "@/lib/fetchRelatedContent";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { ReactionsDetails, sortReactionsDetails } from "@/lib/reaction";
@@ -91,7 +91,7 @@ const LearningPage = generatePage(
     }
 
     // Fetch related learning from the same category
-    const relatedLearning = await useRelatedContent({
+    const relatedLearning = await fetchRelatedContent({
       tableName: POST_TYPE_CONFIG.learning.api.table,
       categorySlug: learning.category?.slug || "",
       currentContentId: learning.id,

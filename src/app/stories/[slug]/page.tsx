@@ -14,7 +14,7 @@ import { StoryViewTracker } from "@/components/content/ViewTracker";
 import { BackButton } from "@/components/ui/back-button";
 import { Button } from "@/components/ui/button";
 import { DateDisplay } from "@/components/ui/DateDisplay";
-import { useRelatedContent } from "@/hooks/useRelatedContent";
+import { fetchRelatedContent } from "@/lib/fetchRelatedContent";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { ReactionsDetails, sortReactionsDetails } from "@/lib/reaction";
@@ -94,7 +94,7 @@ const StoryPage = generatePage(
     const story = storyRes[0];
 
     // Fetch related stories from the same category
-    const relatedStories = await useRelatedContent({
+    const relatedStories = await fetchRelatedContent({
       tableName: POST_TYPE_CONFIG.story.api.table,
       categorySlug: story.category?.slug || "",
       currentContentId: story.id,
