@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface CourseNextStepProps {
-  nextChapter: number;
   nextTitle: string;
   nextDescription: string;
   nextChapterUrl: string;
@@ -13,7 +12,6 @@ interface CourseNextStepProps {
 }
 
 export function CourseNextStep({
-  nextChapter,
   nextTitle,
   nextDescription,
   nextChapterUrl,
