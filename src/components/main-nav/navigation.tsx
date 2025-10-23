@@ -227,8 +227,8 @@ function Navigation() {
                         asChild
                         className={navigationMenuTriggerStyle()}
                       >
-                        <Link href="/learn" className="bg-transparent">
-                          Learn
+                        <Link href="/courses" className="bg-transparent">
+                          Courses
                         </Link>
                       </NavigationMenuLink>
                     </NavigationMenuItem>

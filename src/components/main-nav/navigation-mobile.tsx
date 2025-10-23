@@ -144,11 +144,11 @@ function NavigationMobile() {
             </AccordionContent>
           </AccordionItem>
           <Link
-            href="/learn"
+            href="/courses"
             className="flex flex-1 items-start justify-between gap-4 border-b py-4 text-left text-lg font-medium transition-all outline-none last:border-b-0 hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180"
             onClick={() => setIsMenuOpen(false)}
           >
-            Learn
+            Courses
           </Link>
           <Link
             href="/about"

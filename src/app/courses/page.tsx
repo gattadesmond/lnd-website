@@ -3,6 +3,7 @@ import { ArrowRightIcon, NotebookPenIcon, UserStarIcon } from "lucide-react";
 import { Container } from "@/components/container";
 import CTASection from "@/components/content/CTASection";
 import { Button } from "@/components/ui/button";
+import { generatePage } from "@/lib/generatePage";
 
 // Feature card data
 const features = [
@@ -144,7 +145,9 @@ const leaders: LeaderData[] = [
   },
 ];
 
-const Learn = async () => {
+export const revalidate = 60;
+
+const Courses = generatePage(async () => {
   return (
     <>
       <section className="overflow-hidden pb-16">
@@ -304,6 +307,6 @@ const Learn = async () => {
       <CTASection />
     </>
   );
-};
+});
 
-export default Learn;
+export default Courses;
