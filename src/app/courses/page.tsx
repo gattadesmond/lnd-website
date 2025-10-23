@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { ArrowRightIcon, NotebookPenIcon, UserStarIcon } from "lucide-react";
 
 import { Container } from "@/components/container";
@@ -239,11 +241,13 @@ const Courses = generatePage(async () => {
 
                     <div className="w-full px-5 py-6 text-center md:px-8">
                       <hr />
-                      <Button size="lg" className="mt-6 cursor-pointer">
-                        <span className="text-base font-semibold">
-                          Start Learning
-                        </span>{" "}
-                        <ArrowRightIcon className="size-4" />
+                      <Button size="lg" className="mt-6 cursor-pointer" asChild>
+                        <Link href="/courses/khoa-hoc-product-foundation-training">
+                          <span className="text-base font-semibold">
+                            Start Learning
+                          </span>{" "}
+                          <ArrowRightIcon className="size-4" />
+                        </Link>
                       </Button>
                     </div>
                   </div>

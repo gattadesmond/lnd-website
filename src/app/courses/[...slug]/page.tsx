@@ -1,13 +1,13 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { Container } from "@/components/container";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+import { EditorContentRenderer } from "@/components/content/EditorContentRenderer";
+import { BackButton } from "@/components/ui/back-button";
+import { Button } from "@/components/ui/button";
+import { DateDisplay } from "@/components/ui/DateDisplay";
 import { generatePage } from "@/lib/generatePage";
+import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
 import { createStaticClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 
@@ -22,7 +22,7 @@ const CoursePage = generatePage(
 
     // Lấy course slug từ array (phần tử đầu tiên)
     const courseSlug = slug[0];
-    const learningSlug = slug[1];
+    let learningSlug = slug[1];
     // Fetch story details
     const { data: course, error } = await supabase
       .from("courses")
@@ -47,83 +47,119 @@ const CoursePage = generatePage(
       notFound();
     }
 
-    console.log("🚀 ~ learnings:", learnings);
-    console.log("🚀 ~ learningSlug:", learningSlug);
+    if (learningSlug == undefined) {
+      learningSlug = learnings[0].learnings.slug;
+    }
+
+    const learning = learnings.find(
+      (item) => item.learnings.slug === learningSlug,
+    );
+    if (!learning) {
+      notFound();
+    }
+    // Fetch learning details
+    const { data: learningDetail, error: learningDetailError } = await supabase
+      .from(POST_TYPE_CONFIG.learning.api.fullDetailsTable)
+      .select("*")
+      .eq("slug", learningSlug)
+      .eq("status", "published")
+      .single();
+
+    if (learningDetailError || !learningDetail) {
+      notFound();
+    }
 
     return (
       <>
-        <section className="overflow-hidden border-t border-b border-neutral-200">
-          <ResizablePanelGroup
-            direction="horizontal"
-            className="min-h-screen w-full"
-          >
-            <ResizablePanel defaultSize={20} minSize={15} maxSize={25}>
-              <div className="flex h-full flex-col bg-neutral-50">
-                <div className="flex-1 overflow-y-auto p-6">
-                  <div className="space-y-8">
+        <section className="border-t border-b border-neutral-200 bg-background">
+          <div className="grid grid-cols-[300px_1fr_300px]">
+            <div className="flex h-full flex-col border-r border-neutral-200 bg-neutral-50">
+              <div className="sticky top-14 p-6">
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <Link href={`/courses/${courseSlug}`}>
+                      <h2 className="mb-4 cursor-pointer text-[12px] text-muted-foreground transition-colors hover:text-foreground">
+                        {course.name}
+                      </h2>
+                    </Link>
                     <div className="space-y-4">
-                      <Link href={`/courses/${courseSlug}`}>
-                        <h2 className="mb-4 cursor-pointer text-[12px] text-muted-foreground transition-colors hover:text-foreground">
-                          {course.name}
-                        </h2>
-                      </Link>
-                      <div className="space-y-4">
-                        {learnings.map((item) => {
-                          console.log("🚀 ~ item:", item.learnings.slug);
-                          return (
-                            <Link
-                              key={item.id}
-                              className="group block"
-                              href={`/courses/${courseSlug}/${item.learnings.slug}`}
-                            >
-                              <div className="-m-2 flex items-center space-x-3 rounded px-2 py-1">
-                                <div
-                                  className={cn(
-                                    "flex h-6 w-6 flex-shrink-0 items-center justify-center rounded border-2 border-border bg-muted text-muted-foreground",
-                                    item.learnings.slug === learningSlug
-                                      ? "border-primary bg-primary text-primary-foreground"
-                                      : "bg-muted text-muted-foreground",
-                                  )}
-                                >
-                                  <span className="text-xs font-bold">
-                                    {item.position}
-                                  </span>
-                                </div>
-                                <span
-                                  className={cn(
-                                    "text-sm text-foreground transition-colors group-hover:text-primary",
-                                    item.learnings.slug === learningSlug
-                                      ? "text-primary"
-                                      : "text-foreground",
-                                  )}
-                                >
-                                  {item.learnings.title}
+                      {learnings.map((item) => {
+                        return (
+                          <Link
+                            key={item.id}
+                            className="group block"
+                            href={`/courses/${courseSlug}/${item.learnings.slug}`}
+                          >
+                            <div className="-m-2 flex items-center space-x-3 rounded px-2 py-1">
+                              <div
+                                className={cn(
+                                  "flex h-6 w-6 flex-shrink-0 items-center justify-center rounded border-2 border-border bg-muted text-muted-foreground",
+                                  item.learnings.slug === learningSlug
+                                    ? "border-primary bg-primary text-primary-foreground"
+                                    : "bg-muted text-muted-foreground",
+                                )}
+                              >
+                                <span className="text-xs font-bold">
+                                  {item.position}
                                 </span>
                               </div>
-                            </Link>
-                          );
-                        })}
-                      </div>
+                              <span
+                                className={cn(
+                                  "text-sm text-foreground transition-colors group-hover:text-primary",
+                                  item.learnings.slug === learningSlug
+                                    ? "text-primary"
+                                    : "text-foreground",
+                                )}
+                              >
+                                {item.learnings.title}
+                              </span>
+                            </div>
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
               </div>
-            </ResizablePanel>
-            <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={80} minSize={35}>
-              <Container>
-                <div className="flex h-full items-center justify-center p-6">
-                  <span className="font-semibold">Content</span>
+            </div>
+            <div className="h-full bg-background">
+              <div className="mx-auto max-w-3xl px-6">
+                {learningDetail.cover_image_url && (
+                  <div className="mt-5 aspect-[1200/630] overflow-hidden">
+                    <Image
+                      src={
+                        learningDetail.cover_image_url ||
+                        "/placeholder-blog.jpg"
+                      }
+                      alt={learningDetail.title || "Learning resource cover"}
+                      width={1200}
+                      height={630}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                )}
+
+                <div className="relative z-0 px-5 pt-10 sm:px-12">
+                  <h1 className="text-left font-display text-xl font-semibold text-neutral-900 sm:text-2xl sm:leading-[1.25]">
+                    {learningDetail.title}
+                  </h1>
+
+                  {learningDetail.description && (
+                    <p className="mt-3 text-neutral-500">
+                      {learningDetail.description}
+                    </p>
+                  )}
                 </div>
-              </Container>
-            </ResizablePanel>
-            <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={20} minSize={15} maxSize={25}>
-              <div className="flex h-full items-center justify-center p-6">
-                <span className="font-semibold">Sidebar</span>
+                <EditorContentRenderer
+                  content={learningDetail.content}
+                  classNames="mt-0 pt-0 prose-sm"
+                />
               </div>
-            </ResizablePanel>
-          </ResizablePanelGroup>
+            </div>
+            <div className="flex h-full border-l border-neutral-200 bg-neutral-50 p-6">
+              <span className="font-semibold">Sidebar</span>
+            </div>
+          </div>
         </section>
       </>
     );
