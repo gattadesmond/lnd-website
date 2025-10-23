@@ -88,7 +88,7 @@ const CoursePage = generatePage(
               </div>
             </ResizablePanel>
             <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={80}>
+            <ResizablePanel defaultSize={80} minSize={35}>
               <Container>
                 <div className="flex h-full items-center justify-center p-6">
                   <span className="font-semibold">Content</span>
