@@ -172,7 +172,6 @@ const CoursePage = generatePage(
                     return (
                       <div className="mt-20 mb-12">
                         <CourseNextStep
-                          nextChapter={nextLearning.position}
                           nextTitle={nextLearning.learnings.title}
                           nextDescription={nextLearning.learnings.description}
                           nextChapterUrl={`/courses/${courseSlug}/${nextLearning.learnings.slug}`}
