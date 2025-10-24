@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { EditorContentRenderer } from "@/components/content/EditorContentRenderer";
 import { CourseNextStep } from "@/components/course";
+import CourseNote from "@/components/course/CourseNote";
 import { Quiz } from "@/components/quiz";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
@@ -183,8 +184,8 @@ const CoursePage = generatePage(
                 })()}
               </div>
             </div>
-            <div className="flex h-full border-l border-neutral-200 bg-neutral-50 p-6">
-              <span className="font-semibold">Sidebar</span>
+            <div className="flex h-full w-full border-l border-neutral-200 bg-neutral-50">
+              <CourseNote />
             </div>
           </div>
         </section>
