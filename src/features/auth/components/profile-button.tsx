@@ -58,15 +58,15 @@ export function ProfileButton({
         onCloseAutoFocus={(e) => e.preventDefault()}
       >
         <DropdownMenuLabel className="flex flex-col">
-          <span className="line-clamp-2 text-sm leading-snug font-semibold">
+          <div className="line-clamp-2 text-sm leading-snug font-semibold">
             {name}
-          </span>
-          <span className="truncate text-xs font-normal text-muted-foreground">
+          </div>
+          <span className="mt-1 truncate text-xs font-normal text-muted-foreground">
             {user.email}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
+        {/* <DropdownMenuGroup>
           <DropdownMenuItem
             disabled
             onSelect={(e) => {
@@ -84,8 +84,8 @@ export function ProfileButton({
           >
             Notifications (soon)
           </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        </DropdownMenuGroup> */}
+        {/* <DropdownMenuSeparator /> */}
         <DropdownMenuItem
           onSelect={(e) => {
             e.preventDefault();

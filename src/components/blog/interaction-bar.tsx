@@ -314,7 +314,7 @@ export function InteractionBar({
         <div className="h-5 w-[1px] shrink-0 bg-neutral-200" />
 
         {/* List Button */}
-        <Button
+        {/* <Button
           variant="ghost"
           size="sm"
           className="size-9 cursor-pointer rounded-full"
@@ -322,7 +322,7 @@ export function InteractionBar({
           <List className="size-5 text-neutral-700 transition-colors" />
         </Button>
 
-        <div className="h-5 w-[1px] shrink-0 bg-neutral-200" />
+        <div className="h-5 w-[1px] shrink-0 bg-neutral-200" /> */}
 
         {/* Share Button */}
         <Button

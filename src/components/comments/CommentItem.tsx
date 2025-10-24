@@ -56,9 +56,11 @@ export function CommentItem({
             <AvatarFallback className="bg-gray-100 text-sm font-medium text-gray-700">
               {comment.author.name
                 .split(" ")
+
                 .map((n) => n[0])
                 .join("")
-                .toUpperCase()}
+                .toUpperCase()
+                .slice(0, 2)}
             </AvatarFallback>
           </Avatar>
           <div className="">
@@ -132,16 +134,18 @@ export function CommentItem({
             </span>
           </div> */}
           {comment.replies.map((reply) => (
-            <div key={reply.id} className="space-y-1">
+            <div key={reply.id} className="mt-2 space-y-1">
               <div className="flex items-center gap-3">
                 <Avatar className="h-7 w-7 ring-1 ring-gray-200">
                   <AvatarImage src={reply.author.avatar} />
-                  <AvatarFallback className="bg-gray-100 text-xs font-medium text-gray-600">
-                    {reply.author.name
+                  <AvatarFallback className="bg-gray-100 text-sm font-medium text-gray-700">
+                    {comment.author.name
                       .split(" ")
+
                       .map((n) => n[0])
                       .join("")
-                      .toUpperCase()}
+                      .toUpperCase()
+                      .slice(0, 2)}
                   </AvatarFallback>
                 </Avatar>
 
