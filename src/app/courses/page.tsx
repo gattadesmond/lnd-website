@@ -152,7 +152,7 @@ export const revalidate = 60;
 const Courses = generatePage(async () => {
   return (
     <>
-      <section className="overflow-hidden pb-16">
+      <section className="relative z-[2] overflow-hidden pb-16">
         <Container
           isBorderX
           className="relative"
@@ -261,7 +261,7 @@ const Courses = generatePage(async () => {
         </Container>
       </section>
 
-      <section className="-mt-16 border-b border-neutral-200">
+      <section className="z-[1] -mt-16 border-b border-neutral-200">
         <Container className="relative max-w-[1080px]">
           <div className="border-x border-neutral-200 pt-32">
             <div className="mx-auto max-w-xl text-center">
