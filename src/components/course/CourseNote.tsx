@@ -21,7 +21,7 @@ function CourseNote() {
 
   return (
     <>
-      <div className="quill-editor w-full">
+      <div className="quill-editor-note w-full">
         <ReactQuill
           theme="snow"
           value={""}
@@ -32,10 +32,10 @@ function CourseNote() {
         />
       </div>
       <style jsx global>{`
-        .quill-editor .ql-container.ql-snow {
+        .quill-editor-note .ql-container.ql-snow {
           border: none;
         }
-        .ql-toolbar.ql-snow {
+        .quill-editor-note .ql-toolbar.ql-snow {
           border: none;
           border-bottom: 1px solid #e0e0e0;
         }

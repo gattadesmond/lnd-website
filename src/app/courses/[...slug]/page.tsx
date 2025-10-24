@@ -2,12 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { InteractionBar } from "@/components/blog/interaction-bar";
 import { EditorContentRenderer } from "@/components/content/EditorContentRenderer";
+import { LearningViewTracker } from "@/components/content/ViewTracker";
 import { CourseNextStep } from "@/components/course";
 import CourseNote from "@/components/course/CourseNote";
 import { Quiz } from "@/components/quiz";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
+import { ReactionsDetails, sortReactionsDetails } from "@/lib/reaction";
 import { createStaticClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 
@@ -64,12 +67,23 @@ const CoursePage = generatePage(
       .eq("slug", learningSlug)
       .eq("status", "published")
       .single();
+    console.log("🚀 ~ learningDetail:", learningDetail);
 
     if (learningDetailError || !learningDetail) {
       notFound();
     }
 
     const quizId = learning.quiz_id;
+
+    const { data: emojis } = await supabase
+      .from("emojis")
+      .select("emoji, animated_url")
+      .order("emoji", { ascending: true });
+
+    const sortedReactionsDetails = sortReactionsDetails(
+      (learningDetail.reactions_details || {}) as ReactionsDetails,
+      (emojis ?? []).map((e) => e.emoji),
+    );
 
     return (
       <>
@@ -126,6 +140,18 @@ const CoursePage = generatePage(
             </div>
             <div className="h-full bg-background">
               <div className="mx-auto max-w-3xl px-6">
+                {/* View Tracker */}
+                <LearningViewTracker contentId={learningDetail.id} />
+
+                {/* Interaction Bar */}
+                <InteractionBar
+                  emojis={emojis ?? []}
+                  reactions_details={sortedReactionsDetails}
+                  reactions_count={learningDetail.reactions_count || 0}
+                  postId={learningDetail.id} // You can add comments functionality later
+                  postType="learnings"
+                />
+
                 {learningDetail.cover_image_url && (
                   <div className="mt-5 aspect-[1200/630] overflow-hidden">
                     <Image
