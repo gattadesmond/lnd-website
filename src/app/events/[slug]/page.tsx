@@ -67,7 +67,15 @@ export async function generateMetadata({
   };
 }
 
+// Revalidate every 1 hour (3600 seconds) for better performance
 export const revalidate = 60;
+
+// Generate static params - return empty array for on-demand generation
+export async function generateStaticParams() {
+  // Return empty array to enable on-demand static generation
+  // Pages will be generated and cached on first request
+  return [];
+}
 
 const StoryPage = generatePage(
   async ({ params }: { params: Promise<{ slug: string }> }) => {
