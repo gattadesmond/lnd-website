@@ -21,6 +21,7 @@ import {
   UserSP,
   type EmojiData,
 } from "@/components/blog/reaction-components";
+import TableOfContent from "@/components/blog/table-of-content";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -42,6 +43,7 @@ interface InteractionBarProps {
   postId: number;
   reactions_details: ReactionsDetails;
   postType: PostType;
+  tableOfContent?: { id: string; text: string; level: number }[];
 }
 
 const MAX_EMOJIS_DISPLAY = 2;
@@ -52,6 +54,7 @@ export function InteractionBar({
   emojis,
   reactions_count,
   postType,
+  tableOfContent,
 }: InteractionBarProps) {
   // State management
 
@@ -314,15 +317,26 @@ export function InteractionBar({
         <div className="h-5 w-[1px] shrink-0 bg-neutral-200" />
 
         {/* List Button */}
-        {/* <Button
-          variant="ghost"
-          size="sm"
-          className="size-9 cursor-pointer rounded-full"
-        >
-          <List className="size-5 text-neutral-700 transition-colors" />
-        </Button>
+        {tableOfContent && (
+          <>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="size-9 cursor-pointer rounded-full"
+                >
+                  <List className="size-5 text-neutral-700 transition-colors" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="pt-0">
+                <TableOfContent listHeadings={tableOfContent} />
+              </PopoverContent>
+            </Popover>
 
-        <div className="h-5 w-[1px] shrink-0 bg-neutral-200" /> */}
+            <div className="h-5 w-[1px] shrink-0 bg-neutral-200" />
+          </>
+        )}
 
         {/* Share Button */}
         <Button

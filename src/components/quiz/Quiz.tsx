@@ -201,7 +201,7 @@ export function Quiz({ quizId }: QuizProps) {
               return (
                 <div key={question.id} className="rounded-lg border p-4">
                   <div className="mb-2 flex items-center gap-2">
-                    <Badge variant={isCorrect ? "default" : "destructive"}>
+                    <Badge variant={isCorrect ? "default" : "secondary"}>
                       {isCorrect ? "Correct" : "Incorrect"}
                     </Badge>
                     <span className="text-sm text-muted-foreground">
