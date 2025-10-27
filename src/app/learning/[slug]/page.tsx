@@ -123,15 +123,6 @@ const LearningPage = generatePage(
         {/* View Tracker */}
         <LearningViewTracker contentId={learning.id} />
 
-        {/* Interaction Bar */}
-        <InteractionBar
-          emojis={emojis ?? []}
-          reactions_details={sortedReactionsDetails}
-          reactions_count={learning.reactions_count || 0}
-          postId={learning.id} // You can add comments functionality later
-          postType="learnings"
-        />
-
         {/* Header */}
 
         <section className="overflow-hidden border-b border-neutral-200">
@@ -237,6 +228,16 @@ const LearningPage = generatePage(
             </div>
           </Container>
         </section>
+
+        {/* Interaction Bar */}
+        <InteractionBar
+          emojis={emojis ?? []}
+          reactions_details={sortedReactionsDetails}
+          reactions_count={learning.reactions_count || 0}
+          postId={learning.id} // You can add comments functionality later
+          postType="learnings"
+          tableOfContent={listHeadings || []}
+        />
       </>
     );
   },

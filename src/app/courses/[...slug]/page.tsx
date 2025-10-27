@@ -3,10 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { InteractionBar } from "@/components/blog/interaction-bar";
+import TableOfContent from "@/components/blog/table-of-content";
 import { EditorContentRenderer } from "@/components/content/EditorContentRenderer";
 import { LearningViewTracker } from "@/components/content/ViewTracker";
 import { CourseNextStep } from "@/components/course";
-import CourseNote from "@/components/course/CourseNote";
 import { Quiz } from "@/components/quiz";
 import { generatePage } from "@/lib/generatePage";
 import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
@@ -75,13 +75,14 @@ const CoursePage = generatePage(
       .eq("slug", learningSlug)
       .eq("status", "published")
       .single();
-    console.log("🚀 ~ learningDetail:", learningDetail);
 
     if (learningDetailError || !learningDetail) {
       notFound();
     }
 
     const quizId = learning.quiz_id;
+
+    const listHeadings: { id: string; text: string; level: number }[] = [];
 
     const { data: emojis } = await supabase
       .from("emojis")
@@ -96,7 +97,7 @@ const CoursePage = generatePage(
     return (
       <>
         <section className="border-t border-b border-neutral-200 bg-background">
-          <div className="grid grid-cols-[300px_1fr_300px]">
+          <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr_300px]">
             <div className="flex h-full flex-col border-r border-neutral-200 bg-neutral-50">
               <div className="sticky top-14 p-6">
                 <div className="space-y-8">
@@ -147,18 +148,9 @@ const CoursePage = generatePage(
               </div>
             </div>
             <div className="h-full bg-background">
-              <div className="mx-auto max-w-3xl px-6">
+              <div className="mx-auto max-w-3xl px-5 md:px-6">
                 {/* View Tracker */}
                 <LearningViewTracker contentId={learningDetail.id} />
-
-                {/* Interaction Bar */}
-                <InteractionBar
-                  emojis={emojis ?? []}
-                  reactions_details={sortedReactionsDetails}
-                  reactions_count={learningDetail.reactions_count || 0}
-                  postId={learningDetail.id} // You can add comments functionality later
-                  postType="learnings"
-                />
 
                 {learningDetail.cover_image_url && (
                   <div className="mt-5 aspect-[1200/630] overflow-hidden">
@@ -175,7 +167,7 @@ const CoursePage = generatePage(
                   </div>
                 )}
 
-                <div className="relative z-0 px-5 pt-10 sm:px-12">
+                <div className="relative z-0 px-0 pt-10 md:px-0 xl:px-12">
                   <h1 className="text-left font-display text-xl font-semibold text-neutral-900 sm:text-2xl sm:leading-[1.25]">
                     {learningDetail.title}
                   </h1>
@@ -185,11 +177,15 @@ const CoursePage = generatePage(
                       {learningDetail.description}
                     </p>
                   )}
+                  <EditorContentRenderer
+                    content={learningDetail.content}
+                    classNames="mt-0 pt-0 prose-sm px-0 md:px-0"
+                    onHeadingsChange={(headings) => {
+                      listHeadings.length = 0;
+                      listHeadings.push(...headings);
+                    }}
+                  />
                 </div>
-                <EditorContentRenderer
-                  content={learningDetail.content}
-                  classNames="mt-0 pt-0 prose-sm"
-                />
 
                 {/* Quiz Section */}
                 {quizId && (
@@ -205,7 +201,7 @@ const CoursePage = generatePage(
                   );
                   if (nextLearning) {
                     return (
-                      <div className="mt-20 mb-12">
+                      <div className="my-12 md:mt-20 md:mb-12">
                         <CourseNextStep
                           nextTitle={nextLearning.learnings.title}
                           nextDescription={nextLearning.learnings.description}
@@ -218,11 +214,26 @@ const CoursePage = generatePage(
                 })()}
               </div>
             </div>
-            <div className="flex h-full w-full border-l border-neutral-200 bg-neutral-50">
-              <CourseNote />
+            <div className="hidden h-full w-full flex-col border-l border-neutral-200 bg-neutral-50 md:flex">
+              <div className="sticky top-14 p-6">
+                <div className="mb-4 cursor-pointer text-[12px] text-muted-foreground transition-colors hover:text-foreground">
+                  Danh mục
+                </div>
+                <TableOfContent listHeadings={listHeadings} />
+              </div>
             </div>
           </div>
         </section>
+
+        {/* Interaction Bar */}
+        <InteractionBar
+          emojis={emojis ?? []}
+          reactions_details={sortedReactionsDetails}
+          reactions_count={learningDetail.reactions_count || 0}
+          postId={learningDetail.id} // You can add comments functionality later
+          postType="learnings"
+          tableOfContent={listHeadings || []}
+        />
       </>
     );
   },

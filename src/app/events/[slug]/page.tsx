@@ -121,15 +121,6 @@ const StoryPage = generatePage(
         {/* View Tracker */}
         <EventViewTracker contentId={event.id} />
 
-        {/* Interaction Bar */}
-        <InteractionBar
-          reactions_count={event.reactions_count || 0}
-          emojis={emojis ?? []}
-          postType="events"
-          reactions_details={sortedReactionsDetails}
-          postId={event.id} // You can add comments functionality later
-        />
-
         {/* Header */}
 
         <section className="overflow-hidden border-b border-neutral-200">
@@ -233,6 +224,17 @@ const StoryPage = generatePage(
             </div>
           </Container>
         </section>
+
+        {/* Interaction Bar */}
+        <InteractionBar
+          reactions_count={event.reactions_count || 0}
+          emojis={emojis ?? []}
+          postType="events"
+          reactions_details={sortedReactionsDetails}
+          postId={event.id} // You
+          tableOfContent={listHeadings || []}
+          // can add comments functionality later
+        />
       </>
     );
   },
