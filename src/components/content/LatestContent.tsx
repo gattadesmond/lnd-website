@@ -49,7 +49,6 @@ interface LatestContentProps {
 }
 
 export function LatestContent({ sections }: LatestContentProps) {
-  console.log("🚀 ~ LatestContent ~ sections:", sections);
   return (
     <div className="relative bg-neutral-50">
       <Tabs defaultValue="events">

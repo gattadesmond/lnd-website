@@ -46,7 +46,7 @@ const reasons = [
 
 function ReasonSection() {
   return (
-    <Container isBorderX className="py-16">
+    <Container isBorderX className="border-t border-neutral-200 py-16">
       <div className="mx-auto max-w-xl text-center">
         <h2 className="font-display text-3xl font-medium text-neutral-900 sm:text-4xl sm:leading-[1.15]">
           Why Product Knowledge Hub?

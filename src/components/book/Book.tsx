@@ -1,35 +1,40 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 function Book() {
   return (
     <>
-      <div className="book-module_wrap relative inline-block w-fit perspective-midrange">
-        <div className="book-module relative aspect-(--aspect-ratio) w-fit rotate-0 transition-all duration-300 ease-out transform-3d">
-          <div className="book-module_inner bg-linear-to-br from-white to-pink-100">
-            <div className="book-module_body">
-              <div className="book-module_bind relative z-[1] bg-linear-to-r from-neutral-500 via-neutral-600 to-neutral-700" />
-              <div className="book-module_content">
-                <img
-                  src="https://homepage.momocdn.net/img/momo-amazone-s3-api-250821154232-638913877527374430.png"
-                  alt="Product Foundation Tranning"
-                  className="absolute top-4 right-4 w-2 select-none"
-                />
-                <img
-                  className="absolute right-4 bottom-4 h-8 select-none"
-                  src="https://homepage.momocdn.net/fileuploads/svg/momo-file-240411162904.svg"
-                ></img>
-                <div className="text-lg font-bold text-neutral-900">
-                  Product Foundation Tranning
+      <Link href="/courses/khoa-hoc-product-foundation-training">
+        <div className="book-module_wrap relative inline-block w-fit cursor-pointer perspective-midrange">
+          <div className="book-module relative aspect-(--aspect-ratio) w-fit rotate-0 transition-all duration-300 ease-out transform-3d">
+            <div className="book-module_inner bg-linear-to-br from-white to-pink-100">
+              <div className="book-module_body">
+                <div className="book-module_bind relative z-[1] bg-linear-to-r from-neutral-500 via-neutral-600 to-neutral-700" />
+                <div className="book-module_content">
+                  <img
+                    src="https://homepage.momocdn.net/img/momo-amazone-s3-api-250821154232-638913877527374430.png"
+                    alt="Product Foundation Tranning"
+                    className="absolute top-4 right-4 w-1.5 select-none"
+                  />
+                  <img
+                    className="absolute right-4 bottom-4 h-8 select-none"
+                    src="https://homepage.momocdn.net/fileuploads/svg/momo-file-240411162904.svg"
+                  ></img>
+                  <div className="text-lg leading-tight font-bold text-neutral-900">
+                    Product Foundation Tranning
+                  </div>
+                  <div className="mt-3 text-sm text-neutral-500">6 Modules</div>
                 </div>
               </div>
             </div>
+            <div className="book-module_page" />
+            <div className="book-module_back" />
           </div>
-          <div className="book-module_page" />
-          <div className="book-module_back" />
         </div>
-      </div>
+      </Link>
+
       <style jsx>{`
         .book-module_wrap{
           --book-width: 196;
@@ -87,7 +92,7 @@ function Book() {
         }
         .book-module_content{
           width: 100%;
-          padding: 8%;
+          padding: 9.5%;
           container-type: inline-size;
         }
         .book-module_page{

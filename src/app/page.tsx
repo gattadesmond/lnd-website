@@ -1,4 +1,4 @@
-import Book from "@/components/book";
+import CoursesSection from "@/components/content/CoursesSection";
 import CTASection from "@/components/content/CTASection";
 import { LatestContent } from "@/components/content/LatestContent";
 import QuestionSection from "@/components/content/QuestionSection";
@@ -93,17 +93,9 @@ const Home = generatePage(async () => {
     <>
       <Hero latestContent={latestContent} />
 
-      <div className="relative z-10 mx-auto max-w-[1080px]">
-        <h2 className="font-display text-3xl font-medium text-neutral-900 sm:text-3xl sm:leading-[1.15]">
-          Latest Stories
-        </h2>
-
-        <div className="py-10">
-          <Book />
-        </div>
-      </div>
-
       <LatestContent sections={sections} />
+
+      <CoursesSection />
 
       <ReasonSection />
 
