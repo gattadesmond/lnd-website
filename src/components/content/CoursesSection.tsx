@@ -14,7 +14,7 @@ function CoursesSection() {
           background: "#ffffff",
           backgroundImage:
             "radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.1) 1px, transparent 0)",
-          backgroundSize: "12px 12px",
+          backgroundSize: "14px 14px",
         }}
       />
       <div className="relative z-[1] px-4 text-center sm:px-10">
