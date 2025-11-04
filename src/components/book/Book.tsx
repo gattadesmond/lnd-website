@@ -14,7 +14,7 @@ interface IBookItem {
 function Book({ data }: { data: IBookItem }) {
   return (
     <>
-      <Link href={data.slug || ""}>
+      <Link href={`/courses/${data.slug}`}>
         <div className="book-module_wrap relative inline-block w-fit cursor-pointer perspective-midrange">
           <div className="book-module relative aspect-(--aspect-ratio) w-fit rotate-0 transition-all duration-300 ease-out transform-3d">
             <div className="book-module_inner bg-linear-to-br from-white to-pink-100">

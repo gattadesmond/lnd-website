@@ -4,8 +4,11 @@ import { ArrowRightIcon, NotebookPenIcon, UserStarIcon } from "lucide-react";
 
 import { Container } from "@/components/container";
 import CTASection from "@/components/content/CTASection";
+import { CourseCard } from "@/components/course";
 import { Button } from "@/components/ui/button";
 import { generatePage } from "@/lib/generatePage";
+import POST_TYPE_CONFIG from "@/lib/post-types-config.json";
+import { createStaticClient } from "@/lib/supabase/server";
 
 // Feature card data
 const features = [
@@ -150,6 +153,21 @@ const leaders: LeaderData[] = [
 export const revalidate = 60;
 
 const Courses = generatePage(async () => {
+  // Initialize Supabase client
+  const supabase = await createStaticClient();
+
+  // Fetch courses from Supabase
+  const { data: courses, error: coursesError } = await supabase
+    .from(POST_TYPE_CONFIG.courses.api.table)
+    .select("*")
+    .eq("status", "published")
+    .order("created_at", { ascending: false });
+
+  // Handle errors gracefully
+  if (coursesError) {
+    console.error("Error loading courses:", coursesError);
+  }
+
   return (
     <>
       <section className="relative z-[2] overflow-hidden pb-16">
@@ -260,10 +278,25 @@ const Courses = generatePage(async () => {
           </div>
         </Container>
       </section>
-
       <section className="z-[1] -mt-16 border-b border-neutral-200">
+        <Container className="relative pt-10 pb-20" isBorderX>
+          <div className="z-30 mx-auto flex w-full flex-col justify-center gap-6 pt-4 md:pt-8 lg:max-w-2xl">
+            {courses && courses.length > 0 ? (
+              courses.map((course) => (
+                <CourseCard key={course.id} course={course} />
+              ))
+            ) : (
+              <div className="py-8 text-center text-neutral-500">
+                No courses available at the moment.
+              </div>
+            )}
+          </div>
+        </Container>
+      </section>
+
+      <section className="z-[1] border-b border-neutral-200">
         <Container className="relative max-w-[1080px]">
-          <div className="border-x border-neutral-200 pt-32">
+          <div className="border-x border-neutral-200 pt-20">
             <div className="mx-auto max-w-xl text-center">
               <h2 className="font-display text-3xl font-medium text-neutral-900 sm:text-4xl sm:leading-[1.15]">
                 Explore Our Courses
