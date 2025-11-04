@@ -3,10 +3,18 @@
 import React from "react";
 import Link from "next/link";
 
-function Book() {
+interface IBookItem {
+  id: string | number;
+  name: string;
+  description: string;
+  thumbnail_url: string;
+  slug: string;
+}
+
+function Book({ data }: { data: IBookItem }) {
   return (
     <>
-      <Link href="/courses/khoa-hoc-product-foundation-training">
+      <Link href={data.slug || ""}>
         <div className="book-module_wrap relative inline-block w-fit cursor-pointer perspective-midrange">
           <div className="book-module relative aspect-(--aspect-ratio) w-fit rotate-0 transition-all duration-300 ease-out transform-3d">
             <div className="book-module_inner bg-linear-to-br from-white to-pink-100">
@@ -23,9 +31,11 @@ function Book() {
                     src="https://homepage.momocdn.net/fileuploads/svg/momo-file-240411162904.svg"
                   ></img>
                   <div className="text-lg leading-tight font-bold text-neutral-900">
-                    Product Foundation Tranning
+                    {data.name}
                   </div>
-                  <div className="mt-3 text-sm text-neutral-500">6 Modules</div>
+                  <div className="mt-3 pr-3 text-xs text-neutral-500">
+                    {data.description}
+                  </div>
                 </div>
               </div>
             </div>

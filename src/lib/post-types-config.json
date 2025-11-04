@@ -62,6 +62,23 @@
       "loadMoreCount": 6
     }
   },
+  "courses": {
+    "id": 4,
+    "name": "Courses",
+    "description": "Courses Resources",
+    "basePath": "/courses",
+    "api": {
+      "table": "courses"
+    },
+    "metadata": {
+      "title": "Courses",
+      "description": "Courses are a great way to learn new skills and improve your knowledge."
+    },
+    "pagination": {
+      "initialPostsCount": 9,
+      "loadMoreCount": 6
+    }
+  },
   "config": {
     "revalidate": 60,
     "orderBy": {

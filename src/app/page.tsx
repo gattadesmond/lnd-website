@@ -15,29 +15,36 @@ const Home = generatePage(async () => {
   const supabase = await createStaticClient();
 
   // Fetch latest content from all three types
-  const [storiesResult, eventsResult, learningResult] = await Promise.all([
-    supabase
-      .from(POST_TYPE_CONFIG.story.api.table)
-      .select("*")
-      .eq("status", "published")
-      .order("published_at", { ascending: false })
-      .order("created_at", { ascending: false })
-      .limit(6),
-    supabase
-      .from(POST_TYPE_CONFIG.event.api.table)
-      .select("*")
-      .eq("status", "published")
-      .order("published_at", { ascending: false })
-      .order("created_at", { ascending: false })
-      .limit(6),
-    supabase
-      .from(POST_TYPE_CONFIG.learning.api.table)
-      .select("*")
-      .eq("status", "published")
-      .order("published_at", { ascending: false })
-      .order("created_at", { ascending: false })
-      .limit(6),
-  ]);
+  const [storiesResult, eventsResult, learningResult, coursesResult] =
+    await Promise.all([
+      supabase
+        .from(POST_TYPE_CONFIG.story.api.table)
+        .select("*")
+        .eq("status", "published")
+        .order("published_at", { ascending: false })
+        .order("created_at", { ascending: false })
+        .limit(6),
+      supabase
+        .from(POST_TYPE_CONFIG.event.api.table)
+        .select("*")
+        .eq("status", "published")
+        .order("published_at", { ascending: false })
+        .order("created_at", { ascending: false })
+        .limit(6),
+      supabase
+        .from(POST_TYPE_CONFIG.learning.api.table)
+        .select("*")
+        .eq("status", "published")
+        .order("published_at", { ascending: false })
+        .order("created_at", { ascending: false })
+        .limit(6),
+      supabase
+        .from(POST_TYPE_CONFIG.courses.api.table)
+        .select("*")
+        .eq("status", "published")
+        // .order("published_at", { ascending: false })
+        .order("created_at", { ascending: false }),
+    ]);
 
   // Combine all content and sort by published_at to get the latest
   const allContent = [
@@ -95,7 +102,7 @@ const Home = generatePage(async () => {
 
       <LatestContent sections={sections} />
 
-      <CoursesSection />
+      <CoursesSection data={coursesResult.data || []} />
 
       <ReasonSection />
 

@@ -1,11 +1,21 @@
 import React from "react";
 
 import Book from "@/components/book";
-import { cn } from "@/lib/utils";
 
 import { Container } from "../container";
 
-function CoursesSection() {
+interface ICourseItemList {
+  id: string | number;
+  name: string;
+  description: string;
+  thumbnail_url: string;
+  slug: string;
+}
+
+interface ICoursesSectionProps {
+  data: ICourseItemList[];
+}
+function CoursesSection({ data }: CoursesSectionProps) {
   return (
     <Container isBorderX className="bg-white py-16">
       <div
@@ -27,7 +37,9 @@ function CoursesSection() {
       </div>
 
       <div className="grid grid-cols-1 gap-8 p-8 py-10 lg:grid-cols-3">
-        <Book />
+        {data.map((item) => (
+          <Book key={item.id} data={item} />
+        ))}
       </div>
     </Container>
   );
