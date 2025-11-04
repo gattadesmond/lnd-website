@@ -261,7 +261,7 @@ const Courses = generatePage(async () => {
                       <hr />
                       <Button size="lg" className="mt-6 cursor-pointer" asChild>
                         <Link
-                          href="/courses/khoa-hoc-product-foundation-training"
+                          href="/courses/product-foundation-training"
                           className="block"
                         >
                           <span className="text-base font-semibold">
